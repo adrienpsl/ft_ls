@@ -87,8 +87,8 @@ int main()
 	DIR *currentDir;
 	struct dirent *dp;
 	struct stat fileStat; // donner a stats
-	int ret;
 	static char fileMode[10] = { 0 };
+	int ret;
 
 	// j'ouvre le dir current, pour commencer le chemin
 	currentDir = opendir(".");
