@@ -16,11 +16,36 @@
 /*
 **    LIBFT
 */
-# include "ft_library_header.h"
+#include <sys/param.h>
+# include "ft_libft_header.h"
 
 /*
 **    project includes
 */
 # include "struct.h"
+
+typedef struct		s_ls
+{
+	long long options;
+	char *start_name;
+}					ts_ls;
+
+
+
+typedef struct		s_ls_link
+{
+	char write;
+	int name_size;
+	int hard_link;
+	int uid;
+	int guid;
+	long mtime;
+	unsigned long long size;
+	char file_mode[10];
+	int size_coll[7];
+	char name[MAXPATHLEN];
+}					ts_ls_link;
+
+
 
 #endif

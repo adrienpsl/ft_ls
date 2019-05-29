@@ -28,7 +28,7 @@ set(REPO "file/")
 #*------------------------------------*\
 #    -- LIB FT FILE --
 #*------------------------------------*/
-add_subdirectory(libft)
+add_subdirectory(compact-libft)
 
 #*------------------------------------*\
 #    --  PROJET FILE  --
