@@ -54,6 +54,7 @@ typedef struct		s_ls
 	char *start_name;
 	int size_coll[4];
 	char path[PATH_MAX + 1];
+	long total;
 	// ici je met le tab a clean
 	// et la size de mes elements
 }					t_ls;

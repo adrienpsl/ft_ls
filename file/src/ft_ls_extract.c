@@ -17,12 +17,12 @@ char ft_get_type(const mode_t *st_mode_ptr)
 	const mode_t st_mode = *st_mode_ptr;
 	if (FT_ISBLK(st_mode))
 		return 'b';
+	if (FT_ISFIFO(st_mode))
+		return 'p';
 	if (FT_ISCHR(st_mode))
 		return 'c';
 	if (FT_ISDIR(st_mode))
 		return 'd';
-	if (FT_ISFIFO(st_mode))
-		return 'p';
 	if (FT_ISLNK(st_mode))
 		return 'l';
 	if (FT_ISSOCK(st_mode))
@@ -66,17 +66,15 @@ void set_max_length(int witch_size, int *size_array, int nb, char *str)
 
 int ft_fill_link(char *path, t_ls_link *link, t_ls *ls)
 {
-	struct stat fileStat;
+	static struct stat fileStat;
 
-	lstat(path, &fileStat);
-//	nbBlock += fileStat.st_blocks;
-
+	if (lstat(path, &fileStat))
+		return (-1);
 	ft_get_permission(&fileStat.st_mode, link->file_mode);
-
-	// check le retour
 	if (FT_ISLNK(fileStat.st_mode))
-		readlink(path, link->sym_real, FILE_NAME_MAX_SIZE);
-
+		if (readlink(path, link->sym_real, FILE_NAME_MAX_SIZE) == -1)
+			return (-1);
+	ls->total += fileStat.st_blocks;
 	link->hard_link = fileStat.st_nlink;
 	set_max_length(HARD_LINK_SIZE, ls->size_coll, link->hard_link, NULL);
 	link->uid = getpwuid(fileStat.st_uid)->pw_name;
@@ -86,6 +84,5 @@ int ft_fill_link(char *path, t_ls_link *link, t_ls *ls)
 	link->size = fileStat.st_size;
 	set_max_length(SIZE_SIZE, ls->size_coll, link->size, NULL);
 	link->mtime = fileStat.st_mtime;
-	free(path);
 	return (0);
 }
