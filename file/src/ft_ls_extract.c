@@ -69,7 +69,6 @@ int ft_fill_link(char *path, t_ls_link *link, t_ls *ls)
 	struct stat fileStat;
 
 	lstat(path, &fileStat);
-//	nbytes = readlink(argv[1], buf, bufsiz);
 //	nbBlock += fileStat.st_blocks;
 
 	ft_get_permission(&fileStat.st_mode, link->file_mode);

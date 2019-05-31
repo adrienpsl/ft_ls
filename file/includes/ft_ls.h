@@ -87,8 +87,8 @@ typedef struct		s_ls_link
 */
 char *get_time(long int *time, int mode, char *out);
 void ft_get_permission(const mode_t *st_mode, char *fileMode);
-// une struct que je passe par reference ?
 int ft_fill_link(char *path, t_ls_link *link, t_ls *ls);
+void ft_ls_sort(t_ls *ls, t_array *array, int nb_elements);
 
 
 #endif

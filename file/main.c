@@ -6,6 +6,7 @@
 #define NOT_FOUND 2
 #define ERROR 3
 #define FOUND 1
+void main_test();
 
 int findDir(char *name)
 {
@@ -28,10 +29,6 @@ int findDir(char *name)
 	(void) closedir(dirp);
 	return (NOT_FOUND);
 }
-
-
-
-
 
 // je vais prendre une taille de 300 fichier
 
@@ -107,19 +104,6 @@ void test(struct stat sb)
 
 DIR *_open_dir(const char *filename);
 
-// open, read, class les elements du path donne
-// test :
-
-//int
-
-// function qui me return le tab
-
-// fuction to check the tim
-
-
-// si c'est un lien -s, je dois faire un stat dessus a
-// a la fin pour get le nom de ce qu'il point
-
 
 char *get_time(long int *time, int mode, char *out)
 {
@@ -130,35 +114,12 @@ char *get_time(long int *time, int mode, char *out)
 	return (0);
 }
 
-void ls_swap(void *a, void *b)
-{
-	t_ls_link tmp;
-	t_ls_link *aa;
-	t_ls_link *bb;
 
-	aa = a;
-	bb = b;
-
-	ft_printf(" 1: %*s ", 30, aa->name);
-	ft_printf(" 2: %*s \n", 30, bb->name);
-
-	tmp = *aa;
-	*aa = *bb;
-	*bb = tmp;
-
-//	ft_printf(" //  1: %s", aa->name);
-//	ft_printf(" 2: %s\n", bb->name);
-
-
-
-	//	ft_mem_copy(&tmp, a, sizeof(t_ls_link));
-//	ft_mem_copy(a, b, sizeof(t_ls_link));
-//	ft_mem_copy(b, &tmp, sizeof(t_ls_link));
-}
 
 int ft_ls_sort_func(void *p_l1, void *p_l2, void *p_param);
 
-void print_list(int nb_elements, t_array *array, t_ls *ls){
+void print_list(int nb_elements, t_array *array, t_ls *ls)
+{
 
 	t_ls_link *link1;
 	char date[13];
@@ -191,27 +152,30 @@ void print_list(int nb_elements, t_array *array, t_ls *ls){
 				  date);
 		write(1, link1->name, link1->name_size);
 		if (*link1->sym_real)
-			ft_printf(" -> %s  ", link1->sym_real);
+			ft_printf(" -> %s", link1->sym_real);
 		putchar('\n');
 	}
 }
 
 int main()
 {
-	DIR *current_dir;
+	main_test();
 
-	current_dir = opendir("test");
-	t_array *array;
-	struct dirent *dp;
-	t_ls_link *link1;
-	int nb_elements = 0;
-	char *path;
-	t_ls ls;
-	ft_mem_set(&ls, 0, sizeof(ls));
 
-	ft_array_new(&array, 200, sizeof(t_ls_link));
-
-	printf("%d \n", PATH_MAX);
+//	DIR *current_dir;
+//
+//	current_dir = opendir("test");
+//	t_array *array;
+//	struct dirent *dp;
+//	t_ls_link *link1;
+//	int nb_elements = 0;
+//	char *path;
+//	t_ls ls;
+//	ft_mem_set(&ls, 0, sizeof(ls));
+//
+//	ft_array_new(&array, 200, sizeof(t_ls_link));
+//
+//	printf("%d \n", PATH_MAX);
 
 
 //	struct stat fileStat;
@@ -219,35 +183,29 @@ int main()
 //	lstat("test/toto", &fileStat);
 //	test(fileStat);
 
-
-	while ((dp = readdir(current_dir)) > 0)
-	{
-		link1 = ft_array_next_el(array);
-		// je set le nom de mon file avant
-		link1->name_size = ft_str_len(dp->d_name);
-		ft_mem_copy(link1->name, dp->d_name, link1->name_size);
-
-		ft_str_join(&path, "test/", link1->name);
-
-		ft_fill_link(path, link1, &ls);
-		nb_elements++;
-	}
-
-	array->i = 0;
-
-	t_quick quick;
-	quick.swap_func = ls_swap;
-	quick.array = array;
-	quick.param = &ls.options;
-	quick.cmp_func = ft_ls_sort_func;
-
-
-	print_list(nb_elements, array, &ls);
-	array->i = 0;
-	ft_quick_sort(&quick, 0, nb_elements - 1);
-	print_list(nb_elements, array, &ls);
-
-	//	int nbBlock = 0;
+//
+//	while ((dp = readdir(current_dir)) > 0)
+//	{
+//		link1 = ft_array_next_el(array);
+//		// je set le nom de mon file avant
+//		link1->name_size = ft_str_len(dp->d_name);
+//		ft_mem_copy(link1->name, dp->d_name, link1->name_size);
+//
+//		ft_str_join(&path, "test/", link1->name);
+//
+//		ft_fill_link(path, link1, &ls);
+//		nb_elements++;
+//	}
+//
+//	array->i = 0;
+//
+//
+//
+//	print_list(nb_elements, array, &ls);
+//	array->i = 0;
+//	print_list(nb_elements, array, &ls);
+//
+//	//	int nbBlock = 0;
 
 
 
