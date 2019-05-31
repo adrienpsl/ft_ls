@@ -56,3 +56,30 @@ comment j'affiche les symlink ?
 
 pour le all je dois prendre la taille de tout les block enfant.
 sb.st_blocks
+
+commande pour la taille des path : 
+
+ls -R | sed -n -e '/^\.\//p' > toto.txt
+awk 'length>300' toto.txt
+
+
+# breaking new 
+- la size max d'un file est de 255 c ' '
+- la size maxe de mon path est de PATH_MAX. pas besoin de mettre plus.
+
+
+- manager les link symbolics
+- faire une refacto et tester les fonctions avec le buffer 
+    	perror("lstat");
+  - bien m'occuper des errno et catch toute les errors correnctements
+  - control sur la taille max de mon path 
+  - control sur la taille max de mes files 
+  - pas d'acces ?
+
+
+
+
+
+
+
+

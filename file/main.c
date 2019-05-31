@@ -1,18 +1,6 @@
-#include <dirent.h>
-#include <errno.h>
-#include <sys/stat.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <limits.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <time.h>
-#include <pwd.h>
-#include <grp.h>
 
-#include "ft_ls_includes.h"
+#include <ft_libft_struct.h>
+#include "ft_ls.h"
 
 
 #define NOT_FOUND 2
@@ -42,105 +30,8 @@ int findDir(char *name)
 }
 
 
-#define    FT_ISBLK(m)     (((m) & (unsigned int)S_IFMT) == S_IFBLK)
-#define    FT_ISCHR(m)     (((m) & (unsigned int)S_IFMT) == S_IFCHR)
-#define    FT_ISDIR(m)     (((m) & (unsigned int)S_IFMT) == S_IFDIR)
-#define    FT_ISFIFO(m) (((m) & (unsigned int)S_IFMT) == S_IFIFO)
-#define    FT_ISLNK(m)  (((m) & (unsigned int)S_IFMT) == S_IFLNK)
-#define    FT_ISSOCK(m) (((m) & (unsigned int)S_IFMT) == S_IFSOCK)
-
-char ft_get_type(const mode_t *st_mode_ptr)
-{
-	const mode_t st_mode = *st_mode_ptr;
-	if (FT_ISBLK(st_mode))
-		return 'b';
-	if (FT_ISCHR(st_mode))
-		return 'c';
-	if (FT_ISDIR(st_mode))
-		return 'd';
-	if (FT_ISFIFO(st_mode))
-		return 'p';
-	if (FT_ISLNK(st_mode))
-		return 's';
-	if (FT_ISSOCK(st_mode))
-		return 's';
-	else
-		return '-';
-}
-
-void ft_get_permission(const mode_t *st_mode, char *fileMode)
-{
-	fileMode[0] = ft_get_type(st_mode);
-	fileMode[1] = *st_mode & (unsigned int) S_IRUSR ? 'r' : '-';
-	fileMode[2] = *st_mode & (unsigned int) S_IWUSR ? 'w' : '-';
-	fileMode[3] = *st_mode & (unsigned int) S_IXUSR ? 'x' : '-';
-	fileMode[4] = *st_mode & (unsigned int) S_IRGRP ? 'r' : '-';
-	fileMode[5] = *st_mode & (unsigned int) S_IWGRP ? 'w' : '-';
-	fileMode[6] = *st_mode & (unsigned int) S_IXGRP ? 'x' : '-';
-	fileMode[7] = *st_mode & (unsigned int) S_IROTH ? 'r' : '-';
-	fileMode[8] = *st_mode & (unsigned int) S_IWOTH ? 'w' : '-';
-	fileMode[9] = *st_mode & (unsigned int) S_IXOTH ? 'x' : '-';
-}
 
 
-int read_link(int argc, char *argv[])
-{
-	struct stat sb;
-	char *buf;
-	ssize_t nbytes, bufsiz;
-
-	if (argc != 2)
-	{
-		fprintf(stderr, "Usage: %s <pathname>\n", argv[0]);
-		exit(EXIT_FAILURE);
-	}
-
-	if (lstat(argv[1], &sb) == -1)
-	{
-		perror("lstat");
-		exit(EXIT_FAILURE);
-	}
-
-	/* Add one to the link size, so that we can determine whether
-	   the buffer returned by readlink() was truncated. */
-
-	bufsiz = sb.st_size + 1;
-
-	/* Some magic symlinks under (for example) /proc and /sys
-	   report 'st_size' as zero. In that case, take PATH_MAX as
-	   a "good enough" estimate. */
-
-	if (sb.st_size == 0)
-		bufsiz = PATH_MAX;
-
-	buf = malloc(bufsiz);
-	if (buf == NULL)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-
-	nbytes = readlink(argv[1], buf, bufsiz);
-	if (nbytes == -1)
-	{
-		perror("readlink");
-		exit(EXIT_FAILURE);
-	}
-
-	printf("'%s' points to '%.*s'\n", argv[1], (int) nbytes, buf);
-
-	/* If the return value was equal to the buffer size, then the
-	   the link target was larger than expected (perhaps because the
-	   target was changed between the call to lstat() and the call to
-	   readlink()). Warn the user that the returned target may have
-	   been truncated. */
-
-	if (nbytes == bufsiz)
-		printf("(Returned buffer may have been truncated)\n");
-
-	free(buf);
-	exit(EXIT_SUCCESS);
-}
 
 // je vais prendre une taille de 300 fichier
 
@@ -224,92 +115,55 @@ DIR *_open_dir(const char *filename);
 // function qui me return le tab
 
 // fuction to check the tim
+
+
+// si c'est un lien -s, je dois faire un stat dessus a
+// a la fin pour get le nom de ce qu'il point
+
+
 char *get_time(long int *time, int mode, char *out)
 {
-	char *ret;
 	if (mode)
-	{
-		ret = ctime(time);
 		ft_mem_copy(out, ctime(time) + 4, 12);
-	}
 	out[12] = 0;
 
 	return (0);
 }
 
-void set_max_length(int witch_size, int *size_array, int nb, char *str)
+void ls_swap(void *a, void *b)
 {
-	static const char *base = "0123456789";
-	int size;
-	char buff_nb[30];
+	t_ls_link tmp;
+	t_ls_link *aa;
+	t_ls_link *bb;
 
-	if (str)
-	{
-		size = ft_str_len(str);
-	}
-	else
-	{
-		ft_mem_set(buff_nb, 0, 20);
-		ft_itoa_base(nb, base, buff_nb, 0);
-		size = ft_str_len(buff_nb);
-	}
-	if (size > size_array[witch_size])
-		size_array[witch_size] = size;
+	aa = a;
+	bb = b;
+
+	ft_printf(" 1: %*s ", 30, aa->name);
+	ft_printf(" 2: %*s \n", 30, bb->name);
+
+	tmp = *aa;
+	*aa = *bb;
+	*bb = tmp;
+
+//	ft_printf(" //  1: %s", aa->name);
+//	ft_printf(" 2: %s\n", bb->name);
+
+
+
+	//	ft_mem_copy(&tmp, a, sizeof(t_ls_link));
+//	ft_mem_copy(a, b, sizeof(t_ls_link));
+//	ft_mem_copy(b, &tmp, sizeof(t_ls_link));
 }
 
-int ft_fill_lslink(char *path, t_ls_link *link, t_ls *ls)
-{
-	struct stat fileStat;
+int ft_ls_sort_func(void *p_l1, void *p_l2, void *p_param);
 
-	stat(path, &fileStat);
-//	nbBlock += fileStat.st_blocks;
+void print_list(int nb_elements, t_array *array, t_ls *ls){
 
-	ft_get_permission(&fileStat.st_mode, link->file_mode);
-
-	link->hard_link = fileStat.st_nlink;
-	set_max_length(HARD_LINK_SIZE, ls->size_coll, link->hard_link, NULL);
-	link->uid = getpwuid(fileStat.st_uid)->pw_name;
-	set_max_length(UID_SIZE, ls->size_coll, 0, link->uid);
-	link->guid = getgrgid(fileStat.st_gid)->gr_name;
-	set_max_length(GUID_SIZE, ls->size_coll, 0, link->guid);
-	link->size = fileStat.st_size;
-	set_max_length(SIZE_SIZE, ls->size_coll, link->size, NULL);
-	link->mtime = fileStat.st_mtime;
-	free(path);
-	return (0);
-}
-
-int main()
-{
-	DIR *current_dir;
+	t_ls_link *link1;
 	char date[13];
 
-	current_dir = opendir("test");
-	t_array *array;
-	struct dirent *dp;
-	t_ls_link *link1;
-	int nb_elements = 0;
-	char *path;
-	t_ls ls;
-	ft_mem_set(&ls, 0, sizeof(ls));
 
-	ft_array_new(&array, 200, sizeof(t_ls_link));
-
-
-	while ((dp = readdir(current_dir)) > 0)
-	{
-
-		link1 = ft_array_next_el(array);
-		// je set le nom de mon file avant
-		link1->name_size = ft_str_len(dp->d_name);
-		ft_mem_copy(link1->name, dp->d_name, link1->name_size);
-		ft_str_join(&path, "test/", link1->name);
-
-		ft_fill_lslink(path, link1, &ls);
-		nb_elements++;
-	}
-
-	array->i = 0;
 	while (nb_elements--)
 	{
 		link1 = ft_array_next_el(array);
@@ -324,23 +178,74 @@ int main()
 //			   date,
 //			   link1->name
 //		);
-		printf("%s %*d %*s %*s %*lld %s %s\n",
-			   link1->file_mode,
-			   ls.size_coll[HARD_LINK_SIZE],
-			   link1->hard_link,
-			   ls.size_coll[UID_SIZE],
-			   link1->uid,
-			   ls.size_coll[GUID_SIZE],
-			   link1->guid,
-			   ls.size_coll[SIZE_SIZE],
-			   link1->size,
-			   date,
-			   link1->name
-		);
+		ft_printf("%s %*d %*s %*s %*lld %s ",
+				  link1->file_mode,
+				  ls->size_coll[HARD_LINK_SIZE],
+				  link1->hard_link,
+				  ls->size_coll[UID_SIZE],
+				  link1->uid,
+				  ls->size_coll[GUID_SIZE],
+				  link1->guid,
+				  ls->size_coll[SIZE_SIZE],
+				  link1->size,
+				  date);
+		write(1, link1->name, link1->name_size);
+		if (*link1->sym_real)
+			ft_printf(" -> %s  ", link1->sym_real);
+		putchar('\n');
+	}
+}
+
+int main()
+{
+	DIR *current_dir;
+
+	current_dir = opendir("test");
+	t_array *array;
+	struct dirent *dp;
+	t_ls_link *link1;
+	int nb_elements = 0;
+	char *path;
+	t_ls ls;
+	ft_mem_set(&ls, 0, sizeof(ls));
+
+	ft_array_new(&array, 200, sizeof(t_ls_link));
+
+	printf("%d \n", PATH_MAX);
+
+
+//	struct stat fileStat;
+
+//	lstat("test/toto", &fileStat);
+//	test(fileStat);
+
+
+	while ((dp = readdir(current_dir)) > 0)
+	{
+		link1 = ft_array_next_el(array);
+		// je set le nom de mon file avant
+		link1->name_size = ft_str_len(dp->d_name);
+		ft_mem_copy(link1->name, dp->d_name, link1->name_size);
+
+		ft_str_join(&path, "test/", link1->name);
+
+		ft_fill_link(path, link1, &ls);
+		nb_elements++;
 	}
 
+	array->i = 0;
+
+	t_quick quick;
+	quick.swap_func = ls_swap;
+	quick.array = array;
+	quick.param = &ls.options;
+	quick.cmp_func = ft_ls_sort_func;
 
 
+	print_list(nb_elements, array, &ls);
+	array->i = 0;
+	ft_quick_sort(&quick, 0, nb_elements - 1);
+	print_list(nb_elements, array, &ls);
 
 	//	int nbBlock = 0;
 
@@ -364,7 +269,6 @@ int main()
 
 
 	// je print ses permissions
-	printf(" \n");
 
 //	printf("%s \n", fileMode);
 //	printf("----%d  --- %d\n", MAXPATHLEN, sizeof(t_ls) * 200); // 240000 // 200 kio
