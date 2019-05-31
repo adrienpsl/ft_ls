@@ -12,7 +12,7 @@
 #include <pwd.h>
 #include <grp.h>
 
-#include "all_includes.h"
+#include "ft_ls_includes.h"
 
 
 #define NOT_FOUND 2
@@ -237,55 +237,120 @@ char *get_time(long int *time, int mode, char *out)
 	return (0);
 }
 
+void set_max_length(int witch_size, int *size_array, int nb, char *str)
+{
+	static const char *base = "0123456789";
+	int size;
+	char buff_nb[30];
+
+	if (str)
+	{
+		size = ft_str_len(str);
+	}
+	else
+	{
+		ft_mem_set(buff_nb, 0, 20);
+		ft_itoa_base(nb, base, buff_nb, 0);
+		size = ft_str_len(buff_nb);
+	}
+	if (size > size_array[witch_size])
+		size_array[witch_size] = size;
+}
+
+int ft_fill_lslink(char *path, t_ls_link *link, t_ls *ls)
+{
+	struct stat fileStat;
+
+	stat(path, &fileStat);
+//	nbBlock += fileStat.st_blocks;
+
+	ft_get_permission(&fileStat.st_mode, link->file_mode);
+
+	link->hard_link = fileStat.st_nlink;
+	set_max_length(HARD_LINK_SIZE, ls->size_coll, link->hard_link, NULL);
+	link->uid = getpwuid(fileStat.st_uid)->pw_name;
+	set_max_length(UID_SIZE, ls->size_coll, 0, link->uid);
+	link->guid = getgrgid(fileStat.st_gid)->gr_name;
+	set_max_length(GUID_SIZE, ls->size_coll, 0, link->guid);
+	link->size = fileStat.st_size;
+	set_max_length(SIZE_SIZE, ls->size_coll, link->size, NULL);
+	link->mtime = fileStat.st_mtime;
+	free(path);
+	return (0);
+}
 
 int main()
 {
-	DIR *currentDir;
-	struct dirent *dp;
-	int ret;
+	DIR *current_dir;
 	char date[13];
-//  je met tout ca dans un tab que je trie en fonction de la method de trie,
-//  je vais peux etre avoir plusieur trie possible !
+
+	current_dir = opendir("test");
+	t_array *array;
+	struct dirent *dp;
+	t_ls_link *link1;
+	int nb_elements = 0;
+	char *path;
+	t_ls ls;
+	ft_mem_set(&ls, 0, sizeof(ls));
+
+	ft_array_new(&array, 200, sizeof(t_ls_link));
 
 
-// je loup la dessus pour avoir le nom de tous les file inside this dir
-//	printAllName(currentDir);
+	while ((dp = readdir(current_dir)) > 0)
+	{
+
+		link1 = ft_array_next_el(array);
+		// je set le nom de mon file avant
+		link1->name_size = ft_str_len(dp->d_name);
+		ft_mem_copy(link1->name, dp->d_name, link1->name_size);
+		ft_str_join(&path, "test/", link1->name);
+
+		ft_fill_lslink(path, link1, &ls);
+		nb_elements++;
+	}
+
+	array->i = 0;
+	while (nb_elements--)
+	{
+		link1 = ft_array_next_el(array);
+
+		get_time(&link1->mtime, 1, date);
+//		printf("%s %d %s %s %lld, %s, %s\n",
+//			   link1->file_mode,
+//			   link1->hard_link,
+//			   getpwuid(link1->uid)->pw_name,
+//			   getgrgid(link1->guid)->gr_name,
+//			   link1->size,
+//			   date,
+//			   link1->name
+//		);
+		printf("%s %*d %*s %*s %*lld %s %s\n",
+			   link1->file_mode,
+			   ls.size_coll[HARD_LINK_SIZE],
+			   link1->hard_link,
+			   ls.size_coll[UID_SIZE],
+			   link1->uid,
+			   ls.size_coll[GUID_SIZE],
+			   link1->guid,
+			   ls.size_coll[SIZE_SIZE],
+			   link1->size,
+			   date,
+			   link1->name
+		);
+	}
 
 
-	int nbBlock = 0;
-	struct stat fileStat;
-	ts_ls_link lk;
-	ft_mem_set(&lk, 0, sizeof(ts_ls_link));
 
-	char *path_name = "test";
-	currentDir = opendir(path_name);
+
+	//	int nbBlock = 0;
+
+
+
 
 	// check le retour de read dir, et les err qu'il retourn
-	dp = readdir(currentDir);
-	lk.name_size = ft_str_len(dp->d_name);
-	ft_mem_copy(lk.name, dp->d_name, lk.name_size);
 
-	// check le ret
-	ret = stat(dp->d_name, &fileStat);
-	nbBlock += fileStat.st_blocks;
 
-	ft_get_permission(&fileStat.st_mode, lk.file_mode);
 
-	lk.hard_link = fileStat.st_nlink;
-	lk.uid = fileStat.st_uid;
-	lk.guid = fileStat.st_gid;
-	lk.size = fileStat.st_size;
-	lk.mtime = fileStat.st_mtime;
-
-	get_time(&lk.mtime, 1, date);
-	printf("%s %d %s %s %lld, %s",
-		   lk.file_mode,
-		   lk.hard_link,
-		   getpwuid(lk.uid)->pw_name,
-		   getgrgid(lk.guid)->gr_name,
-		   lk.size,
-		   date
-	);
 
 
 

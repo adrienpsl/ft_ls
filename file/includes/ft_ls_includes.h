@@ -28,23 +28,26 @@ typedef struct		s_ls
 {
 	long long options;
 	char *start_name;
-}					ts_ls;
+	int size_coll[4];
+}					t_ls;
 
-
+#define  HARD_LINK_SIZE 0
+#define  UID_SIZE 1
+#define  GUID_SIZE 2
+#define  SIZE_SIZE 3
 
 typedef struct		s_ls_link
 {
 	char write;
 	int name_size;
 	int hard_link;
-	int uid;
-	int guid;
+	char *guid;
+	char *uid;
 	long mtime;
 	unsigned long long size;
-	char file_mode[10];
-	int size_coll[7];
+	char file_mode[11];
 	char name[MAXPATHLEN];
-}					ts_ls_link;
+}					t_ls_link;
 
 
 

@@ -13,8 +13,7 @@ add_library(ft_ls__lib STATIC
         ${SOURCES_FILES_2}
         ${SOURCES_FILES_3}
         ${SOURCES_FILES_4}
-        ${includes}
-        )
+        ${includes})
 
 #*------------------------------------*\
 #    link avec les lib
