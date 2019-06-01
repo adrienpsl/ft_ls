@@ -24,16 +24,16 @@ DIR *_open_dir(const char *filename)
 
 void swap_func(void *a, void *b)
 {
-	t_ls_link tmp;
-	ft_mem_copy(&tmp, a, sizeof(t_ls_link));
-	ft_mem_copy(a, b, sizeof(t_ls_link));
-	ft_mem_copy(b, &tmp, sizeof(t_ls_link));
+	t_file tmp;
+	ft_mem_copy(&tmp, a, sizeof(t_file));
+	ft_mem_copy(a, b, sizeof(t_file));
+	ft_mem_copy(b, &tmp, sizeof(t_file));
 }
 
 int sort_func(void *p_l1, void *p_l2, void *p_param)
 {
-	t_ls_link *l1;
-	t_ls_link *l2;
+	t_file *l1;
+	t_file *l2;
 	long param;
 	int ret;
 

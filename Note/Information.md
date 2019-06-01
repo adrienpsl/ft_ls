@@ -28,7 +28,7 @@ typedef struct
 	int __dd_flags;    /* flags for readdir */
 	__darwin_pthread_mutex_t __dd_lock; /* for thread locking */
 	struct _telldir *__dd_td; /* telldir position recording */
-} DIR;
+} DIR; 
 ```
 
 ### readdir 

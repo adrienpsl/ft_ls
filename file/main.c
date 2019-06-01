@@ -105,23 +105,12 @@ void test(struct stat sb)
 DIR *_open_dir(const char *filename);
 
 
-char *get_time(long int *time, int mode, char *out)
-{
-	if (mode)
-		ft_mem_copy(out, ctime(time) + 4, 12);
-	out[12] = 0;
-
-	return (0);
-}
-
-
-
 int ft_ls_sort_func(void *p_l1, void *p_l2, void *p_param);
 
 void print_list(int nb_elements, t_array *array, t_ls *ls)
 {
 
-	t_ls_link *link1;
+	t_file *link1;
 	char date[13];
 
 
@@ -151,8 +140,8 @@ void print_list(int nb_elements, t_array *array, t_ls *ls)
 				  link1->size,
 				  date);
 		write(1, link1->name, link1->name_size);
-		if (*link1->sym_real)
-			ft_printf(" -> %s", link1->sym_real);
+		if (*link1->sym_real_file)
+			ft_printf(" -> %s", link1->sym_real_file);
 		putchar('\n');
 	}
 }

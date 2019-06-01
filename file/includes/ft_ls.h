@@ -27,6 +27,7 @@
 # include <sys/stat.h>
 # include <pwd.h>
 # include <grp.h>
+# include <sys/types.h>
 
 
 /*
@@ -45,22 +46,26 @@
 #define UID_SIZE 1
 #define GUID_SIZE 2
 #define SIZE_SIZE 3
+#define DRIVER_MAX_SIZE 4
 
 # define FILE_NAME_MAX_SIZE 255
 
-typedef struct		s_ls
+typedef struct s_ls
 {
 	long options;
 	char *start_name;
-	int size_coll[4];
+	int size_coll[5];
 	char path[PATH_MAX + 1];
 	long total;
+	t_buff *buff;
 	// ici je met le tab a clean
 	// et la size de mes elements
-}					t_ls;
+} t_ls;
 
+# define FT_LS_DRIVER_MIN 0
+# define FT_LS_DRIVER_MAX 1
 
-typedef struct		s_ls_link
+typedef struct s_ls_link
 {
 	int name_size;
 	int hard_link;
@@ -70,25 +75,29 @@ typedef struct		s_ls_link
 	unsigned long long size;
 	char file_mode[11];
 	char name[FILE_NAME_MAX_SIZE];
-	char sym_real[FILE_NAME_MAX_SIZE];
-}					t_ls_link;
+	char sym_real_file[FILE_NAME_MAX_SIZE];
+	int driver[2];
+} t_file;
 
 /*
 **	option
 */
-# define FT_LS_RECURSION	1
-# define FT_LS_LONG			(1 << 1)
-# define FT_LS_ALL			(1 << 2)
-# define FT_LS_REVERSE		(1 << 3)
-# define FT_LS_TIME			(1 << 4)
+# define FT_LS_RECURSION    1
+# define FT_LS_LONG            (1 << 1)
+# define FT_LS_ALL            (1 << 2)
+# define FT_LS_REVERSE        (1 << 3)
+# define FT_LS_TIME            (1 << 4)
 
 
 /*
 **	functions
 */
 char *get_time(long int *time, int mode, char *out);
+
 void ft_get_permission(const mode_t *st_mode, char *fileMode);
-int ft_fill_link(char *path, t_ls_link *link, t_ls *ls);
+
+int ft_fill_line(struct stat *fs, t_file *f, t_ls *ls);
+
 void ft_ls_sort(t_ls *ls, t_array *array, int nb_elements);
 
 
