@@ -139,9 +139,6 @@ int utils_fill_line(char *path, char *file_name, char *res)
 	return ret;
 }
 
-
-
-
 void test_fill_line()
 {
 ////	// directory d
@@ -216,8 +213,8 @@ void test_loop_directory()
 
 	ft_array_new(&array, 1000, sizeof(t_file));
 
-	dir = opendir("/Users/adpusel");
-	loop_directory(dir, array, "/Users/adpusel",
+	dir = opendir("/Users/adpusel/.yarnrc");
+	loop_directory(dir, array, "/Users/adpusel/.yarnrc",
 				   &ls);
 	ls.size_coll[SIZE_SIZE] += (2 + ls.size_coll[DRIVER_MAX_SIZE]);
 	ft_ls_sort(&ls, array, ls.nb_elements);

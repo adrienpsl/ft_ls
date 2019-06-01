@@ -127,6 +127,26 @@ int loop_directory(DIR *dir, t_array *array, char *before_path, t_ls *ls)
 	return (0);
 }
 
+// test path
+// au tout debut, je cherche mon le directory de mon element demande
+// et ensuite je
+
+//int loop_dir(char *before_path)
+//{
+	// je regarde ce qu'est cet element
+	// c'est un fichier > je print ses info
+
+	// c'est un directory
+	// je loop dessus et imprime son contenu
+
+	// je le parcours et cherche des dossiers, si dossiers
+	// je relance ma function avec le nouveau path.
+	// je stock ce path dans un ls que je transmet. donc ca c'est en malloc
+	// et c'est cool man !
+//}
+
+
+
 //int ft_read_directory(char *path, t_array *array_sort)
 //{
 //	t_ls ls;

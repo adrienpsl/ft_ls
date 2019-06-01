@@ -67,16 +67,27 @@ awk 'length>300' toto.txt
 - la size max d'un file est de 255 c ' '
 - la size maxe de mon path est de PATH_MAX. pas besoin de mettre plus.
 
+# faire une refacto du code
+faire la fonction de test qui init la recursivite
+lancer la recursivite
+et voila ! :)
 
-- manager les link symbolics
-- faire une refacto et tester les fonctions avec le buffer 
-    	perror("lstat");
-  - bien m'occuper des errno et catch toute les errors correnctements
-  - control sur la taille max de mon path 
-  - control sur la taille max de mes files 
-  - pas d'acces ?
+- faire la recursivite !
+    - 1
 
-
+- pour le moment je compte le nb d'element pour allouer mon tab, ensuite je ferai le print
+- ajouter les trie
+- implemeter tout les trie possbile
+- la couleur c'est style ! 
+- le truc des groupes user aussi c'est style
+- je suis pas sur qu'avec mes buffer ca soit bullet proof, /a voir avec les tests
+- ajouter les colomne ?
+- faire l'affichage en fonction des options
+- faire l'input, la boucle sur les arguments,
+  
+- faire les tests du truc de test
+- faire regarder les best projets de ce ls
+- 
 
 
 
