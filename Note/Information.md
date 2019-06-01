@@ -179,6 +179,11 @@ http://man7.org/tlpi/code/online/diff/xattr/xattr_view.c.html
 
 
 
+touch /tmp/foo
+setfattr -n user.fred -v chocolate /tmp/foo
+setfattr -n user.frieda -v bar /tmp/foo
+setfattr -n user.empty /tmp/foo
+./listxattr /tmp/foo
 
 
 

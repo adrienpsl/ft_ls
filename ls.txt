@@ -1,13 +1,13 @@
-dr-xr-xr-x   3 root     wheel              4638 May 28 07:12 .
+dr-xr-xr-x   3 root     wheel              4608 May 28 07:12 .
 drwxr-xr-x  29 root     wheel               928 May 23 10:45 ..
 crw-------   1 root     wheel           18,   1 May 28 07:12 afsc_type5
 crw-------   1 root     wheel           10,   0 May 28 07:12 auditpipe
 crw-r--r--   1 root     wheel            9,   4 May 28 07:12 auditsessions
 crw-------   1 root     wheel           31,   0 May 28 07:12 autofs
 crw-------   1 root     wheel           35,   0 May 28 07:12 autofs_control
-crw-rw-rw-   1 root     wheel           34, 120 May 28 07:12 autofs_homedirmounter
-crw-rw-rw-   1 root     wheel           33, 120 May 28 07:12 autofs_notrigger
-crw-rw-rw-   1 root     wheel           32,4871 May 28 07:12 autofs_nowait
+crw-rw-rw-   1 root     wheel           34, 146 May 28 07:12 autofs_homedirmounter
+crw-rw-rw-   1 root     wheel           33, 146 May 28 07:12 autofs_notrigger
+crw-rw-rw-   1 root     wheel           32, 0x00001346 May 28 07:12 autofs_nowait
 crw-------   1 root     wheel           23,   0 May 28 07:12 bpf0
 crw-------   1 root     wheel           23,   1 May 28 07:12 bpf1
 crw-------   1 root     wheel           23,   2 May 31 12:31 bpf2
@@ -27,24 +27,24 @@ brw-r-----   1 root     operator         1,   5 May 28 07:12 disk1s3
 brw-r-----   1 root     operator         1,   7 May 28 07:12 disk1s4
 br--r-----   1 adpusel  staff            1,   8 May 30 15:27 disk2
 br--r-----   1 adpusel  staff            1,   9 May 30 15:27 disk2s1
-crw-rw-rw-   1 root     wheel           24,  27 May 28 07:12 dtrace
+crw-rw-rw-   1 root     wheel           24,  21 May 28 07:12 dtrace
 crw-rw-rw-   1 root     wheel           25,   0 May 28 07:12 dtracehelper
 crw-rw-rw-   1 root     wheel            0,   0 May 28 07:12 fbt
 dr-xr-xr-x   1 root     wheel                 0 May 28 07:12 fd
 crw-r--r--   1 root     wheel           13,   0 May 28 07:12 fsevents
-crw-rw-rw-   1 root     wheel           21,  14 Jun  1 20:30 io8log
-cr--r--r--   1 root     wheel           21,  15 May 28 07:12 io8logmt
-crw-rw-rw-   1 root     wheel           21,  16 Jun  1 21:11 io8logtemp
+crw-rw-rw-   1 root     wheel           21,  16 Jun  1 20:30 io8log
+cr--r--r--   1 root     wheel           21,  17 May 28 07:12 io8logmt
+crw-rw-rw-   1 root     wheel           21,  14 Jun  1 22:01 io8logtemp
 crw-------   1 root     wheel            6,   0 May 28 07:12 klog
 crw-rw-rw-   1 root     wheel            0,   0 May 28 07:12 lockstat
 crw-rw-rw-   1 root     wheel            0,   0 May 28 07:12 machtrace
-crw-rw-rw-   1 root     wheel            3,   2 Jun  1 21:12 null
+crw-rw-rw-   1 root     wheel            3,   2 Jun  1 22:02 null
 crw-------   1 root     wheel            7,   0 May 28 07:12 oslog
 crw-------   1 root     wheel            8,   0 May 28 07:12 oslog_stream
 crw-------   1 root     wheel           11,   0 May 28 07:12 pf
 crw-------   1 root     wheel           11,   1 May 28 07:12 pfm
 crw-rw-rw-   1 root     wheel            0,   0 May 28 07:12 profile
-crw-rw-rw-   1 root     tty             15,   4 Jun  1 21:12 ptmx
+crw-rw-rw-   1 root     tty             15,   2 Jun  1 22:02 ptmx
 crw-rw-rw-   1 root     wheel            5,   0 May 28 07:12 ptyp0
 crw-rw-rw-   1 root     wheel            5,   1 May 28 07:12 ptyp1
 crw-rw-rw-   1 root     wheel            5,   2 May 28 07:12 ptyp2
@@ -242,15 +242,13 @@ crw-rw-rw-   1 root     wheel            4,  45 May 28 07:12 ttyrd
 crw-rw-rw-   1 root     wheel            4,  46 May 28 07:12 ttyre
 crw-rw-rw-   1 root     wheel            4,  47 May 28 07:12 ttyrf
 crw-rw-rw-   1 root     wheel            4,  48 May 28 07:12 ttys0
-crw--w----   1 adpusel  tty             16,   0 Jun  1 21:11 ttys000
+crw--w----   1 adpusel  tty             16,   0 Jun  1 22:01 ttys000
 crw--w----   1 adpusel  tty             16,   1 Jun  1 20:50 ttys001
-crw--w----   1 adpusel  tty             16,   2 Jun  1 21:11 ttys002
-crw--w----   1 adpusel  tty             16,   3 Jun  1 21:11 ttys003
 crw--w----   1 adpusel  tty             16,   5 May 31 19:44 ttys005
 crw--w----   1 adpusel  tty             16,   7 May 31 19:43 ttys007
 crw--w----   1 adpusel  tty             16,   8 May 31 19:36 ttys008
-crw--w----   1 adpusel  tty             16,   9 Jun  1 21:12 ttys009
-crw--w----   1 adpusel  tty             16,  10 Jun  1 20:54 ttys010
+crw--w----   1 adpusel  tty             16,   9 Jun  1 21:43 ttys009
+crw--w----   1 adpusel  tty             16,  10 Jun  1 22:02 ttys010
 crw--w----   1 adpusel  tty             16,  11 Jun  1 20:54 ttys011
 crw-rw-rw-   1 root     wheel            4,  49 May 28 07:12 ttys1
 crw-rw-rw-   1 root     wheel            4,  50 May 28 07:12 ttys2

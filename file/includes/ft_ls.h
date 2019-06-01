@@ -28,6 +28,8 @@
 # include <pwd.h>
 # include <grp.h>
 # include <sys/types.h>
+# include <sys/acl.h>
+# include <sys/xattr.h>
 
 
 /*
@@ -78,6 +80,8 @@ typedef struct s_ls_link
 	char name[FILE_NAME_MAX_SIZE];
 	char sym_real_file[FILE_NAME_MAX_SIZE];
 	int driver[2];
+	int acl;
+	int attr;
 } t_file;
 
 /*

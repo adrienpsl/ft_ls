@@ -28,9 +28,13 @@ char *get_time(long int *time, int mode, char *out)
 
 static void norme_size_driver(t_file *f, t_ls *l)
 {
+	int size;
+
+	size = l->size_coll[DRIVER_MAX_SIZE] ? l->size_coll[SIZE_SIZE] + 3
+										 : l->size_coll[SIZE_SIZE];
 	if (f->file_mode[0] == 'b' || f->file_mode[0] == 'c')
 	{
-		ft_sprintf(l->buff, "   %*d,",
+		ft_sprintf(l->buff, "   %*d, ",
 				   l->size_coll[DRIVER_MAX_SIZE],
 				   f->driver[FT_LS_DRIVER_MAX]);
 		ft_sprintf(l->buff, "%*d",
@@ -39,7 +43,7 @@ static void norme_size_driver(t_file *f, t_ls *l)
 				   f->driver[FT_LS_DRIVER_MIN]);
 	}
 	else
-		ft_sprintf(l->buff, "  %*d", l->size_coll[SIZE_SIZE], f->size);
+		ft_sprintf(l->buff, "%*d", size, f->size);
 }
 
 int buffer_add_line(t_file *f, t_ls *l)
@@ -49,7 +53,13 @@ int buffer_add_line(t_file *f, t_ls *l)
 	ft_mem_set(time, 0, 20);
 	get_time(&f->mtime, 1, time);
 	ft_sprintf(l->buff, "%s", f->file_mode);
-	ft_sprintf(l->buff, "  %*d", l->size_coll[HARD_LINK_SIZE], f->hard_link);
+	if (f->acl)
+		ft_sprintf(l->buff, "+");
+	else if (f->attr)
+		ft_sprintf(l->buff, "@");
+	else
+		ft_sprintf(l->buff, " ");
+	ft_sprintf(l->buff, " %*d", l->size_coll[HARD_LINK_SIZE], f->hard_link);
 	ft_sprintf(l->buff, " %-*s", l->size_coll[UID_SIZE], f->uid);
 	ft_sprintf(l->buff, "  %-*s", l->size_coll[GUID_SIZE], f->guid);
 	norme_size_driver(f, l);
@@ -76,6 +86,19 @@ int handle_lstast(char *path, t_file *f, t_ls *l)
 
 // je vais courir et ensuite je pourrai tester le print avec
 // tout qui fait les meme valeurs ! et ca c'est super mon gars !
+int get_acl_and_attr(char *path, t_file *f)
+{
+	acl_t acl;
+	acl = acl_get_file(path, ACL_TYPE_EXTENDED);
+	if (acl > 0)
+	{
+		f->acl = 1;
+		acl_free((void *) acl);
+	}
+	if (listxattr(path, NULL, 0, 0) > 0)
+		f->attr = 1;
+	return (0);
+}
 
 int loop_directory(DIR *dir, t_array *array, char *before_path, t_ls *ls)
 {
@@ -90,15 +113,15 @@ int loop_directory(DIR *dir, t_array *array, char *before_path, t_ls *ls)
 	path[path_end++] = '/';
 	while ((dp = readdir(dir)) != NULL)
 	{
-		// ici je dois add le new path
 		file = ft_array_next_el(array);
 		file->name_size = ft_str_len(dp->d_name);
 		ft_mem_copy(file->name, dp->d_name, file->name_size);
 		ft_mem_copy(path + path_end, file->name, file->name_size);
+		get_acl_and_attr(path, file);
 		handle_lstast(path, file, ls);
 		ft_mem_set(path + path_end, 0, file->name_size);
 		if (ls->nb_elements == 12)
-		    (void)1;
+			(void) 1;
 		ls->nb_elements++;
 	}
 	return (0);
