@@ -129,9 +129,11 @@ int utils_fill_line(char *path, char *file_name, char *res)
 	ret = strcmp(res, ls.buff->data);
 
 
+	ft_buffer_clean(ls.buff);
 	ft_buffer_free(&ls.buff);
 	if (ret)
 		ft_print_error("ft_fill_line ", test_nb);
+
 
 	test_nb++;
 	return ret;
@@ -139,44 +141,94 @@ int utils_fill_line(char *path, char *file_name, char *res)
 
 void test_fill_line()
 {
-	// directory d
-	utils_fill_line("/Users/adpusel/code/42/ls/test/test_ls/", "directory",
-					"drwxr-xr-x  2 root  staff  64 Jun  1 16:35 directory"
-				//	"drwxr-xr-x  2 root  staff  64 Jun  1 16:35 directory"
-	);
+////	// directory d
+//	utils_fill_line("/dev/", ".",
+//					"drwxr-xr-x  2 root  staff  64 Jun  1 16:35 directory"
+//				//	"drwxr-xr-x  2 root  staff  64 Jun  1 16:35 directory"
+//	);
+//
+//	// file -
+//	utils_fill_line("/Users/adpusel/code/42/ls/test/test_ls/", "42----rwxrwx",
+//					"----rwxrwx  1 root  staff  0 Jun  1 16:35 42----rwxrwx");
+//
+//	// fifo -p
+//	utils_fill_line("/Users/adpusel/code/42/ls/test/test_ls/", "fifofile",
+//					"prw-r--r--  1 root  staff  0 Jun  1 16:35 fifofile");
+//
+//	// device : b
+//	utils_fill_line("/dev/", "disk0",
+//					"brw-r-----  1 root  operator   1, 0 May 28 07:12 disk0"
+//	//				"brw-r-----  1 root  operator   1, 0 May 28 07:12 disk0"
+//	);
+//
+// // device : c
+//	utils_fill_line("/dev/", "xcpm",
+//					"crw-rw----  1 root  _windowserver   19, 0 May 28 07:12 xcpm"
+//	//				"crw-rw----  1 root  _windowserver   19, 0 May 28 07:12 xcpm"
+//	);
+//
+// //  socket : c
+//	utils_fill_line("/var/run/", "vpncontrol.sock",
+//					"srw-------  1 root  daemon  0 May 28 07:12 vpncontrol.sock"
+//	//				"srw-------  1 root  daemon  0 May 28 07:12 vpncontrol.sock "
+//	);
+//
+//
+// //  s link : l
+//	utils_fill_line("/Users/adpusel/code/42/ls/test/test_ls/", "linked",
+//					"lrwxr-xr-x  1 root  staff  12 Jun  1 16:35 linked -> 42----------"
+//	//				"srw-------  1 root  daemon  0 May 28 07:12 vpncontrol.sock "
+//	);
 
-	// file -
-	utils_fill_line("/Users/adpusel/code/42/ls/test/test_ls/", "42----rwxrwx",
-					"----rwxrwx  1 root  staff  0 Jun  1 16:35 42----rwxrwx");
+}
 
-	// fifo -p
-	utils_fill_line("/Users/adpusel/code/42/ls/test/test_ls/", "fifofile",
-					"prw-r--r--  1 root  staff  0 Jun  1 16:35 fifofile");
+int loop_directory(DIR *dir, t_array *array, char *before_path, t_ls *ls);
+size_t length_itoa(int nb);
+void set_max_length(int witch_size, int *size_array, int nb, char *str);
 
-	// device : b
-	utils_fill_line("/dev/", "disk0",
-					"brw-r-----  1 root  operator   1, 0 May 28 07:12 disk0"
-	//				"brw-r-----  1 root  operator   1, 0 May 28 07:12 disk0"
-	);
+void test_loop_directory()
+{
+	char *tt = "drwxr-xr-x  13 root  staff  416 Jun  1 20:47 .\n"
+			   "drwxr-xr-x   3 root  staff   96 Jun  1 20:47 ..\n"
+			   "----------   1 root  staff    0 Jun  1 20:47 42----------\n"
+			   "------x--x   1 root  staff    0 Jun  1 20:47 42------x--x\n"
+			   "-rw-r--r--   1 root  staff    0 Jun  1 20:47 42-----wxrwx\n"
+			   "----rwxrwx   1 root  staff    0 Jun  1 20:47 42----rwxrwx\n"
+			   "-r-xr-xr-x   1 root  staff    0 Jun  1 20:47 42-r-xr-xr-x\n"
+			   "-rwxrwxrwx   1 root  staff    0 Jun  1 20:47 42-rwxrwxrwx\n"
+			   "--w--w--w-   1 root  staff    0 Jun  1 20:47 42-w--w--w--\n"
+			   "d---------   2 root  staff   64 Jun  1 20:47 dir\n"
+			   "drwxr-xr-x   2 root  staff   64 Jun  1 20:47 directory\n"
+			   "prw-r--r--   1 root  staff    0 Jun  1 20:47 fifofile\n"
+			   "lrwxr-xr-x   1 root  staff   12 Jun  1 20:47 linked -> 42----------\n";
 
- // device : c
-	utils_fill_line("/dev/", "xcpm",
-					"crw-rw----  1 root  _windowserver   19, 0 May 28 07:12 xcpm"
-	//				"crw-rw----  1 root  _windowserver   19, 0 May 28 07:12 xcpm"
-	);
+	DIR *dir;
+	t_array *array;
+	t_file *file;
 
- //  socket : c
-	utils_fill_line("/var/run/", "vpncontrol.sock",
-					"srw-------  1 root  daemon  0 May 28 07:12 vpncontrol.sock"
-	//				"srw-------  1 root  daemon  0 May 28 07:12 vpncontrol.sock "
-	);
+	t_ls ls;
 
+	ft_mem_set(&ls, 0, sizeof(ls));
+	ft_buffer_new(&ls.buff, 2000, 1);
 
- //  s link : l
-	utils_fill_line("/Users/adpusel/code/42/ls/test/test_ls/", "linked",
-					"lrwxr-xr-x  1 root  staff  12 Jun  1 16:35 linked -> 42----------"
-	//				"srw-------  1 root  daemon  0 May 28 07:12 vpncontrol.sock "
-	);
+	ft_array_new(&array, 1000, sizeof(t_file));
+
+	dir = opendir("/dev");
+	loop_directory(dir, array, "/dev",
+				   &ls);
+	ls.size_coll[SIZE_SIZE] += (2 + ls.size_coll[DRIVER_MAX_SIZE]);
+	ft_ls_sort(&ls, array, ls.nb_elements);
+	array->i = 0;
+	int i = 0;
+	while (i < ls.nb_elements)
+	{
+		file = ft_array_el(array, i);
+		buffer_add_line(file, &ls);
+		ft_buffer_clean(ls.buff);
+		i++;
+	}
+	printf("%d \n", strcmp(tt, ls.buff->data));
+	ft_buffer_clean(ls.buff);
 
 }
 
@@ -185,6 +237,7 @@ void main_test()
 //	test_premission();
 //	test_lstat();
 //	test_fill_line();
+	test_loop_directory();
 
 
 //	printf("%d \n", ft_read_directory("./aeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoe/aeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoe/aeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoe/aeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoe", NULL));

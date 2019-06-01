@@ -86,8 +86,6 @@ int ft_fill_line(struct stat *fs, t_file *f, t_ls *ls)
 		f->driver[FT_LS_DRIVER_MIN] = minor(fs->st_rdev);
 		set_max_length(SIZE_SIZE, ls->size_coll,
 					   f->driver[FT_LS_DRIVER_MIN], NULL);
-		ls->size_coll[SIZE_SIZE] +=
-				(2 + length_itoa(f->driver[FT_LS_DRIVER_MAX]));
 		set_max_length(DRIVER_MAX_SIZE, ls->size_coll,
 				f->driver[FT_LS_DRIVER_MAX], NULL);
 	}

@@ -5,6 +5,8 @@ rm -rf test_ls
 
 mkdir test_ls
 cd test_ls
+mkdir toto
+cd toto
 
 touch 42-rwxrwxrwx
 chmod 777 42-rwxrwxrwx

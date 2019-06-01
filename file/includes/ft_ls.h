@@ -58,6 +58,7 @@ typedef struct s_ls
 	char path[PATH_MAX + 1];
 	long total;
 	t_buff *buff;
+	int nb_elements;
 	// ici je met le tab a clean
 	// et la size de mes elements
 } t_ls;

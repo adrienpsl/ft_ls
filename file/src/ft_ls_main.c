@@ -35,8 +35,8 @@ static void norme_size_driver(t_file *f, t_ls *l)
 				   f->driver[FT_LS_DRIVER_MAX]);
 		ft_sprintf(l->buff, "%*d",
 				   (l->size_coll[SIZE_SIZE]
-					- (l->size_coll[DRIVER_MAX_SIZE] + 1)),
-				   f->size);
+					- (l->size_coll[DRIVER_MAX_SIZE] + 2)),
+				   f->driver[FT_LS_DRIVER_MIN]);
 	}
 	else
 		ft_sprintf(l->buff, "  %*d", l->size_coll[SIZE_SIZE], f->size);
@@ -49,14 +49,15 @@ int buffer_add_line(t_file *f, t_ls *l)
 	ft_mem_set(time, 0, 20);
 	get_time(&f->mtime, 1, time);
 	ft_sprintf(l->buff, "%s", f->file_mode);
-	ft_sprintf(l->buff, "  %-*d", l->size_coll[HARD_LINK_SIZE], f->hard_link);
-	ft_sprintf(l->buff, " %*s", l->size_coll[UID_SIZE], f->uid);
-	ft_sprintf(l->buff, "  %*s", l->size_coll[GUID_SIZE], f->guid);
+	ft_sprintf(l->buff, "  %*d", l->size_coll[HARD_LINK_SIZE], f->hard_link);
+	ft_sprintf(l->buff, " %-*s", l->size_coll[UID_SIZE], f->uid);
+	ft_sprintf(l->buff, "  %-*s", l->size_coll[GUID_SIZE], f->guid);
 	norme_size_driver(f, l);
 	ft_sprintf(l->buff, " %s", time);
 	ft_sprintf(l->buff, " %s", f->name);
 	if (f->file_mode[0] == 'l')
 		ft_sprintf(l->buff, " -> %s", f->sym_real_file);
+	ft_sprintf(l->buff, "\n");
 	return (0);
 }
 
@@ -73,31 +74,35 @@ int handle_lstast(char *path, t_file *f, t_ls *l)
 	return (0);
 }
 
+// je vais courir et ensuite je pourrai tester le print avec
+// tout qui fait les meme valeurs ! et ca c'est super mon gars !
 
-//int loop_directory(DIR *dir, t_array *array, char *before_path)
-//{
-//	t_file *file;
-//	struct dirent *dp;
-//	char path[PATH_MAX + 1];
-//	size_t path_end;
-//
-//	path_end = ft_str_len(before_path);
-//	ft_mem_set(&path, 0, PATH_MAX + 1);
-//	ft_mem_copy(path, before_path, path_end);
-//	path[path_end] = '/';
-//	while ((dp = readdir(dir)) > 0)
-//	{
-//		file = ft_array_next_el(array);
-//		file->name_size = ft_str_len(dp->d_name);
-//		ft_mem_copy(file->name, dp->d_name, file->name_size);
-//
-////		ft_str_join(&path, "test/", link1->name);
-//
-////		ft_fill_link(path, link1, &ls);
-////		nb_elements++;
-//	}
-//	return (0);
-//}
+int loop_directory(DIR *dir, t_array *array, char *before_path, t_ls *ls)
+{
+	t_file *file;
+	struct dirent *dp;
+	char path[PATH_MAX + 1];
+	size_t path_end;
+
+	path_end = ft_str_len(before_path);
+	ft_mem_set(&path, 0, PATH_MAX + 1);
+	ft_mem_copy(path, before_path, path_end);
+	path[path_end++] = '/';
+	while ((dp = readdir(dir)) != NULL)
+	{
+		// ici je dois add le new path
+		file = ft_array_next_el(array);
+		file->name_size = ft_str_len(dp->d_name);
+		ft_mem_copy(file->name, dp->d_name, file->name_size);
+		ft_mem_copy(path + path_end, file->name, file->name_size);
+		handle_lstast(path, file, ls);
+		ft_mem_set(path + path_end, 0, file->name_size);
+		if (ls->nb_elements == 12)
+		    (void)1;
+		ls->nb_elements++;
+	}
+	return (0);
+}
 
 //int ft_read_directory(char *path, t_array *array_sort)
 //{
