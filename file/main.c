@@ -1,105 +1,11 @@
 
 #include <ft_libft_struct.h>
 #include "ft_ls.h"
+void main_test_2();
 
-
-#define NOT_FOUND 2
-#define ERROR 3
-#define FOUND 1
 void main_test();
 
-int findDir(char *name)
-{
-	DIR *dirp;
-	size_t len;
-	struct dirent *dp;
 
-	dirp = opendir(".");
-	if (dirp == NULL)
-		return (ERROR);
-	len = strlen(name);
-	while ((dp = readdir(dirp)) != NULL)
-	{
-		if (dp->d_namlen == len && strcmp(dp->d_name, name) == 0)
-		{
-			(void) closedir(dirp);
-			return (FOUND);
-		}
-	}
-	(void) closedir(dirp);
-	return (NOT_FOUND);
-}
-
-// je vais prendre une taille de 300 fichier
-
-void printAllName(DIR *head_list)
-{
-	struct dirent *dp;
-
-	dp = readdir(head_list);
-	while (dp)
-	{
-		printf("%s \n", dp->d_name);
-		dp = readdir(head_list);
-	}
-}
-
-
-void test(struct stat sb)
-{
-
-	printf("Type de fichier :                ");
-
-	switch (sb.st_mode & S_IFMT)
-	{
-		case S_IFBLK:
-			printf("périphérique de bloc\n");
-			break;
-		case S_IFCHR:
-			printf("périphérique de caractère\n");
-			break;
-		case S_IFDIR:
-			printf("répertoire\n");
-			break;
-		case S_IFIFO:
-			printf("FIFO/tube\n");
-			break;
-		case S_IFLNK:
-			printf("lien symbolique\n");
-			break;
-		case S_IFREG:
-			printf("fichier ordinaire\n");
-			break;
-		case S_IFSOCK:
-			printf("socket\n");
-			break;
-		default:
-			printf("inconnu ?\n");
-			break;
-	}
-
-	printf("Numéro d'inœud :                   %ld\n", (long) sb.st_ino);
-
-	printf("Mode :                             %lo (octal)\n",
-		   (unsigned long) sb.st_mode);
-
-	printf("Nombre de liens :                  %ld\n", (long) sb.st_nlink);
-	printf("Propriétaires :                    UID=%ld   GID=%ld\n",
-		   (long) sb.st_uid, (long) sb.st_gid);
-
-	printf("Taille de bloc d’E/S :             %ld octets\n",
-		   (long) sb.st_blksize);
-	printf("Taille du fichier :                %lld octets\n",
-		   (long long) sb.st_size);
-	printf("Blocs alloués :                    %lld\n",
-		   (long long) sb.st_blocks);
-
-	printf("Dernier changement d’état :        %s", ctime(&sb.st_ctime));
-	printf("Dernier accès au fichier :         %s", ctime(&sb.st_atime));
-	printf("Dernière modification du fichier:  %s", ctime(&sb.st_mtime));
-
-	exit(EXIT_SUCCESS);
-}
 
 
 DIR *_open_dir(const char *filename);
@@ -130,13 +36,13 @@ void print_list(int nb_elements, t_array *array, t_ls *ls)
 //		);
 		ft_printf("%s %*d %*s %*s %*lld %s ",
 				  link1->file_mode,
-				  ls->size_coll[HARD_LINK_SIZE],
+				  ls->size_coll[FT_LS_HL],
 				  link1->hard_link,
-				  ls->size_coll[UID_SIZE],
+				  ls->size_coll[FT_LS_UID],
 				  link1->uid,
-				  ls->size_coll[GUID_SIZE],
+				  ls->size_coll[FT_LS_GUID],
 				  link1->guid,
-				  ls->size_coll[SIZE_SIZE],
+				  ls->size_coll[FT_LS_FILE],
 				  link1->size,
 				  date);
 		write(1, link1->name, link1->name_size);
@@ -149,6 +55,7 @@ void print_list(int nb_elements, t_array *array, t_ls *ls)
 int main()
 {
 	main_test();
+	main_test_2();
 
 
 //	DIR *current_dir;

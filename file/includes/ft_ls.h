@@ -30,6 +30,8 @@
 # include <sys/types.h>
 # include <sys/acl.h>
 # include <sys/xattr.h>
+# include <sys/ttycom.h>
+# include <sys/ioctl.h>
 
 
 /*
@@ -44,44 +46,60 @@
 # define FT_ISLNK(m)  (((m) & (unsigned int)S_IFMT) == S_IFLNK)
 # define FT_ISSOCK(m) (((m) & (unsigned int)S_IFMT) == S_IFSOCK)
 
-#define HARD_LINK_SIZE 0
-#define UID_SIZE 1
-#define GUID_SIZE 2
-#define SIZE_SIZE 3
-#define DRIVER_MAX_SIZE 4
+#define FT_LS_HL 0
+#define FT_LS_UID 1
+#define FT_LS_GUID 2
+#define FT_LS_FILE 3
+#define FT_LS_DRIVER 4
+#define FT_LS_NAME 5
 
-# define FILE_NAME_MAX_SIZE 255
+# define FT_LS_MAX_FILE 255
 
 typedef struct s_ls
 {
-	long options;
-	char *start_name;
-	int size_coll[5];
-	char path[PATH_MAX + 1];
-	long total;
-	t_buff *buff;
 	int nb_elements;
-	// ici je met le tab a clean
-	// et la size de mes elements
+	struct stat fs;
+	DIR *dir;
+	long options;
+	int size_coll[6];
+	long total;
+	char path[PATH_MAX + 1];
+	t_buff *buff;
+	t_array *array;
 } t_ls;
+
+typedef struct s_ls_2
+{
+	int elements;
+	long options;
+	size_t end_path;
+	int size[6];
+	long total;
+	char path[PATH_MAX + 1];
+	struct stat fs;
+	DIR *dir;
+	t_buff *buff;
+	t_array *array;
+} t_ls_2;
 
 # define FT_LS_DRIVER_MIN 0
 # define FT_LS_DRIVER_MAX 1
 
+
 typedef struct s_ls_link
 {
-	int name_size;
 	int hard_link;
+	int acl;
+	int attr;
+	int driver[2];
 	char *guid;
 	char *uid;
 	long mtime;
+	size_t name_size;
 	unsigned long long size;
 	char file_mode[11];
-	char name[FILE_NAME_MAX_SIZE];
-	char sym_real_file[FILE_NAME_MAX_SIZE];
-	int driver[2];
-	int acl;
-	int attr;
+	char name[FT_LS_MAX_FILE];
+	char sym_real_file[FT_LS_MAX_FILE];
 } t_file;
 
 /*
@@ -98,12 +116,16 @@ typedef struct s_ls_link
 **	functions
 */
 char *get_time(long int *time, int mode, char *out);
+int extract_lstat(struct stat *fs, t_file *f, t_ls *ls);
+int ft_ls_sort(t_ls *l);
+int init_t_ls(char *path, t_ls *l);
+int buffer_tab(t_ls *ls);
+int is_directory(char *path);
 
-void ft_get_permission(const mode_t *st_mode, char *fileMode);
 
-int ft_fill_line(struct stat *fs, t_file *f, t_ls *ls);
-
-void ft_ls_sort(t_ls *ls, t_array *array, int nb_elements);
-
-
+/*
+**	helpers
+*/
+int ft_api_lstat(t_ls_2 *l);
+int ft_api_dir(t_ls_2 *l);
 #endif

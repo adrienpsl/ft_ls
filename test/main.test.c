@@ -3,9 +3,10 @@
 // je regarde si je print bien pour chaque 1 droit
 // type
 #include <errno.h>
+#include <sys/ioctl.h>
+#include <sys/ttycom.h>
 # include "ft_ls.h"
 
-void ft_get_permission(const mode_t *st_mode, char *fileMode);
 
 # define FILE "/Users/adpusel/code/42/ls/test/test_ls/"
 
@@ -18,7 +19,7 @@ int utils_test_permission(char *file, char *res)
 
 	lstat(file, &fileStat);
 
-	ft_get_permission(&fileStat.st_mode, buff);
+//	ft_get_permission(&fileStat.st_mode, buff);
 	return strcmp(res, buff);
 }
 void test_premission()
@@ -61,8 +62,7 @@ void test_premission()
 
 }
 
-// lstat
-int handle_lstast(char *path, t_file *f, t_ls *l);
+/*// lstat
 void test_lstat()
 {
 	t_file link;
@@ -100,37 +100,40 @@ void test_lstat()
 //	ret = ft_fill_link("/dev/disk1s2", &link, &ls);
 	ret = handle_lstast("/Users/adpusel/code/42/ls/test/test_ls/saluet", &link, &ls);
 
-}
+}*/
 
 // test le buffer de l, je veux le fill avec mes datas :
 //
 int buffer_add_line(t_file *f, t_ls *l);
 
+int init_lstat(t_file *f, t_ls *l);
 int utils_fill_line(char *path, char *file_name, char *res)
 {
-	t_file file;
-	t_ls ls;
-	size_t size;
-	int ret;
-	char full_path[PATH_MAX];
 	static int test_nb = 0;
-
-	size = strlen(path);
-	ft_mem_copy(full_path, path, size);
-	ft_mem_copy(full_path + size, file_name, strlen(file_name));
-
-	size = ft_str_len(file_name);
-	ft_mem_copy(file.name, file_name, size);
-	file.name_size = size;
-
-	ft_buffer_new(&ls.buff, 100, 1);
-
-	handle_lstast(full_path, &file, &ls) || buffer_add_line(&file, &ls);
-	ret = strcmp(res, ls.buff->data);
+	int ret = 0;
+	size_t size;
+	t_file *file;
+	(void) res;
 
 
+	// drwxr-xr-x          43 adpusel  staff      1376 Jun  2 14:29
+	ft_str_len(&size, path);
+	t_ls ls;
+	init_t_ls("taat", &ls);
+	ft_array_new(&ls.array, 12, sizeof(t_file));
+
+	ft_mem_copy(ls.path, path, size);
+	ls.path[size++] = '/';
+	ft_mem_copy(ls.path + size, file_name, STRING_MODE);
+
+	file = ft_array_next_el(ls.array);
+	init_lstat(file, &ls);
+	extract_lstat(&ls.fs, file, &ls);
+	buffer_add_line(file, &ls);
 	ft_buffer_clean(ls.buff);
-	ft_buffer_free(&ls.buff);
+//	init_t_ls(path, &ls);
+
+
 	if (ret)
 		ft_print_error("ft_fill_line ", test_nb);
 
@@ -141,11 +144,11 @@ int utils_fill_line(char *path, char *file_name, char *res)
 
 void test_fill_line()
 {
-////	// directory d
-//	utils_fill_line("/dev/", ".",
-//					"drwxr-xr-x  2 root  staff  64 Jun  1 16:35 directory"
-//				//	"drwxr-xr-x  2 root  staff  64 Jun  1 16:35 directory"
-//	);
+//	// directory d
+	utils_fill_line("/dev/", ".",
+					"drwxr-xr-x  2 root  staff  64 Jun  1 16:35 directory"
+			//	"drwxr-xr-x  2 root  staff  64 Jun  1 16:35 directory"
+	);
 //
 //	// file -
 //	utils_fill_line("/Users/adpusel/code/42/ls/test/test_ls/", "42----rwxrwx",
@@ -182,63 +185,73 @@ void test_fill_line()
 
 }
 
-int loop_directory(DIR *dir, t_array *array, char *before_path, t_ls *ls);
+int build_files_array(t_ls *ls);
 size_t length_itoa(int nb);
 void set_max_length(int witch_size, int *size_array, int nb, char *str);
 
 void test_loop_directory()
 {
-	char *tt = "drwxr-xr-x  13 root  staff  416 Jun  1 20:47 .\n"
-			   "drwxr-xr-x   3 root  staff   96 Jun  1 20:47 ..\n"
-			   "----------   1 root  staff    0 Jun  1 20:47 42----------\n"
-			   "------x--x   1 root  staff    0 Jun  1 20:47 42------x--x\n"
-			   "-rw-r--r--   1 root  staff    0 Jun  1 20:47 42-----wxrwx\n"
-			   "----rwxrwx   1 root  staff    0 Jun  1 20:47 42----rwxrwx\n"
-			   "-r-xr-xr-x   1 root  staff    0 Jun  1 20:47 42-r-xr-xr-x\n"
-			   "-rwxrwxrwx   1 root  staff    0 Jun  1 20:47 42-rwxrwxrwx\n"
-			   "--w--w--w-   1 root  staff    0 Jun  1 20:47 42-w--w--w--\n"
-			   "d---------   2 root  staff   64 Jun  1 20:47 dir\n"
-			   "drwxr-xr-x   2 root  staff   64 Jun  1 20:47 directory\n"
-			   "prw-r--r--   1 root  staff    0 Jun  1 20:47 fifofile\n"
-			   "lrwxr-xr-x   1 root  staff   12 Jun  1 20:47 linked -> 42----------\n";
 
-	DIR *dir;
-	t_array *array;
-	t_file *file;
+//	t_file *file;
 
 	t_ls ls;
 
 	ft_mem_set(&ls, 0, sizeof(ls));
 	ft_buffer_new(&ls.buff, 2000, 1);
 
-	ft_array_new(&array, 1000, sizeof(t_file));
 
-	dir = opendir("/Users/adpusel/.yarnrc");
-	loop_directory(dir, array, "/Users/adpusel/.yarnrc",
-				   &ls);
-	ls.size_coll[SIZE_SIZE] += (2 + ls.size_coll[DRIVER_MAX_SIZE]);
-	ft_ls_sort(&ls, array, ls.nb_elements);
-	array->i = 0;
-	int i = 0;
-	while (i < ls.nb_elements)
-	{
-		file = ft_array_el(array, i);
-		buffer_add_line(file, &ls);
-		ft_buffer_clean(ls.buff);
-		i++;
-	}
-	printf("%d \n", strcmp(tt, ls.buff->data));
-	ft_buffer_clean(ls.buff);
+	init_t_ls("/Users/adpusel/Documents", &ls);
+
+	build_files_array(&ls);
+//	ls.size_coll[SIZE_SIZE] += (2 + ls.size_coll[DRIVER_MAX_SIZE]);
+//	ft_ls_sort(&ls, array, ls.nb_elements);
+//	array->i = 0;
+//	int i = 0;
+//	while (i < ls.nb_elements)
+//	{
+//		file = ft_array_el(array, i);
+//		buffer_add_line(file, &ls);
+//		ft_buffer_clean(ls.buff);
+//		i++;
+//	}
+//	printf("%d \n", strcmp(tt, ls.buff->data));
+//	ft_buffer_clean(ls.buff);
 
 }
 
+
+void test_init_t_ls()
+{
+	t_ls ls;
+
+	init_t_ls("/Users/adpusel", &ls);
+	if (strcmp(ls.path, "/Users/adpusel") || ls.nb_elements != 43)
+		ft_test_error("init ls 1");
+}
+
+// display with column
+
+
 void main_test()
 {
-//	test_premission();
+
+//	utils_fill_line("/Users/adpusel", ".", "tat");
+//
+//	t_ls ls;
+//	init_t_ls("/Users/adpusel", &ls);
+//	memset(&ls, 0, sizeof(t_ls));
+//	init_t_ls("/Users/adpusel", &ls);
+//	build_files_array(&ls);
+//	ft_ls_sort(&ls);
+//	buffer_tab(&ls);
+//	ft_buffer_clean(ls.buff);
+
+
+	//	test_premission();
 //	test_lstat();
 //	test_fill_line();
-	test_loop_directory();
-
+//	test_loop_directory();
+//	test_init_t_ls();
 
 //	printf("%d \n", ft_read_directory("./aeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoe/aeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoe/aeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoe/aeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoe", NULL));
 //	perror("tat");

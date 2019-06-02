@@ -13,7 +13,7 @@ add_library(ft_ls__lib STATIC
         ${SOURCES_FILES_2}
         ${SOURCES_FILES_3}
         ${SOURCES_FILES_4}
-        ${includes} src/ft_ls_extract.c src/ft_ls_fill_lslink.c src/ft_ls_main.c)
+        ${includes} src/ft_ls_lstat_extracting.c src/ft_ls_array.c src/ft_ls_main.c src/ft_ls_sorting.c src/ft_ls_print.c src/src_2/ft_ls_build_array.c src/src_2/ft_ls_main_2.c)
 
 #*------------------------------------*\
 #    link avec les lib

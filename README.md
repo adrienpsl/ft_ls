@@ -91,6 +91,8 @@ et voila ! :)
 
 
 
-
+// 1 build_sorted_array
+    X - compte le nb d'element et init le tab avec 
+    X - loop sur le tab d'element et fill le tab
 
 

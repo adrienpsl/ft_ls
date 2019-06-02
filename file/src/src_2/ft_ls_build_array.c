@@ -12,9 +12,12 @@
 
 #include "ft_ls.h"
 
-int ft_ls_option_parse(char *arg_str, t_ls *ls)
-{
-	return ft_io_catch_options(arg_str, "Rlart", &ls->options);
-}
+// fonction qui compte le nombre d'element dont j'ai besoin
 
 
+// fonction qui test les file, take les information et les add dans ls_2
+
+// function that
+
+
+// function main qui organise tout ca

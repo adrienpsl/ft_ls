@@ -1,339 +1,87 @@
-dr-xr-xr-x   3 root     wheel               4638 May 28 07:12 .
-dr-xr-xr-x   3 root     wheel               4608 May 28 07:12 .
-drwxr-xr-x  29 root     wheel                928 May 23 10:45 ..
-crw-------   1 root     wheel           18,    1 May 28 07:12 afsc_type5
-crw-------   1 root     wheel           10,    0 May 28 07:12 auditpipe
-crw-r--r--   1 root     wheel            9,    4 May 28 07:12 auditsessions
-crw-------   1 root     wheel           31,    0 May 28 07:12 autofs
-crw-------   1 root     wheel           35,    0 May 28 07:12 autofs_control
-crw-rw-rw-   1 root     wheel           34,  145 May 28 07:12 autofs_homedirmounter
-crw-rw-rw-   1 root     wheel           33,  145 May 28 07:12 autofs_notrigger
-crw-rw-rw-   1 root     wheel           32, 4933 May 28 07:12 autofs_nowait
-crw-------   1 root     wheel           23,    0 May 28 07:12 bpf0
-crw-------   1 root     wheel           23,    0 May 28 07:12 bpf0
-crw-------   1 root     wheel           23,    1 May 28 07:12 bpf1
-crw-------   1 root     wheel           23,    2 May 31 12:31 bpf2
-crw-------   1 root     wheel           23,    3 May 31 12:31 bpf3
-crw-------   1 root     wheel           23,    4 May 30 05:24 bpf4
-crw-------   1 adpusel  staff            0,    0 May 28 07:12 console
-crw-rw-rw-   1 root     wheel           20,    5 May 28 07:12 cu.BeatsSolo3deAdrien-SPPS-2
-crw-rw-rw-   1 root     wheel           20,    3 May 28 07:12 cu.BeatsSolo3deAdrien-Wire-4
-crw-rw-rw-   1 root     wheel           20,    1 May 28 07:12 cu.Bluetooth-Incoming-Port
-brw-r-----   1 root     operator         1,    0 May 28 07:12 disk0
-brw-r-----   1 root     operator         1,    1 May 28 07:12 disk0s1
-brw-r-----   1 root     operator         1,    2 May 28 07:12 disk0s2
-brw-r-----   1 root     operator         1,    3 May 28 07:12 disk1
-brw-r-----   1 root     operator         1,    4 May 28 07:12 disk1s1
-brw-r-----   1 root     operator         1,    6 May 28 07:12 disk1s2
-brw-r-----   1 root     operator         1,    5 May 28 07:12 disk1s3
-brw-r-----   1 root     operator         1,    7 May 28 07:12 disk1s4
-br--r-----   1 adpusel  staff            1,    8 May 30 15:27 disk2
-br--r-----   1 adpusel  staff            1,    9 May 30 15:27 disk2s1
-crw-rw-rw-   1 root     wheel           24,   20 May 28 07:12 dtrace
-crw-rw-rw-   1 root     wheel           25,    0 May 28 07:12 dtracehelper
-crw-rw-rw-   1 root     wheel            0,    0 May 28 07:12 fbt
-dr-xr-xr-x   1 root     wheel                  0 May 28 07:12 fd
-crw-r--r--   1 root     wheel           13,    0 May 28 07:12 fsevents
-crw-rw-rw-   1 root     wheel           21,   17 Jun  1 20:30 io8log
-cr--r--r--   1 root     wheel           21,   14 May 28 07:12 io8logmt
-crw-rw-rw-   1 root     wheel           21,   15 Jun  1 22:00 io8logtemp
-crw-------   1 root     wheel            6,    0 May 28 07:12 klog
-crw-rw-rw-   1 root     wheel            0,    0 May 28 07:12 lockstat
-crw-rw-rw-   1 root     wheel            0,    0 May 28 07:12 machtrace
-crw-rw-rw-   1 root     wheel            3,    2 Jun  1 22:01 null
-crw-------   1 root     wheel            7,    0 May 28 07:12 oslog
-crw-------   1 root     wheel            8,    0 May 28 07:12 oslog_stream
-crw-------   1 root     wheel           11,    0 May 28 07:12 pf
-crw-------   1 root     wheel           11,    1 May 28 07:12 pfm
-crw-rw-rw-   1 root     wheel            0,    0 May 28 07:12 profile
-crw-rw-rw-   1 root     tty             15,    4 Jun  1 21:44 ptmx
-crw-rw-rw-   1 root     wheel            5,    0 May 28 07:12 ptyp0
-crw-rw-rw-   1 root     wheel            5,    1 May 28 07:12 ptyp1
-crw-rw-rw-   1 root     wheel            5,    2 May 28 07:12 ptyp2
-crw-rw-rw-   1 root     wheel            5,    3 May 28 07:12 ptyp3
-crw-rw-rw-   1 root     wheel            5,    4 May 28 07:12 ptyp4
-crw-rw-rw-   1 root     wheel            5,    5 May 28 07:12 ptyp5
-crw-rw-rw-   1 root     wheel            5,    6 May 28 07:12 ptyp6
-crw-rw-rw-   1 root     wheel            5,    7 May 28 07:12 ptyp7
-crw-rw-rw-   1 root     wheel            5,    8 May 28 07:12 ptyp8
-crw-rw-rw-   1 root     wheel            5,    9 May 28 07:12 ptyp9
-crw-rw-rw-   1 root     wheel            5,   10 May 28 07:12 ptypa
-crw-rw-rw-   1 root     wheel            5,   11 May 28 07:12 ptypb
-crw-rw-rw-   1 root     wheel            5,   12 May 28 07:12 ptypc
-crw-rw-rw-   1 root     wheel            5,   13 May 28 07:12 ptypd
-crw-rw-rw-   1 root     wheel            5,   14 May 28 07:12 ptype
-crw-rw-rw-   1 root     wheel            5,   15 May 28 07:12 ptypf
-crw-rw-rw-   1 root     wheel            5,   16 May 28 07:12 ptyq0
-crw-rw-rw-   1 root     wheel            5,   17 May 28 07:12 ptyq1
-crw-rw-rw-   1 root     wheel            5,   18 May 28 07:12 ptyq2
-crw-rw-rw-   1 root     wheel            5,   19 May 28 07:12 ptyq3
-crw-rw-rw-   1 root     wheel            5,   20 May 28 07:12 ptyq4
-crw-rw-rw-   1 root     wheel            5,   21 May 28 07:12 ptyq5
-crw-rw-rw-   1 root     wheel            5,   22 May 28 07:12 ptyq6
-crw-rw-rw-   1 root     wheel            5,   23 May 28 07:12 ptyq7
-crw-rw-rw-   1 root     wheel            5,   24 May 28 07:12 ptyq8
-crw-rw-rw-   1 root     wheel            5,   25 May 28 07:12 ptyq9
-crw-rw-rw-   1 root     wheel            5,   26 May 28 07:12 ptyqa
-crw-rw-rw-   1 root     wheel            5,   27 May 28 07:12 ptyqb
-crw-rw-rw-   1 root     wheel            5,   28 May 28 07:12 ptyqc
-crw-rw-rw-   1 root     wheel            5,   29 May 28 07:12 ptyqd
-crw-rw-rw-   1 root     wheel            5,   30 May 28 07:12 ptyqe
-crw-rw-rw-   1 root     wheel            5,   31 May 28 07:12 ptyqf
-crw-rw-rw-   1 root     wheel            5,   32 May 28 07:12 ptyr0
-crw-rw-rw-   1 root     wheel            5,   33 May 28 07:12 ptyr1
-crw-rw-rw-   1 root     wheel            5,   34 May 28 07:12 ptyr2
-crw-rw-rw-   1 root     wheel            5,   35 May 28 07:12 ptyr3
-crw-rw-rw-   1 root     wheel            5,   36 May 28 07:12 ptyr4
-crw-rw-rw-   1 root     wheel            5,   37 May 28 07:12 ptyr5
-crw-rw-rw-   1 root     wheel            5,   38 May 28 07:12 ptyr6
-crw-rw-rw-   1 root     wheel            5,   39 May 28 07:12 ptyr7
-crw-rw-rw-   1 root     wheel            5,   40 May 28 07:12 ptyr8
-crw-rw-rw-   1 root     wheel            5,   41 May 28 07:12 ptyr9
-crw-rw-rw-   1 root     wheel            5,   42 May 28 07:12 ptyra
-crw-rw-rw-   1 root     wheel            5,   43 May 28 07:12 ptyrb
-crw-rw-rw-   1 root     wheel            5,   44 May 28 07:12 ptyrc
-crw-rw-rw-   1 root     wheel            5,   45 May 28 07:12 ptyrd
-crw-rw-rw-   1 root     wheel            5,   46 May 28 07:12 ptyre
-crw-rw-rw-   1 root     wheel            5,   47 May 28 07:12 ptyrf
-crw-rw-rw-   1 root     wheel            5,   48 May 28 07:12 ptys0
-crw-rw-rw-   1 root     wheel            5,   49 May 28 07:12 ptys1
-crw-rw-rw-   1 root     wheel            5,   50 May 28 07:12 ptys2
-crw-rw-rw-   1 root     wheel            5,   51 May 28 07:12 ptys3
-crw-rw-rw-   1 root     wheel            5,   52 May 28 07:12 ptys4
-crw-rw-rw-   1 root     wheel            5,   53 May 28 07:12 ptys5
-crw-rw-rw-   1 root     wheel            5,   54 May 28 07:12 ptys6
-crw-rw-rw-   1 root     wheel            5,   55 May 28 07:12 ptys7
-crw-rw-rw-   1 root     wheel            5,   56 May 28 07:12 ptys8
-crw-rw-rw-   1 root     wheel            5,   57 May 28 07:12 ptys9
-crw-rw-rw-   1 root     wheel            5,   58 May 28 07:12 ptysa
-crw-rw-rw-   1 root     wheel            5,   59 May 28 07:12 ptysb
-crw-rw-rw-   1 root     wheel            5,   60 May 28 07:12 ptysc
-crw-rw-rw-   1 root     wheel            5,   61 May 28 07:12 ptysd
-crw-rw-rw-   1 root     wheel            5,   62 May 28 07:12 ptyse
-crw-rw-rw-   1 root     wheel            5,   63 May 28 07:12 ptysf
-crw-rw-rw-   1 root     wheel            5,   64 May 28 07:12 ptyt0
-crw-rw-rw-   1 root     wheel            5,   65 May 28 07:12 ptyt1
-crw-rw-rw-   1 root     wheel            5,   66 May 28 07:12 ptyt2
-crw-rw-rw-   1 root     wheel            5,   67 May 28 07:12 ptyt3
-crw-rw-rw-   1 root     wheel            5,   68 May 28 07:12 ptyt4
-crw-rw-rw-   1 root     wheel            5,   69 May 28 07:12 ptyt5
-crw-rw-rw-   1 root     wheel            5,   70 May 28 07:12 ptyt6
-crw-rw-rw-   1 root     wheel            5,   71 May 28 07:12 ptyt7
-crw-rw-rw-   1 root     wheel            5,   72 May 28 07:12 ptyt8
-crw-rw-rw-   1 root     wheel            5,   73 May 28 07:12 ptyt9
-crw-rw-rw-   1 root     wheel            5,   74 May 28 07:12 ptyta
-crw-rw-rw-   1 root     wheel            5,   75 May 28 07:12 ptytb
-crw-rw-rw-   1 root     wheel            5,   76 May 28 07:12 ptytc
-crw-rw-rw-   1 root     wheel            5,   77 May 28 07:12 ptytd
-crw-rw-rw-   1 root     wheel            5,   78 May 28 07:12 ptyte
-crw-rw-rw-   1 root     wheel            5,   79 May 28 07:12 ptytf
-crw-rw-rw-   1 root     wheel            5,   80 May 28 07:12 ptyu0
-crw-rw-rw-   1 root     wheel            5,   81 May 28 07:12 ptyu1
-crw-rw-rw-   1 root     wheel            5,   82 May 28 07:12 ptyu2
-crw-rw-rw-   1 root     wheel            5,   83 May 28 07:12 ptyu3
-crw-rw-rw-   1 root     wheel            5,   84 May 28 07:12 ptyu4
-crw-rw-rw-   1 root     wheel            5,   85 May 28 07:12 ptyu5
-crw-rw-rw-   1 root     wheel            5,   86 May 28 07:12 ptyu6
-crw-rw-rw-   1 root     wheel            5,   87 May 28 07:12 ptyu7
-crw-rw-rw-   1 root     wheel            5,   88 May 28 07:12 ptyu8
-crw-rw-rw-   1 root     wheel            5,   89 May 28 07:12 ptyu9
-crw-rw-rw-   1 root     wheel            5,   90 May 28 07:12 ptyua
-crw-rw-rw-   1 root     wheel            5,   91 May 28 07:12 ptyub
-crw-rw-rw-   1 root     wheel            5,   92 May 28 07:12 ptyuc
-crw-rw-rw-   1 root     wheel            5,   93 May 28 07:12 ptyud
-crw-rw-rw-   1 root     wheel            5,   94 May 28 07:12 ptyue
-crw-rw-rw-   1 root     wheel            5,   95 May 28 07:12 ptyuf
-crw-rw-rw-   1 root     wheel            5,   96 May 28 07:12 ptyv0
-crw-rw-rw-   1 root     wheel            5,   97 May 28 07:12 ptyv1
-crw-rw-rw-   1 root     wheel            5,   98 May 28 07:12 ptyv2
-crw-rw-rw-   1 root     wheel            5,   99 May 28 07:12 ptyv3
-crw-rw-rw-   1 root     wheel            5,  100 May 28 07:12 ptyv4
-crw-rw-rw-   1 root     wheel            5,  101 May 28 07:12 ptyv5
-crw-rw-rw-   1 root     wheel            5,  102 May 28 07:12 ptyv6
-crw-rw-rw-   1 root     wheel            5,  103 May 28 07:12 ptyv7
-crw-rw-rw-   1 root     wheel            5,  104 May 28 07:12 ptyv8
-crw-rw-rw-   1 root     wheel            5,  105 May 28 07:12 ptyv9
-crw-rw-rw-   1 root     wheel            5,  106 May 28 07:12 ptyva
-crw-rw-rw-   1 root     wheel            5,  107 May 28 07:12 ptyvb
-crw-rw-rw-   1 root     wheel            5,  108 May 28 07:12 ptyvc
-crw-rw-rw-   1 root     wheel            5,  109 May 28 07:12 ptyvd
-crw-rw-rw-   1 root     wheel            5,  110 May 28 07:12 ptyve
-crw-rw-rw-   1 root     wheel            5,  111 May 28 07:12 ptyvf
-crw-rw-rw-   1 root     wheel            5,  112 May 28 07:12 ptyw0
-crw-rw-rw-   1 root     wheel            5,  113 May 28 07:12 ptyw1
-crw-rw-rw-   1 root     wheel            5,  114 May 28 07:12 ptyw2
-crw-rw-rw-   1 root     wheel            5,  115 May 28 07:12 ptyw3
-crw-rw-rw-   1 root     wheel            5,  116 May 28 07:12 ptyw4
-crw-rw-rw-   1 root     wheel            5,  117 May 28 07:12 ptyw5
-crw-rw-rw-   1 root     wheel            5,  118 May 28 07:12 ptyw6
-crw-rw-rw-   1 root     wheel            5,  119 May 28 07:12 ptyw7
-crw-rw-rw-   1 root     wheel            5,  120 May 28 07:12 ptyw8
-crw-rw-rw-   1 root     wheel            5,  121 May 28 07:12 ptyw9
-crw-rw-rw-   1 root     wheel            5,  122 May 28 07:12 ptywa
-crw-rw-rw-   1 root     wheel            5,  123 May 28 07:12 ptywb
-crw-rw-rw-   1 root     wheel            5,  124 May 28 07:12 ptywc
-crw-rw-rw-   1 root     wheel            5,  125 May 28 07:12 ptywd
-crw-rw-rw-   1 root     wheel            5,  126 May 28 07:12 ptywe
-crw-rw-rw-   1 root     wheel            5,  127 May 28 07:12 ptywf
-crw-rw-rw-   1 root     wheel           14,    0 May 28 07:12 random
-crw-r-----   1 root     operator         1,    0 May 28 07:12 rdisk0
-crw-r-----   1 root     operator         1,    1 May 28 07:12 rdisk0s1
-crw-r-----   1 root     operator         1,    2 May 28 07:12 rdisk0s2
-crw-r-----   1 root     operator         1,    3 May 28 07:12 rdisk1
-crw-r-----   1 root     operator         1,    4 May 28 07:12 rdisk1s1
-crw-r-----   1 root     operator         1,    6 May 28 07:12 rdisk1s2
-crw-r-----   1 root     operator         1,    5 May 28 07:12 rdisk1s3
-crw-r-----   1 root     operator         1,    7 May 28 07:12 rdisk1s4
-cr--r-----   1 adpusel  staff            1,    8 May 30 15:27 rdisk2
-cr--r-----   1 adpusel  staff            1,    9 May 30 15:27 rdisk2s1
-crw-rw-rw-   1 root     wheel            0,    0 May 28 07:12 sdt
-lr-xr-xr-x   1 root     wheel                  0 May 28 07:12 stderr -> fd/2
-lr-xr-xr-x   1 root     wheel                  0 May 28 07:12 stdin -> fd/0
-lr-xr-xr-x   1 root     wheel                  0 May 28 07:12 stdout -> fd/1
-crw-rw-rw-   1 root     wheel            0,    0 May 28 07:12 systrace
-crw-rw-rw-   1 root     wheel            2,    0 Jun  1 20:47 tty
-crw-rw-rw-   1 root     wheel           20,    4 May 28 07:12 tty.BeatsSolo3deAdrien-SPPS-2
-crw-rw-rw-   1 root     wheel           20,    2 May 28 07:12 tty.BeatsSolo3deAdrien-Wire-4
-crw-rw-rw-   1 root     wheel           20,    0 May 28 07:12 tty.Bluetooth-Incoming-Port
-crw-rw-rw-   1 root     wheel            4,    0 May 28 07:12 ttyp0
-crw-rw-rw-   1 root     wheel            4,    1 May 28 07:12 ttyp1
-crw-rw-rw-   1 root     wheel            4,    2 May 28 07:12 ttyp2
-crw-rw-rw-   1 root     wheel            4,    3 May 28 07:12 ttyp3
-crw-rw-rw-   1 root     wheel            4,    4 May 28 07:12 ttyp4
-crw-rw-rw-   1 root     wheel            4,    5 May 28 07:12 ttyp5
-crw-rw-rw-   1 root     wheel            4,    6 May 28 07:12 ttyp6
-crw-rw-rw-   1 root     wheel            4,    7 May 28 07:12 ttyp7
-crw-rw-rw-   1 root     wheel            4,    8 May 28 07:12 ttyp8
-crw-rw-rw-   1 root     wheel            4,    9 May 28 07:12 ttyp9
-crw-rw-rw-   1 root     wheel            4,   10 May 28 07:12 ttypa
-crw-rw-rw-   1 root     wheel            4,   11 May 28 07:12 ttypb
-crw-rw-rw-   1 root     wheel            4,   12 May 28 07:12 ttypc
-crw-rw-rw-   1 root     wheel            4,   13 May 28 07:12 ttypd
-crw-rw-rw-   1 root     wheel            4,   14 May 28 07:12 ttype
-crw-rw-rw-   1 root     wheel            4,   15 May 28 07:12 ttypf
-crw-rw-rw-   1 root     wheel            4,   16 May 28 07:12 ttyq0
-crw-rw-rw-   1 root     wheel            4,   17 May 28 07:12 ttyq1
-crw-rw-rw-   1 root     wheel            4,   18 May 28 07:12 ttyq2
-crw-rw-rw-   1 root     wheel            4,   19 May 28 07:12 ttyq3
-crw-rw-rw-   1 root     wheel            4,   20 May 28 07:12 ttyq4
-crw-rw-rw-   1 root     wheel            4,   21 May 28 07:12 ttyq5
-crw-rw-rw-   1 root     wheel            4,   22 May 28 07:12 ttyq6
-crw-rw-rw-   1 root     wheel            4,   23 May 28 07:12 ttyq7
-crw-rw-rw-   1 root     wheel            4,   24 May 28 07:12 ttyq8
-crw-rw-rw-   1 root     wheel            4,   25 May 28 07:12 ttyq9
-crw-rw-rw-   1 root     wheel            4,   26 May 28 07:12 ttyqa
-crw-rw-rw-   1 root     wheel            4,   27 May 28 07:12 ttyqb
-crw-rw-rw-   1 root     wheel            4,   28 May 28 07:12 ttyqc
-crw-rw-rw-   1 root     wheel            4,   29 May 28 07:12 ttyqd
-crw-rw-rw-   1 root     wheel            4,   30 May 28 07:12 ttyqe
-crw-rw-rw-   1 root     wheel            4,   31 May 28 07:12 ttyqf
-crw-rw-rw-   1 root     wheel            4,   32 May 28 07:12 ttyr0
-crw-rw-rw-   1 root     wheel            4,   33 May 28 07:12 ttyr1
-crw-rw-rw-   1 root     wheel            4,   34 May 28 07:12 ttyr2
-crw-rw-rw-   1 root     wheel            4,   35 May 28 07:12 ttyr3
-crw-rw-rw-   1 root     wheel            4,   36 May 28 07:12 ttyr4
-crw-rw-rw-   1 root     wheel            4,   37 May 28 07:12 ttyr5
-crw-rw-rw-   1 root     wheel            4,   38 May 28 07:12 ttyr6
-crw-rw-rw-   1 root     wheel            4,   39 May 28 07:12 ttyr7
-crw-rw-rw-   1 root     wheel            4,   40 May 28 07:12 ttyr8
-crw-rw-rw-   1 root     wheel            4,   41 May 28 07:12 ttyr9
-crw-rw-rw-   1 root     wheel            4,   42 May 28 07:12 ttyra
-crw-rw-rw-   1 root     wheel            4,   43 May 28 07:12 ttyrb
-crw-rw-rw-   1 root     wheel            4,   44 May 28 07:12 ttyrc
-crw-rw-rw-   1 root     wheel            4,   45 May 28 07:12 ttyrd
-crw-rw-rw-   1 root     wheel            4,   46 May 28 07:12 ttyre
-crw-rw-rw-   1 root     wheel            4,   47 May 28 07:12 ttyrf
-crw-rw-rw-   1 root     wheel            4,   48 May 28 07:12 ttys0
-crw--w----   1 adpusel  tty             16,    0 Jun  1 22:01 ttys000
-crw--w----   1 adpusel  tty             16,    1 Jun  1 20:50 ttys001
-crw--w----   1 adpusel  tty             16,    2 Jun  1 22:01 ttys002
-crw--w----   1 adpusel  tty             16,    3 Jun  1 22:01 ttys003
-crw--w----   1 adpusel  tty             16,    5 May 31 19:44 ttys005
-crw--w----   1 adpusel  tty             16,    7 May 31 19:43 ttys007
-crw--w----   1 adpusel  tty             16,    8 May 31 19:36 ttys008
-crw--w----   1 adpusel  tty             16,    9 Jun  1 21:43 ttys009
-crw--w----   1 adpusel  tty             16,   10 Jun  1 20:54 ttys010
-crw--w----   1 adpusel  tty             16,   11 Jun  1 20:54 ttys011
-crw-rw-rw-   1 root     wheel            4,   49 May 28 07:12 ttys1
-crw-rw-rw-   1 root     wheel            4,   50 May 28 07:12 ttys2
-crw-rw-rw-   1 root     wheel            4,   51 May 28 07:12 ttys3
-crw-rw-rw-   1 root     wheel            4,   52 May 28 07:12 ttys4
-crw-rw-rw-   1 root     wheel            4,   53 May 28 07:12 ttys5
-crw-rw-rw-   1 root     wheel            4,   54 May 28 07:12 ttys6
-crw-rw-rw-   1 root     wheel            4,   55 May 28 07:12 ttys7
-crw-rw-rw-   1 root     wheel            4,   56 May 28 07:12 ttys8
-crw-rw-rw-   1 root     wheel            4,   57 May 28 07:12 ttys9
-crw-rw-rw-   1 root     wheel            4,   58 May 28 07:12 ttysa
-crw-rw-rw-   1 root     wheel            4,   59 May 28 07:12 ttysb
-crw-rw-rw-   1 root     wheel            4,   60 May 28 07:12 ttysc
-crw-rw-rw-   1 root     wheel            4,   61 May 28 07:12 ttysd
-crw-rw-rw-   1 root     wheel            4,   62 May 28 07:12 ttyse
-crw-rw-rw-   1 root     wheel            4,   63 May 28 07:12 ttysf
-crw-rw-rw-   1 root     wheel            4,   64 May 28 07:12 ttyt0
-crw-rw-rw-   1 root     wheel            4,   65 May 28 07:12 ttyt1
-crw-rw-rw-   1 root     wheel            4,   66 May 28 07:12 ttyt2
-crw-rw-rw-   1 root     wheel            4,   67 May 28 07:12 ttyt3
-crw-rw-rw-   1 root     wheel            4,   68 May 28 07:12 ttyt4
-crw-rw-rw-   1 root     wheel            4,   69 May 28 07:12 ttyt5
-crw-rw-rw-   1 root     wheel            4,   70 May 28 07:12 ttyt6
-crw-rw-rw-   1 root     wheel            4,   71 May 28 07:12 ttyt7
-crw-rw-rw-   1 root     wheel            4,   72 May 28 07:12 ttyt8
-crw-rw-rw-   1 root     wheel            4,   73 May 28 07:12 ttyt9
-crw-rw-rw-   1 root     wheel            4,   74 May 28 07:12 ttyta
-crw-rw-rw-   1 root     wheel            4,   75 May 28 07:12 ttytb
-crw-rw-rw-   1 root     wheel            4,   76 May 28 07:12 ttytc
-crw-rw-rw-   1 root     wheel            4,   77 May 28 07:12 ttytd
-crw-rw-rw-   1 root     wheel            4,   78 May 28 07:12 ttyte
-crw-rw-rw-   1 root     wheel            4,   79 May 28 07:12 ttytf
-crw-rw-rw-   1 root     wheel            4,   80 May 28 07:12 ttyu0
-crw-rw-rw-   1 root     wheel            4,   81 May 28 07:12 ttyu1
-crw-rw-rw-   1 root     wheel            4,   82 May 28 07:12 ttyu2
-crw-rw-rw-   1 root     wheel            4,   83 May 28 07:12 ttyu3
-crw-rw-rw-   1 root     wheel            4,   84 May 28 07:12 ttyu4
-crw-rw-rw-   1 root     wheel            4,   85 May 28 07:12 ttyu5
-crw-rw-rw-   1 root     wheel            4,   86 May 28 07:12 ttyu6
-crw-rw-rw-   1 root     wheel            4,   87 May 28 07:12 ttyu7
-crw-rw-rw-   1 root     wheel            4,   88 May 28 07:12 ttyu8
-crw-rw-rw-   1 root     wheel            4,   89 May 28 07:12 ttyu9
-crw-rw-rw-   1 root     wheel            4,   90 May 28 07:12 ttyua
-crw-rw-rw-   1 root     wheel            4,   91 May 28 07:12 ttyub
-crw-rw-rw-   1 root     wheel            4,   92 May 28 07:12 ttyuc
-crw-rw-rw-   1 root     wheel            4,   93 May 28 07:12 ttyud
-crw-rw-rw-   1 root     wheel            4,   94 May 28 07:12 ttyue
-crw-rw-rw-   1 root     wheel            4,   95 May 28 07:12 ttyuf
-crw-rw-rw-   1 root     wheel            4,   96 May 28 07:12 ttyv0
-crw-rw-rw-   1 root     wheel            4,   97 May 28 07:12 ttyv1
-crw-rw-rw-   1 root     wheel            4,   98 May 28 07:12 ttyv2
-crw-rw-rw-   1 root     wheel            4,   99 May 28 07:12 ttyv3
-crw-rw-rw-   1 root     wheel            4,  100 May 28 07:12 ttyv4
-crw-rw-rw-   1 root     wheel            4,  101 May 28 07:12 ttyv5
-crw-rw-rw-   1 root     wheel            4,  102 May 28 07:12 ttyv6
-crw-rw-rw-   1 root     wheel            4,  103 May 28 07:12 ttyv7
-crw-rw-rw-   1 root     wheel            4,  104 May 28 07:12 ttyv8
-crw-rw-rw-   1 root     wheel            4,  105 May 28 07:12 ttyv9
-crw-rw-rw-   1 root     wheel            4,  106 May 28 07:12 ttyva
-crw-rw-rw-   1 root     wheel            4,  107 May 28 07:12 ttyvb
-crw-rw-rw-   1 root     wheel            4,  108 May 28 07:12 ttyvc
-crw-rw-rw-   1 root     wheel            4,  109 May 28 07:12 ttyvd
-crw-rw-rw-   1 root     wheel            4,  110 May 28 07:12 ttyve
-crw-rw-rw-   1 root     wheel            4,  111 May 28 07:12 ttyvf
-crw-rw-rw-   1 root     wheel            4,  112 May 28 07:12 ttyw0
-crw-rw-rw-   1 root     wheel            4,  113 May 28 07:12 ttyw1
-crw-rw-rw-   1 root     wheel            4,  114 May 28 07:12 ttyw2
-crw-rw-rw-   1 root     wheel            4,  115 May 28 07:12 ttyw3
-crw-rw-rw-   1 root     wheel            4,  116 May 28 07:12 ttyw4
-crw-rw-rw-   1 root     wheel            4,  117 May 28 07:12 ttyw5
-crw-rw-rw-   1 root     wheel            4,  118 May 28 07:12 ttyw6
-crw-rw-rw-   1 root     wheel            4,  119 May 28 07:12 ttyw7
-crw-rw-rw-   1 root     wheel            4,  120 May 28 07:12 ttyw8
-crw-rw-rw-   1 root     wheel            4,  121 May 28 07:12 ttyw9
-crw-rw-rw-   1 root     wheel            4,  122 May 28 07:12 ttywa
-crw-rw-rw-   1 root     wheel            4,  123 May 28 07:12 ttywb
-crw-rw-rw-   1 root     wheel            4,  124 May 28 07:12 ttywc
-crw-rw-rw-   1 root     wheel            4,  125 May 28 07:12 ttywd
-crw-rw-rw-   1 root     wheel            4,  126 May 28 07:12 ttywe
-crw-rw-rw-   1 root     wheel            4,  127 May 28 07:12 ttywf
-crw-rw-rw-   1 root     wheel           22,    0 May 28 07:12 uart.BLTH
-crw-rw-rw-   1 root     wheel           14,    1 May 28 07:12 urandom
-crw-rw----   1 root     _windowserver   19,    0 May 28 07:12 xcpm
-crw-rw-rw-   1 root     wheel            3,    3 May 28 07:12 zero
+drwxr-xr-x+   43 adpusel  staff   1376 Jun  2 15:38 .
+drwxr-xr-x     5 root     admin    160 Apr 16 17:51 ..
+-r--------     1 adpusel  staff      7 Apr 16 17:54 .CFUserTextEncoding
+-rw-r--r--@    1 adpusel  staff  18436 Jun  1 21:31 .DS_Store
+drwx------    66 adpusel  staff   2112 May 28 09:07 .Trash
+drwxr-xr-x     3 adpusel  staff     96 May  6 11:47 .android
+drwxr-xr-x    11 adpusel  staff    352 May  6 15:59 .atom
+-rw-------     1 adpusel  staff   7182 Jun  1 21:42 .bash_history
+drwxr-xr-x     3 adpusel  staff     96 May 22 20:37 .cache
+drwx------     3 adpusel  staff     96 Apr 16 21:43 .config
+drwx------     3 adpusel  staff     96 Apr 20 09:52 .cups
+-rw-------     1 adpusel  staff     25 May  6 18:48 .dbshell
+-rw-r--r--     1 adpusel  staff     80 Apr 17 19:47 .gitconfig
+-rw-------     1 adpusel  staff      0 May  6 15:04 .mongorc.js
+drwxr-xr-x     5 adpusel  staff    160 May  4 13:28 .node-gyp
+drwxr-xr-x  1272 adpusel  staff  40704 May  6 20:31 .npm
+-rw-------     1 adpusel  staff     70 Apr 23 14:03 .npmrc
+drwxr-xr-x    27 adpusel  staff    864 May  3 11:34 .nvm
+drwxr-xr-x    18 adpusel  staff    576 May 14 10:07 .oh-my-zsh
+drwx------     6 adpusel  staff    192 Apr 16 21:31 .ssh
+-rw-------     1 adpusel  staff  13273 May 25 22:56 .viminfo
+drwxr-xr-x     7 adpusel  staff    224 May 24 20:41 .yarn
+-rw-r--r--     1 adpusel  staff    116 May 24 20:41 .yarnrc
+-rw-r--r--     1 adpusel  staff  41155 May 25 09:21 .zcompdump
+-rw-r--r--     1 adpusel  staff  40509 Apr 16 20:46 .zcompdump-adpusel’s MacBook Pro-5.3
+-rw-------     1 adpusel  staff  44766 Jun  2 15:38 .zsh_history
+-rw-r--r--     1 adpusel  staff   3750 May 24 20:41 .zshrc
+drwx------@    5 adpusel  staff    160 Jun  1 11:42 Applications
+drwx------+    8 adpusel  staff    256 May 29 20:17 Desktop
+drwx------+    6 adpusel  staff    192 May 28 08:44 Documents
+drwx------+   61 adpusel  staff   1952 May 31 21:38 Downloads
+drwx------@   17 adpusel  staff    544 May 28 08:52 Google Drive
+drwx------+   66 adpusel  staff   2112 May 23 09:32 Library
+drwx------+    3 adpusel  staff     96 Apr 16 17:51 Movies
+drwx------+    4 adpusel  staff    128 Apr 17 22:53 Music
+drwx------+    3 adpusel  staff     96 Apr 16 17:51 Pictures
+drwxr-xr-x+    4 adpusel  staff    128 Apr 16 17:51 Public
+drwxr-xr-x    16 adpusel  staff    512 May 25 22:00 code
+drwxr-xr-x    21 adpusel  staff    672 May  6 14:58 data
+drwxr-xr-x    12 adpusel  staff    384 Apr 16 21:31 setting_software
+drwxr-xr-x     6 adpusel  staff    192 May  3 11:12 squad
+drwxr-xr-x    18 adpusel  staff    576 May  8 12:41 testAngular
+drwxr-xr-x    16 adpusel  staff    512 Apr 25 13:15 udemy-downloader-gui
+
+drwxr-xr-x+   43 adpusel  staff   1376 Jun  2 15:38 .
+drwxr-xr-x     5 root     admin    160 Apr 16 17:51 ..
+-r--------     1 adpusel  staff      7 Apr 16 17:54 .CFUserTextEncoding
+-rw-r--r--@    1 adpusel  staff  18436 Jun  1 21:31 .DS_Store
+drwx------    66 adpusel  staff   2112 May 28 09:07 .Trash
+drwxr-xr-x     3 adpusel  staff     96 May  6 11:47 .android
+drwxr-xr-x    11 adpusel  staff    352 May  6 15:59 .atom
+-rw-------     1 adpusel  staff   7182 Jun  1 21:42 .bash_history
+drwxr-xr-x     3 adpusel  staff     96 May 22 20:37 .cache
+drwx------     3 adpusel  staff     96 Apr 16 21:43 .config
+drwx------     3 adpusel  staff     96 Apr 20 09:52 .cups
+-rw-------     1 adpusel  staff     25 May  6 18:48 .dbshell
+-rw-r--r--     1 adpusel  staff     80 Apr 17 19:47 .gitconfig
+-rw-------     1 adpusel  staff      0 May  6 15:04 .mongorc.js
+drwxr-xr-x     5 adpusel  staff    160 May  4 13:28 .node-gyp
+drwxr-xr-x  1272 adpusel  staff  40704 May  6 20:31 .npm
+-rw-------     1 adpusel  staff     70 Apr 23 14:03 .npmrc
+drwxr-xr-x    27 adpusel  staff    864 May  3 11:34 .nvm
+drwxr-xr-x    18 adpusel  staff    576 May 14 10:07 .oh-my-zsh
+drwx------     6 adpusel  staff    192 Apr 16 21:31 .ssh
+-rw-------     1 adpusel  staff  13273 May 25 22:56 .viminfo
+drwxr-xr-x     7 adpusel  staff    224 May 24 20:41 .yarn
+-rw-r--r--     1 adpusel  staff    116 May 24 20:41 .yarnrc
+-rw-r--r--     1 adpusel  staff  41155 May 25 09:21 .zcompdump
+-rw-r--r--     1 adpusel  staff  40509 Apr 16 20:46 .zcompdump-adpusel’s MacBook Pro-5.3
+-rw-------     1 adpusel  staff  44766 Jun  2 15:38 .zsh_history
+-rw-r--r--     1 adpusel  staff   3750 May 24 20:41 .zshrc
+drwx------@    5 adpusel  staff    160 Jun  1 11:42 Applications
+drwx------+    8 adpusel  staff    256 May 29 20:17 Desktop
+drwx------+    6 adpusel  staff    192 May 28 08:44 Documents
+drwx------+   61 adpusel  staff   1952 May 31 21:38 Downloads
+drwx------@   17 adpusel  staff    544 May 28 08:52 Google Drive
+drwx------@   66 adpusel  staff   2112 May 23 09:32 Library
+drwx------+    3 adpusel  staff     96 Apr 16 17:51 Movies
+drwx------+    4 adpusel  staff    128 Apr 17 22:53 Music
+drwx------+    3 adpusel  staff     96 Apr 16 17:51 Pictures
+drwxr-xr-x+    4 adpusel  staff    128 Apr 16 17:51 Public
+drwxr-xr-x    16 adpusel  staff    512 May 25 22:00 code
+drwxr-xr-x    21 adpusel  staff    672 May  6 14:58 data
+drwxr-xr-x    12 adpusel  staff    384 Apr 16 21:31 setting_software
+drwxr-xr-x     6 adpusel  staff    192 May  3 11:12 squad
+drwxr-xr-x    18 adpusel  staff    576 May  8 12:41 testAngular
+drwxr-xr-x    16 adpusel  staff    512 Apr 25 13:15 udemy-downloader-gui
