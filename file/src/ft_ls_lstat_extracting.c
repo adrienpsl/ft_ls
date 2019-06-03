@@ -12,6 +12,16 @@
 
 #include "ft_ls.h"
 
+
+// TODO : need to get the sticky bit and the setuid/ setguid
+/*
+ * set uid  :
+ * set guid	:
+ * set sicky bit.
+ * le maj se font avec le bit d'execusion actif ou non,
+ *
+ *
+ * */
 static char ft_get_type(const mode_t *st_mode_ptr)
 {
 	const mode_t st_mode = *st_mode_ptr;
@@ -31,8 +41,10 @@ static char ft_get_type(const mode_t *st_mode_ptr)
 		return '-';
 }
 
+// i need the s and the t at the end
 void ft_get_permission(const mode_t *st_mode, char *file_mode)
 {
+	// j'avance vers > pour set up tout les droits avec ma loop
 	file_mode[1] = *st_mode & (unsigned int) S_IRUSR ? 'r' : '-';
 	file_mode[2] = *st_mode & (unsigned int) S_IWUSR ? 'w' : '-';
 	file_mode[3] = *st_mode & (unsigned int) S_IXUSR ? 'x' : '-';
@@ -42,6 +54,8 @@ void ft_get_permission(const mode_t *st_mode, char *file_mode)
 	file_mode[7] = *st_mode & (unsigned int) S_IROTH ? 'r' : '-';
 	file_mode[8] = *st_mode & (unsigned int) S_IWOTH ? 'w' : '-';
 	file_mode[9] = *st_mode & (unsigned int) S_IXOTH ? 'x' : '-';
+
+	// ensuite je set les suid, guid, et sticky bit.
 }
 
 void set_max_length(int witch_size, int *size_array, int nb, char *str)
@@ -73,7 +87,7 @@ int is_directory(char *path)
 	return type == 'd' ? 1 : 0;
 }
 
-int extract_lstat(struct stat *fs, t_file *f, t_ls *ls)
+int extract_lstat(struct stat *fs, t_f *f, t_ls *ls)
 {
 	ft_get_permission(&fs->st_mode, f->file_mode);
 	f->file_mode[0] = ft_get_type(&fs->st_mode);
@@ -82,19 +96,19 @@ int extract_lstat(struct stat *fs, t_file *f, t_ls *ls)
 	f->guid = getgrgid(fs->st_gid)->gr_name;
 	f->size = fs->st_size;
 	f->mtime = fs->st_mtime;
-	set_max_length(FT_LS_HL, ls->size_coll, f->hard_link, NULL);
-	set_max_length(FT_LS_UID, ls->size_coll, 0, f->uid);
-	set_max_length(FT_LS_GUID, ls->size_coll, 0, f->guid);
-	set_max_length(FT_LS_FILE, ls->size_coll, f->size, NULL);
+	set_max_length(FT_LS_____HL, ls->size_coll, f->hard_link, NULL);
+	set_max_length(FT_LS____UID, ls->size_coll, 0, f->uid);
+	set_max_length(FT_LS___GUID, ls->size_coll, 0, f->guid);
+	set_max_length(FT_LS___FILE, ls->size_coll, f->size, NULL);
 	if (FT_ISBLK(fs->st_mode) || FT_ISCHR(fs->st_mode))
 	{
 		f->driver[FT_LS_DRIVER_MAX] = major(fs->st_rdev);
 		f->driver[FT_LS_DRIVER_MIN] = minor(fs->st_rdev);
-		set_max_length(FT_LS_FILE, ls->size_coll,
+		set_max_length(FT_LS___FILE, ls->size_coll,
 					   f->driver[FT_LS_DRIVER_MIN], NULL);
 		set_max_length(FT_LS_DRIVER, ls->size_coll,
 					   f->driver[FT_LS_DRIVER_MAX], NULL);
 	}
-	set_max_length(FT_LS_NAME, ls->size_coll, f->name_size, NULL);
+	set_max_length(FT_LS___NAME, ls->size_coll, f->name_size, NULL);
 	return (0);
 }

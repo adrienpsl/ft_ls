@@ -96,7 +96,7 @@ struct stat { /* when _DARWIN_FEATURE_64_BIT_INODE is NOT defined */
     
     dev_t    st_rdev;   /* device type, for special file inode */
     
-    struct timespec st_atimespec;  /* time of last access */
+    struct timespec `st_atimespec`;  /* time of last access */
     
     struct timespec st_mtimespec;  /* time of last data modification */
     
@@ -355,6 +355,8 @@ ne pas print les fichier . c'est important man !
 
 - tout trier en ordre ascii oui 
 
+-C affichage par colomn
+
 -1, met tout sur une colomne
 
 -A, tt sauf . et .. 
@@ -369,17 +371,46 @@ ne pas print les fichier . c'est important man !
 
 -R      Recursively list subdirectories encountered.
 
+-1 comme le mode avec juste file name
+
+- U pas de sort
+
+- T coupe ou ne coupe pas la date
+
+option c : trie par date de changement de status, affichage de cette date dans -l
+option g : elle ne fait rien
 
 
 
 
 
+do in stats
+// all that options can be store on the same long
+Sort by last modification -t
+Sort by last access date: -u
+Sort by last status change date: -c
+
+Sort by file size: -S
+- n not convert group in str.
+
+do in print
+Show every entry except for current and previous directories: -A
+-g suppress owner
 
 
 
 
 
+l'option -c est modifier en meme temps que l'option -t, car  je dois read mon file pour
+ecrire dedans 
 
+
+
+
+
+- faire les chemin dans mon programme de la data
+- reprendre mes notes car la je ne sais pas ou je vais 
+- 
 
 
 

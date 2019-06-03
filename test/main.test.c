@@ -104,15 +104,15 @@ void test_lstat()
 
 // test le buffer de l, je veux le fill avec mes datas :
 //
-int buffer_add_line(t_file *f, t_ls *l);
+int buffer_add_line(t_f *f, t_ls *l);
 
-int init_lstat(t_file *f, t_ls *l);
+int init_lstat(t_f *f, t_ls *l);
 int utils_fill_line(char *path, char *file_name, char *res)
 {
 	static int test_nb = 0;
 	int ret = 0;
 	size_t size;
-	t_file *file;
+	t_f *file;
 	(void) res;
 
 
@@ -120,7 +120,7 @@ int utils_fill_line(char *path, char *file_name, char *res)
 	ft_str_len(&size, path);
 	t_ls ls;
 	init_t_ls("taat", &ls);
-	ft_array_new(&ls.array, 12, sizeof(t_file));
+	ft_array_new(&ls.array, 12, sizeof(t_f));
 
 	ft_mem_copy(ls.path, path, size);
 	ls.path[size++] = '/';

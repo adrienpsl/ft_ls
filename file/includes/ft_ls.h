@@ -33,6 +33,7 @@
 # include <sys/ttycom.h>
 # include <sys/ioctl.h>
 
+# define FT_STRING_MODE 1
 
 /*
 **    project includes
@@ -46,12 +47,13 @@
 # define FT_ISLNK(m)  (((m) & (unsigned int)S_IFMT) == S_IFLNK)
 # define FT_ISSOCK(m) (((m) & (unsigned int)S_IFMT) == S_IFSOCK)
 
-#define FT_LS_HL 0
-#define FT_LS_UID 1
-#define FT_LS_GUID 2
-#define FT_LS_FILE 3
-#define FT_LS_DRIVER 4
-#define FT_LS_NAME 5
+#define FT_LS_____HL 0
+#define FT_LS____UID 1
+#define FT_LS___GUID 2
+#define FT_LS_DRIVER 3
+#define FT_LS___FILE 4
+#define FT_LS___NAME 5
+#define FT_LS_ARR_SZ 6
 
 # define FT_LS_MAX_FILE 255
 
@@ -61,7 +63,7 @@ typedef struct s_ls
 	struct stat fs;
 	DIR *dir;
 	long options;
-	int size_coll[6];
+	int size_coll[FT_LS_ARR_SZ];
 	long total;
 	char path[PATH_MAX + 1];
 	t_buff *buff;
@@ -80,6 +82,7 @@ typedef struct s_ls_2
 	DIR *dir;
 	t_buff *buff;
 	t_array *array;
+	char file[255];
 } t_ls_2;
 
 # define FT_LS_DRIVER_MIN 0
@@ -100,23 +103,50 @@ typedef struct s_ls_link
 	char file_mode[11];
 	char name[FT_LS_MAX_FILE];
 	char sym_real_file[FT_LS_MAX_FILE];
+} t_f;
+
+typedef struct s_file
+{
+	long sort_data;
+	char name[FT_LS_MAX_FILE];
 } t_file;
+
+
+/*
+**	classic option
+** 	# define FT_LS_O_R	0001
+**	# define FT_LS_O_l	0002
+**	# define FT_LS_O_a	0004
+**	# define FT_LS_O_r	0007
+**	# define FT_LS_O_t	0010
+**	# define FT_LS_O_n	0020
+**	# define FT_LS_O_c	0040
+**	# define FT_LS_O_S	0070
+**	# define FT_LS_O_g	0100
+*/
+
 
 /*
 **	option
 */
-# define FT_LS_RECURSION    1
-# define FT_LS_LONG            (1 << 1)
-# define FT_LS_ALL            (1 << 2)
-# define FT_LS_REVERSE        (1 << 3)
-# define FT_LS_TIME            (1 << 4)
+# define FT_LS_O_R    (1 << 0)
+# define FT_LS_O_l    (1 << 1)
+# define FT_LS_O_a    (1 << 2)
+# define FT_LS_O_r    (1 << 3)
+# define FT_LS_O_t    (1 << 4)
+# define FT_LS_O_n    (1 << 5)
+# define FT_LS_O_c    (1 << 6)
+# define FT_LS_O_S    (1 << 7)
+# define FT_LS_O_g    (1 << 8)
+# define FT_LS_O_u    (1 << 9)
 
+# define FT_LS_CUSTOM_SORT (FT_LS_O_t | FT_LS_O_c | FT_LS_O_S | FT_LS_O_u)
 
 /*
 **	functions
 */
 char *get_time(long int *time, int mode, char *out);
-int extract_lstat(struct stat *fs, t_file *f, t_ls *ls);
+int extract_lstat(struct stat *fs, t_f *f, t_ls *ls);
 int ft_ls_sort(t_ls *l);
 int init_t_ls(char *path, t_ls *l);
 int buffer_tab(t_ls *ls);

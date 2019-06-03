@@ -21,19 +21,19 @@ char *get_time(long int *time, int mode, char *out)
 	return (0);
 }
 
-static void norme_size_driver(t_file *f, t_ls *l)
+static void norme_size_driver(t_f *f, t_ls *l)
 {
 	int size;
 
-	size = l->size_coll[FT_LS_DRIVER] ? l->size_coll[FT_LS_FILE] + 3
-										 : l->size_coll[FT_LS_FILE];
+	size = l->size_coll[FT_LS_DRIVER] ? l->size_coll[FT_LS___FILE] + 3
+										 : l->size_coll[FT_LS___FILE];
 	if (f->file_mode[0] == 'b' || f->file_mode[0] == 'c')
 	{
 		ft_sprintf(l->buff, "   %*d, ",
 				   l->size_coll[FT_LS_DRIVER],
 				   f->driver[FT_LS_DRIVER_MAX]);
 		ft_sprintf(l->buff, "%*d",
-				   (l->size_coll[FT_LS_FILE]
+				   (l->size_coll[FT_LS___FILE]
 					- (l->size_coll[FT_LS_DRIVER] + 2)),
 				   f->driver[FT_LS_DRIVER_MIN]);
 	}
@@ -41,7 +41,7 @@ static void norme_size_driver(t_file *f, t_ls *l)
 		ft_sprintf(l->buff, "%*d", size, f->size);
 }
 
-int buffer_add_line(t_file *f, t_ls *l)
+int buffer_add_line(t_f *f, t_ls *l)
 {
 	char time[20];
 
@@ -54,9 +54,9 @@ int buffer_add_line(t_file *f, t_ls *l)
 		ft_sprintf(l->buff, "@ ");
 	else
 		ft_sprintf(l->buff, "  ");
-	ft_sprintf(l->buff, "%*d ", l->size_coll[FT_LS_HL], f->hard_link);
-	ft_sprintf(l->buff, "%-*s  ", l->size_coll[FT_LS_UID], f->uid);
-	ft_sprintf(l->buff, "%-*s  ", l->size_coll[FT_LS_GUID], f->guid);
+	ft_sprintf(l->buff, "%*d ", l->size_coll[FT_LS_____HL], f->hard_link);
+	ft_sprintf(l->buff, "%-*s  ", l->size_coll[FT_LS____UID], f->uid);
+	ft_sprintf(l->buff, "%-*s  ", l->size_coll[FT_LS___GUID], f->guid);
 	norme_size_driver(f, l);
 	ft_sprintf(l->buff, " %s", time);
 	ft_sprintf(l->buff, " %s", f->name);
@@ -97,7 +97,7 @@ int buffer_add_line(t_file *f, t_ls *l)
 
 int buffer_tab(t_ls *ls)
 {
-	t_file *file;
+	t_f *file;
 
 	ls->array->i = 0;
 	while ((file = ft_array_next_el(ls->array)))

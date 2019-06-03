@@ -38,3 +38,24 @@ chmod 000 dir
 
 mkfifo fifofile
 
+
+# test for sort data
+rmd -rf toto
+mkdir toto
+cd toto
+
+touch origin
+touch modify
+touch change
+
+sleep 2
+echo aoehuaonseuhasoeuhaoeuhaoseuhaoseuhaoseuhsaoe > modify
+
+sleep 2
+chmod 777 change
+
+cd ..
+
+
+
+

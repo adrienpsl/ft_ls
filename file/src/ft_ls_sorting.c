@@ -14,16 +14,16 @@
 
 void swap_func(void *a, void *b)
 {
-	t_file tmp;
-	ft_mem_copy(&tmp, a, sizeof(t_file));
-	ft_mem_copy(a, b, sizeof(t_file));
-	ft_mem_copy(b, &tmp, sizeof(t_file));
+	t_f tmp;
+	ft_mem_copy(&tmp, a, sizeof(t_f));
+	ft_mem_copy(a, b, sizeof(t_f));
+	ft_mem_copy(b, &tmp, sizeof(t_f));
 }
 
 int sort_func(void *p_l1, void *p_l2, void *p_param)
 {
-	t_file *l1;
-	t_file *l2;
+	t_f *l1;
+	t_f *l2;
 	long param;
 	int ret;
 
@@ -37,7 +37,7 @@ int sort_func(void *p_l1, void *p_l2, void *p_param)
 //	else
 	ret =  ft_mem_cmp(l1->name, l2->name, FT_LS_MAX_FILE) >= 0 ? 0 : 1;
 
-	return  param & FT_LS_REVERSE ? !ret : ret;
+	return  param & FT_LS_O_r ? !ret : ret;
 }
 
 int ft_ls_sort(t_ls *l)

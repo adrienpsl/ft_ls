@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-static int get_acl_and_attr(char *path, t_file *f)
+static int get_acl_and_attr(char *path, t_f *f)
 {
 	acl_t acl;
 	acl = acl_get_file(path, ACL_TYPE_EXTENDED);
@@ -26,7 +26,7 @@ static int get_acl_and_attr(char *path, t_file *f)
 	return (0);
 }
 
-int init_lstat(t_file *f, t_ls *l)
+int init_lstat(t_f *f, t_ls *l)
 {
 	if (lstat(l->path, &l->fs))
 		return (-1);
@@ -39,7 +39,7 @@ int init_lstat(t_file *f, t_ls *l)
 
 int build_files_array(t_ls *l)
 {
-	t_file *file;
+	t_f *file;
 	struct dirent *dp;
 	size_t path_end;
 
@@ -74,7 +74,7 @@ int init_t_ls(char *path, t_ls *l)
 	while (readdir(l->dir))
 		l->nb_elements++;
 	closedir(l->dir);
-	if (ft_array_new(&l->array, l->nb_elements, sizeof(t_file)))
+	if (ft_array_new(&l->array, l->nb_elements, sizeof(t_f)))
 		return (-1);
 	ft_mem_copy(l->path, path, STRING_MODE);
 	return (0);
