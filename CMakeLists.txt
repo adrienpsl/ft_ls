@@ -20,7 +20,6 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address -g")
 add_executable(
         ft_ls__run
         file/main.c
-        test/main.test.c
         test/main.test_2.c)
 
 #*------------------------------------*\

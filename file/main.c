@@ -3,58 +3,8 @@
 #include "ft_ls.h"
 void main_test_2();
 
-void main_test();
-
-
-
-
-DIR *_open_dir(const char *filename);
-
-
-int ft_ls_sort_func(void *p_l1, void *p_l2, void *p_param);
-
-void print_list(int nb_elements, t_array *array, t_ls *ls)
-{
-
-	t_f *link1;
-	char date[13];
-
-
-	while (nb_elements--)
-	{
-		link1 = ft_array_next_el(array);
-
-		get_time(&link1->mtime, 1, date);
-//		printf("%s %d %s %s %lld, %s, %s\n",
-//			   link1->file_mode,
-//			   link1->hard_link,
-//			   getpwuid(link1->uid)->pw_name,
-//			   getgrgid(link1->guid)->gr_name,
-//			   link1->size,
-//			   date,
-//			   link1->name
-//		);
-		ft_printf("%s %*d %*s %*s %*lld %s ",
-				  link1->file_mode,
-				  ls->size_coll[FT_LS_____HL],
-				  link1->hard_link,
-				  ls->size_coll[FT_LS____UID],
-				  link1->uid,
-				  ls->size_coll[FT_LS___GUID],
-				  link1->guid,
-				  ls->size_coll[FT_LS___FILE],
-				  link1->size,
-				  date);
-		write(1, link1->name, link1->name_size);
-		if (*link1->sym_real_file)
-			ft_printf(" -> %s", link1->sym_real_file);
-		putchar('\n');
-	}
-}
-
 int main()
 {
-	main_test();
 	main_test_2();
 
 

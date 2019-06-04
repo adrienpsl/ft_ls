@@ -12,9 +12,30 @@
 
 #include "ft_ls.h"
 
-int ft_ls_option_parse(char *arg_str, t_ls *ls)
+/*
+ * init and malloc an array to handle the file
+ * */
+int ft_ls_init(char *path, t_ls_2 *l)
 {
-	return ft_io_catch_options(arg_str, "Rlart", &ls->options);
+	ft_mem_copy(l->path, path, STRING_MODE);
+	if (ft_api_dir(l))
+		return (-1);
+	while (readdir(l->dir))
+		l->elements++;
+	closedir(l->dir);
+	if (ft_array_new(&l->array, l->elements, sizeof(t_file))
+	|| ft_buffer_new(&l->buff, 2064, 1))
+		return (-1);
+	ft_str_len(&l->end_path, path);
+
+	return (0);
 }
 
-
+void ft_ls_free(t_ls_2 *l)
+{
+	if (l->array)
+		ft_array_free(&l->array);
+	if (l->buff)
+		ft_buffer_free(&l->buff);
+	memset(l, 0, sizeof(t_ls_2));
+}

@@ -377,6 +377,8 @@ ne pas print les fichier . c'est important man !
 
 - T coupe ou ne coupe pas la date
 
+- l : no sort apply
+
 option c : trie par date de changement de status, affichage de cette date dans -l
 option g : elle ne fait rien
 

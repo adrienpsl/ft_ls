@@ -1,87 +1,65 @@
-drwxr-xr-x+   43 adpusel  staff   1376 Jun  2 15:38 .
-drwxr-xr-x     5 root     admin    160 Apr 16 17:51 ..
--r--------     1 adpusel  staff      7 Apr 16 17:54 .CFUserTextEncoding
--rw-r--r--@    1 adpusel  staff  18436 Jun  1 21:31 .DS_Store
-drwx------    66 adpusel  staff   2112 May 28 09:07 .Trash
-drwxr-xr-x     3 adpusel  staff     96 May  6 11:47 .android
-drwxr-xr-x    11 adpusel  staff    352 May  6 15:59 .atom
--rw-------     1 adpusel  staff   7182 Jun  1 21:42 .bash_history
-drwxr-xr-x     3 adpusel  staff     96 May 22 20:37 .cache
-drwx------     3 adpusel  staff     96 Apr 16 21:43 .config
-drwx------     3 adpusel  staff     96 Apr 20 09:52 .cups
--rw-------     1 adpusel  staff     25 May  6 18:48 .dbshell
--rw-r--r--     1 adpusel  staff     80 Apr 17 19:47 .gitconfig
--rw-------     1 adpusel  staff      0 May  6 15:04 .mongorc.js
-drwxr-xr-x     5 adpusel  staff    160 May  4 13:28 .node-gyp
-drwxr-xr-x  1272 adpusel  staff  40704 May  6 20:31 .npm
--rw-------     1 adpusel  staff     70 Apr 23 14:03 .npmrc
-drwxr-xr-x    27 adpusel  staff    864 May  3 11:34 .nvm
-drwxr-xr-x    18 adpusel  staff    576 May 14 10:07 .oh-my-zsh
-drwx------     6 adpusel  staff    192 Apr 16 21:31 .ssh
--rw-------     1 adpusel  staff  13273 May 25 22:56 .viminfo
-drwxr-xr-x     7 adpusel  staff    224 May 24 20:41 .yarn
--rw-r--r--     1 adpusel  staff    116 May 24 20:41 .yarnrc
--rw-r--r--     1 adpusel  staff  41155 May 25 09:21 .zcompdump
--rw-r--r--     1 adpusel  staff  40509 Apr 16 20:46 .zcompdump-adpusel’s MacBook Pro-5.3
--rw-------     1 adpusel  staff  44766 Jun  2 15:38 .zsh_history
--rw-r--r--     1 adpusel  staff   3750 May 24 20:41 .zshrc
-drwx------@    5 adpusel  staff    160 Jun  1 11:42 Applications
-drwx------+    8 adpusel  staff    256 May 29 20:17 Desktop
-drwx------+    6 adpusel  staff    192 May 28 08:44 Documents
-drwx------+   61 adpusel  staff   1952 May 31 21:38 Downloads
-drwx------@   17 adpusel  staff    544 May 28 08:52 Google Drive
-drwx------+   66 adpusel  staff   2112 May 23 09:32 Library
-drwx------+    3 adpusel  staff     96 Apr 16 17:51 Movies
-drwx------+    4 adpusel  staff    128 Apr 17 22:53 Music
-drwx------+    3 adpusel  staff     96 Apr 16 17:51 Pictures
-drwxr-xr-x+    4 adpusel  staff    128 Apr 16 17:51 Public
-drwxr-xr-x    16 adpusel  staff    512 May 25 22:00 code
-drwxr-xr-x    21 adpusel  staff    672 May  6 14:58 data
-drwxr-xr-x    12 adpusel  staff    384 Apr 16 21:31 setting_software
-drwxr-xr-x     6 adpusel  staff    192 May  3 11:12 squad
-drwxr-xr-x    18 adpusel  staff    576 May  8 12:41 testAngular
-drwxr-xr-x    16 adpusel  staff    512 Apr 25 13:15 udemy-downloader-gui
-
-drwxr-xr-x+   43 adpusel  staff   1376 Jun  2 15:38 .
-drwxr-xr-x     5 root     admin    160 Apr 16 17:51 ..
--r--------     1 adpusel  staff      7 Apr 16 17:54 .CFUserTextEncoding
--rw-r--r--@    1 adpusel  staff  18436 Jun  1 21:31 .DS_Store
-drwx------    66 adpusel  staff   2112 May 28 09:07 .Trash
-drwxr-xr-x     3 adpusel  staff     96 May  6 11:47 .android
-drwxr-xr-x    11 adpusel  staff    352 May  6 15:59 .atom
--rw-------     1 adpusel  staff   7182 Jun  1 21:42 .bash_history
-drwxr-xr-x     3 adpusel  staff     96 May 22 20:37 .cache
-drwx------     3 adpusel  staff     96 Apr 16 21:43 .config
-drwx------     3 adpusel  staff     96 Apr 20 09:52 .cups
--rw-------     1 adpusel  staff     25 May  6 18:48 .dbshell
--rw-r--r--     1 adpusel  staff     80 Apr 17 19:47 .gitconfig
--rw-------     1 adpusel  staff      0 May  6 15:04 .mongorc.js
-drwxr-xr-x     5 adpusel  staff    160 May  4 13:28 .node-gyp
-drwxr-xr-x  1272 adpusel  staff  40704 May  6 20:31 .npm
--rw-------     1 adpusel  staff     70 Apr 23 14:03 .npmrc
-drwxr-xr-x    27 adpusel  staff    864 May  3 11:34 .nvm
-drwxr-xr-x    18 adpusel  staff    576 May 14 10:07 .oh-my-zsh
-drwx------     6 adpusel  staff    192 Apr 16 21:31 .ssh
--rw-------     1 adpusel  staff  13273 May 25 22:56 .viminfo
-drwxr-xr-x     7 adpusel  staff    224 May 24 20:41 .yarn
--rw-r--r--     1 adpusel  staff    116 May 24 20:41 .yarnrc
--rw-r--r--     1 adpusel  staff  41155 May 25 09:21 .zcompdump
--rw-r--r--     1 adpusel  staff  40509 Apr 16 20:46 .zcompdump-adpusel’s MacBook Pro-5.3
--rw-------     1 adpusel  staff  44766 Jun  2 15:38 .zsh_history
--rw-r--r--     1 adpusel  staff   3750 May 24 20:41 .zshrc
-drwx------@    5 adpusel  staff    160 Jun  1 11:42 Applications
-drwx------+    8 adpusel  staff    256 May 29 20:17 Desktop
-drwx------+    6 adpusel  staff    192 May 28 08:44 Documents
-drwx------+   61 adpusel  staff   1952 May 31 21:38 Downloads
-drwx------@   17 adpusel  staff    544 May 28 08:52 Google Drive
-drwx------@   66 adpusel  staff   2112 May 23 09:32 Library
-drwx------+    3 adpusel  staff     96 Apr 16 17:51 Movies
-drwx------+    4 adpusel  staff    128 Apr 17 22:53 Music
-drwx------+    3 adpusel  staff     96 Apr 16 17:51 Pictures
-drwxr-xr-x+    4 adpusel  staff    128 Apr 16 17:51 Public
-drwxr-xr-x    16 adpusel  staff    512 May 25 22:00 code
-drwxr-xr-x    21 adpusel  staff    672 May  6 14:58 data
-drwxr-xr-x    12 adpusel  staff    384 Apr 16 21:31 setting_software
-drwxr-xr-x     6 adpusel  staff    192 May  3 11:12 squad
-drwxr-xr-x    18 adpusel  staff    576 May  8 12:41 testAngular
-drwxr-xr-x    16 adpusel  staff    512 Apr 25 13:15 udemy-downloader-gui
+drwx------+ 65 adpusel  staff        2080 Jun  4 10:21 .
+drwxr-xr-x+ 44 adpusel  staff        1408 Jun  4 22:10 ..
+-rw-r--r--@  1 adpusel  staff    11804799 May 30 15:27 uTorrent.dmg
+-rw-r--r--@  1 adpusel  staff    15729304 May 12 18:55 fireBaseCourses.2-comparaison.mp4
+-rw-r--r--@  1 adpusel  staff      268040 Apr 29 07:37 login-illustration-mahisadd.zip
+-rw-r--r--@  1 adpusel  staff    11952128 Nov 20  2015 Google - Material Icons 2.1.sketch
+drwxr-xr-x@  4 adpusel  staff         128 May 22 10:54 Telegram Desktop
+-rw-r--r--@  1 adpusel  staff     4857024 May  8 13:39 toto.mp4
+-rw-r--r--   1 adpusel  staff  8378853043 May 15 14:48 The Complete Sketch 5 Course - Design Apps & Websites 2018.zip
+-rw-r--r--@  1 adpusel  staff  1809515719 May 28 09:01 papier-20190528T062221Z-001.zip
+-rw-r--r--@  1 adpusel  staff   202044436 Apr 29 16:07 Site (1).sketch
+-rw-r--r--@  1 adpusel  staff        1995 Jun  3 08:40 Super Productivity.json
+-rw-r--r--@  1 adpusel  staff        8196 May 21 14:48 .DS_Store
+-rw-r--r--@  1 adpusel  staff   202338550 May  6 11:01 Site.sketch
+-rw-r--r--@  1 adpusel  staff       69599 May 30 15:35 debian-9.9.0-amd64-DVD-1.iso.torrent
+-rw-------   1 adpusel  staff           0 Apr 16 17:51 .localized
+-rw-r--r--@  1 adpusel  staff     4774211 Apr 28 23:48 bootstrap-ecommerce-uikit.zip
+-rw-r--r--@  1 adpusel  staff     1441044 Apr 28 21:45 material-design-icons-filled.sketch
+-rw-r--r--@  1 adpusel  staff       89959 May 30 15:35 debian-9.9.0-amd64-DVD-2.iso.torrent
+-rw-r--r--@  1 adpusel  staff      688128 Jun  6  2015 color.sketch
+lrwxr-xr-x   1 adpusel  staff           4 May 29 21:59 toto -> toto
+-rw-r--r--@  1 adpusel  staff       18322 May  7 19:58 ngrx-seed-d3gbu4.zip
+-rw-r--r--@  1 adpusel  staff     1121224 May  8 15:07 angularfirebase.epub
+-rw-r--r--@  1 adpusel  staff      563718 May  1 19:14 desert-moon-zwj.sketch
+-rw-r--r--@  1 adpusel  staff     2145426 Apr  3 17:10 nature-illustration-shreyash-barot.sketch
+-rw-r--r--@  1 adpusel  staff   201568812 May 17 13:38 Site (2).sketch
+-rw-r--r--@  1 adpusel  staff     1839579 May  1 19:28 liquid-color-business-banner.zip
+drwx------@  7 adpusel  staff         224 May  1 19:29 dark-gradient-rocket-background
+-rw-r--r--@  1 adpusel  staff      104649 May 17 13:33 Logos clients.zip
+-rw-r--r--@  1 adpusel  staff     2131924 Apr 28 22:05 nature-illustration-shreyash-barot.zip
+drwx------@  6 adpusel  staff         192 May  1 19:29 liquid-color-business-banner
+-rw-r--r--@  1 adpusel  staff    36255819 May 18 21:49 The_Art_of_Computer_Programming - Vol 1.pdf
+-rw-r--r--@  1 adpusel  staff     2131924 Apr 29 07:06 nature-illustration-shreyash-barot (1).zip
+-rw-r--r--@  1 adpusel  staff    68568827 Jun  4 10:21 Firefox 67.0.dmg
+-rw-r--r--@  1 adpusel  staff     2145428 Apr 29 20:19 nature-illustration-shreyash-barot 2.sketch
+-rw-r--r--@  1 adpusel  staff     5119770 Apr 29 00:49 fontawesome-5-sketch-libraries-1-1.zip
+-rw-r--r--   1 adpusel  staff  2097152000 May 30 16:03 ubuntu-19.04-desktop-amd64.iso
+-rw-r--r--@  1 adpusel  staff    52893007 Jun  3 08:25 1Password-7.3.pkg
+-rw-r--r--@  1 adpusel  staff    22635763 May 12 18:45 fireBaseCourses.what-is-firebase.mp4
+-rw-r--r--@  1 adpusel  staff     4940617 Apr 28 23:50 bootstrap-ecommerce-uikit.sketch
+drwx------@  7 adpusel  staff         224 Apr 29 20:14 Developer_Woman_-_Colour
+-rw-r--r--@  1 adpusel  staff     2691714 Apr 28 22:07 Google Material Design UI Components 160314.sketch
+-rw-r--r--@  1 adpusel  staff    10379264 Jul 19  2016 Covalent-Material-Design-3.9beta.sketch
+drwxr-xr-x  18 adpusel  staff         576 Apr 25 14:56 The Complete Sketch 5 Course - Design Apps & Websites 2018
+drwx------@  6 adpusel  staff         192 May  1 20:10 Streamline-UX-Free-Pack
+-rw-r--r--@  1 adpusel  staff     1337953 May  1 19:20 hero-section-wearepiksl.sketch
+-rw-r--r--@  1 adpusel  staff     3381100 Apr 28 22:05 google-material-design-ui-components-160314.zip
+-rw-r--r--@  1 adpusel  staff     4194304 May 28 07:14 Unconfirmed 260154.crdownload
+-rw-r--r--@  1 adpusel  staff     4094728 Apr 29 07:32 all-google-material-icons-lpzilva.zip
+drwxr-xr-x@  7 adpusel  staff         224 Apr 29 00:56 FontAwesome_5-Sketch_Libraries_1-1
+-rw-r--r--@  1 adpusel  staff       37986 May 28 08:41 releve 1 (1).pdf
+-rw-r--r--@  1 adpusel  staff    12057102 May  1 20:10 Streamline-UX-Free-Pack.zip
+-rw-r--r--   1 adpusel  staff  3620339712 May 30 18:41 debian-9.9.0-amd64-DVD-1.iso
+-rw-r--r--@  1 adpusel  staff       80338 May 30 15:36 ubuntu-19.04-desktop-amd64.iso.torrent
+-rw-r--r--@  1 adpusel  staff       69112 May 28 08:43 releve 1.pdf
+-rw-r--r--@  1 adpusel  staff     1871952 May  1 19:29 dark-gradient-rocket-background.zip
+-rw-r--r--@  1 adpusel  staff        9441 May 31 21:38 ft_ls.docx
+drwxr-xr-x@  6 adpusel  staff         192 Apr 25 13:39 EXPORTS WEB 2
+-rw-r--r--   1 adpusel  staff  4687517696 May 30 18:46 debian-9.9.0-amd64-DVD-2.iso
+-rw-r--r--@  1 adpusel  staff    56819218 Jun  3 08:16 Bitwarden-1.14.0.dmg
+-rw-r--r--@  1 adpusel  staff       41208 May 28 08:37 neoato.pdf
+-rw-r--r--@  1 adpusel  staff       43065 May 28 08:40 releve 2.pdf
+-rw-r--r--@  1 adpusel  staff       89979 May 30 15:36 debian-9.9.0-amd64-DVD-3.iso.torrent
+-rw-r--r--   1 adpusel  staff  4688500736 May 30 18:26 debian-9.9.0-amd64-DVD-3.iso
+-rw-r--r--@  1 adpusel  staff  5388175360 May  9 11:26 Win10_1809Oct_v2_English_x64.iso

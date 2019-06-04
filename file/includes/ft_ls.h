@@ -44,7 +44,7 @@
 # define FT_ISCHR(m)  (((m) & (unsigned int)S_IFMT) == S_IFCHR)
 # define FT_ISDIR(m)  (((m) & (unsigned int)S_IFMT) == S_IFDIR)
 # define FT_ISFIFO(m) (((m) & (unsigned int)S_IFMT) == S_IFIFO)
-# define FT_ISLNK(m)  (((m) & (unsigned int)S_IFMT) == S_IFLNK)
+# define FT_ISLNK(m)  (((m) & S_IFMT) == S_IFLNK)
 # define FT_ISSOCK(m) (((m) & (unsigned int)S_IFMT) == S_IFSOCK)
 
 #define FT_LS_____HL 0
@@ -82,7 +82,8 @@ typedef struct s_ls_2
 	DIR *dir;
 	t_buff *buff;
 	t_array *array;
-	char file[255];
+	char file[256];
+	char link[256];
 } t_ls_2;
 
 # define FT_LS_DRIVER_MIN 0

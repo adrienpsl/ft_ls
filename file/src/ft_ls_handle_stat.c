@@ -86,7 +86,7 @@ int array_file_name(t_ls_2 *l)
 	l->path[l->end_path++] = '/';
 	while ((dp = readdir(l->dir)) != NULL)
 	{
-		if (l->options & FT_LS_O_a && dp->d_name[0] == '.')
+		if (!(l->options & FT_LS_O_a) && dp->d_name[0] == '.')
 			continue;
 		ft_str_len(&file_name_size, dp->d_name);
 		ft_mem_copy(l->path + l->end_path, dp->d_name, file_name_size);

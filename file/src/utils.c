@@ -25,3 +25,38 @@ int ft_api_dir(t_ls_2 *l)
 		return (-1);
 	return (0);
 }
+
+//int is_directory(char *path)
+//{
+//	struct stat fs;
+//	char type;
+//
+//	if (lstat(path, &fs))
+//		return (-1);
+//	type = ft_get_type(&fs.st_mode);
+//	return type == 'd' ? 1 : 0;
+//}
+
+int ft_ls_option_parse(char *arg_str, t_ls *ls)
+{
+	return ft_io_catch_options(arg_str, "Rlart", &ls->options);
+}
+
+void exit_and_display_error(int ret_function)
+{
+	if (ret_function)
+	{
+		perror("exit: ");
+		exit(EXIT_FAILURE);
+	}
+}
+
+DIR *_open_dir(const char *filename)
+{
+	DIR *ret;
+
+	ret = opendir(filename);
+	if (ret == NULL)
+		perror("le fichier a ouvrir n'existe pas");
+	return (ret);
+}
