@@ -85,8 +85,14 @@ int print_time(long int time_nb, char *out, long option)
 	return ret;
 }
 
-int print_line()
+// regarder comment ca se passe avec le buffer ici,
+int print_line(t_ls_2 *l)
 {
+	char buff[60];
+
+	ft_ls_get_permission(l->fs.st_mode, buff);
+	ft_get_acl_extended(l->path, buff + 10);
+	ft_buffer_add(l->buff, "%s ", 11);
 	return (0);
 }
 
