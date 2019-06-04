@@ -193,7 +193,6 @@ void utils_print_permission(char *path, char *res)
 	}
 	nb++;
 }
-
 void test_print_permission()
 {
 	// block special
@@ -217,7 +216,80 @@ void test_print_permission()
 	utils_print_permission("/tmp/toto/uid-guid/sticky_big", "-rw-r--r-T");
 	utils_print_permission("/tmp/toto/uid-guid/sticky_little", "-rwx---rwt");
 }
+
+void test_get_acl_extended()
+{
+	char buff[2] = {0};
+
+	ft_get_acl_extended("/Users/adpusel/.", buff);
+	if (strcmp("+", buff))
+		ft_test_error("get_acl_extended");
+
+	ft_get_acl_extended("/Users/adpusel/Applications/.", buff);
+	if (strcmp("@", buff))
+		ft_test_error("get_acl_extended");
+
+	ft_get_acl_extended("/Users/adpusel/code/.", buff);
+	if (strcmp(" ", buff))
+		ft_test_error("get_acl_extended");
+
+	printf("%s \n", buff);
+}
+
+void util_print_time(char *path, char *res, long option)
+{
+	char buff[100] = {0};
+	struct stat stat;
+	static int nb = 0;
+
+	lstat(path, &stat);
+	print_time(stat.st_mtimespec.tv_sec, buff, option);
+	if (strcmp(res, buff))
+	{
+		ft_print_error("print time", nb);
+		printf("%s- \n", buff);
+		printf("%s- \n", res);
+	}
+	nb++;
+}
+
+void test_print_time()
+{
+	// past and next file
+	util_print_time("/tmp/toto/future", "Mar  2  2030", 0);
+	util_print_time("/tmp/toto/past", "Sep  2  1990", 0);
+	util_print_time("/tmp/toto/future", "Mar  2 03:03:00 2030", FT_LS_O_T);
+
+	// classic file
+	util_print_time("/tmp/toto/modify", "Jun  3 13:27", 0);
+	util_print_time("/tmp/toto/modify", "Jun  3 13:27:26 2019", FT_LS_O_T);
+
+
+
+	// test with goo date
+
+	// test with option T
+
+	// test with date too old
+
+	// test with date too big
+
+//	"Sat Mar  2 03:03:00 2030\n"
+
+
+}
+
+
+void test_print_long()
+{
+	// test nop diver
+
+
+}
+
 /* test sort ---------------------------------------------------------------- */
+
+
 
 void main_test_2()
 {
@@ -227,5 +299,7 @@ void main_test_2()
 	test_ft_set_max();
 //	test_array_file_name();
 //	test_fill_file();
-	test_print_permission();
+//	test_print_permission();
+//	test_get_acl_extended();
+	test_print_time();
 }

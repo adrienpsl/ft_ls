@@ -57,32 +57,6 @@ chmod 777 change
 cd ..
 
 #
-### create all type of file
-#
-
-# block special
-/dev/disk0
-
-
-# regular file
-/Users/adpusel/.zshrc
-
-# directory
-/Users/adpusel/Applications
-
-# symbolic link
-/dev/stderr
-
-# char special
-/dev/ttyv0
-
-# fifo / socket
-mkfifo fifofile
-
-# socket
-/var/run/pppconfd
-
-#
 ### test guid / sticky bit / uid
 #
 
@@ -115,6 +89,38 @@ chmod 707 sticky_little
 chmod +t sticky_little
 
 
+
+#
+### test date
+#
+touch -m -t 3003020303 future
+touch -m -t 199009022233 past
+
+
+#
+### see file type
+#
+
+# block special
+/dev/disk0
+
+# regular file
+/Users/adpusel/.zshrc
+
+# directory
+/Users/adpusel/Applications
+
+# symbolic link
+/dev/stderr
+
+# char special
+/dev/ttyv0
+
+# fifo / socket
+mkfifo fifofile
+
+# socket
+/var/run/pppconfd
 
 
 

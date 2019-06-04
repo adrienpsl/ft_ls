@@ -139,6 +139,7 @@ typedef struct s_file
 # define FT_LS_O_S    (1 << 7)
 # define FT_LS_O_g    (1 << 8)
 # define FT_LS_O_u    (1 << 9)
+# define FT_LS_O_T    (1 << 10)
 
 # define FT_LS_CUSTOM_SORT (FT_LS_O_t | FT_LS_O_c | FT_LS_O_S | FT_LS_O_u)
 

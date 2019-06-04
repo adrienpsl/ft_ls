@@ -35,12 +35,59 @@ void ft_ls_get_permission(const mode_t mode, char *file)
 	i = -1;
 	while (++i < 7)
 	{
-		if ((S_IFMT & mode)  == filters[i])
+		if ((S_IFMT & mode) == filters[i])
 		{
 			file[0] = char_type[i];
 			break;
 		}
 	}
+}
+
+int ft_get_acl_extended(char *path, char *buff)
+{
+	acl_t acl;
+
+	acl = acl_get_file(path, ACL_TYPE_EXTENDED);
+	if (acl > 0)
+	{
+		*buff = '+';
+		acl_free((void *) acl);
+	}
+	else if (listxattr(path, NULL, 0, 0) > 0)
+		*buff = '@';
+	else
+		*buff = ' ';
+	return (0);
+}
+
+int print_time(long int time_nb, char *out, long option)
+{
+	long int current_date;
+	int active_year;
+	int ret;
+
+	ret = 12;
+	active_year = 0;
+	current_date = time(NULL);
+	if (current_date + 3600 <= time_nb)
+		active_year = 1;
+	if (current_date - 15778800 >= time_nb)
+		active_year = 1;
+
+	ft_mem_copy(out, ctime(&time_nb) + 4, 12);
+	if (active_year)
+		ft_mem_copy(out + 7, ctime(&time_nb) + 19, 5);
+	if ((option & FT_LS_O_T) /*&& active_year*/)
+	{
+		ft_mem_copy(out, ctime(&time_nb) + 4, 20);
+		ret = 20;
+	}
+	return ret;
+}
+
+int print_line()
+{
+	return (0);
 }
 
 //// TODO : add l'option -n
