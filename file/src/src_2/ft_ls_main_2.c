@@ -26,6 +26,7 @@ int ft_ls_init(char *path, t_ls_2 *l)
 	if (ft_array_new(&l->array, l->elements, sizeof(t_file)))
 		return (-1);
 	ft_str_len(&l->end_path, path);
+
 	return (0);
 }
 

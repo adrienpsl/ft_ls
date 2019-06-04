@@ -12,7 +12,6 @@
 
 #include "ft_ls.h"
 
-// i need the s and the t at the end
 void ft_ls_get_permission(const mode_t mode, char *file)
 {
 	static const char rights[] = "rwxrwxrwx";
@@ -85,16 +84,76 @@ int print_time(long int time_nb, char *out, long option)
 	return ret;
 }
 
-// regarder comment ca se passe avec le buffer ici,
-int print_line(t_ls_2 *l)
+static void type_size_uid_guid(t_ls_2 *l)
 {
-	char buff[60];
+	char buff[30];
 
 	ft_ls_get_permission(l->fs.st_mode, buff);
 	ft_get_acl_extended(l->path, buff + 10);
-	ft_buffer_add(l->buff, "%s ", 11);
+	ft_buffer_add(l->buff, buff, 11);
+	ft_sprintf(l->buff, " %*d ", l->size[FT_LS_____HL], l->fs.st_nlink);
+	if (l->options & FT_LS_O_n)
+	{
+		ft_sprintf(l->buff, "%*d", l->size[FT_LS____UID], l->fs.st_uid);
+		ft_sprintf(l->buff, "%*d", l->size[FT_LS___GUID], l->fs.st_gid);
+	}
+	else
+	{
+		ft_sprintf(l->buff, "%*s",
+				   l->size[FT_LS____UID], getpwuid(l->fs.st_uid)->pw_name);
+		ft_sprintf(l->buff, "  %*s  ",
+				   l->size[FT_LS___GUID], getgrgid(l->fs.st_gid)->gr_name);
+	}
+}
+
+static void size_time(t_ls_2 *l)
+{
+	int time_size;
+	char buffer[24];
+
+	if (S_ISBLK(l->fs.st_mode) || S_ISCHR(l->fs.st_mode))
+	{
+		l->size[FT_LS___FILE] < 4 && (l->size[FT_LS___FILE] = 4);
+		l->size[FT_LS_DRIVER] < 3 && (l->size[FT_LS_DRIVER] = 3);
+		ft_sprintf(l->buff, "%*d,",
+				   l->size[FT_LS_DRIVER], major(l->fs.st_rdev));
+		ft_sprintf(l->buff, "%*d ",
+				   l->size[FT_LS___FILE], minor(l->fs.st_rdev));
+	}
+	else
+		ft_sprintf(l->buff, "%*d ",
+				   l->size[FT_LS___FILE], l->fs.st_size);
+	if (FT_LS_O_u & l->options)
+		time_size = print_time(l->fs.st_atimespec.tv_sec, buffer, l->options);
+	else if (FT_LS_O_c & l->options)
+		time_size = print_time(l->fs.st_ctimespec.tv_sec, buffer, l->options);
+	else
+		time_size = print_time(l->fs.st_mtimespec.tv_sec, buffer, l->options);
+	ft_buffer_add(l->buff, buffer, time_size);
+}
+
+static int name_symlink(t_ls_2 *l, t_file *file)
+{
+	char buffer[FT_LS_MAX_FILE + 1];
+
+	buffer[FT_LS_MAX_FILE] = 0;
+	ft_sprintf(l->buff, " %s", file->name);
+	if (FT_ISLNK(l->fs.st_mode))
+	{
+		if (readlink(l->path, buffer, FT_LS_MAX_FILE) == -1)
+			return (-1);
+		ft_sprintf(l->buff, " -> %s", buffer);
+	}
 	return (0);
 }
+
+void print_line(t_ls_2 *l, t_file *f)
+{
+	type_size_uid_guid(l);
+	size_time(l);
+	name_symlink(l, f);
+}
+
 
 //// TODO : add l'option -n
 //// ici je vais print dans mon buffer, avec le sprintf

@@ -252,7 +252,6 @@ void util_print_time(char *path, char *res, long option)
 	}
 	nb++;
 }
-
 void test_print_time()
 {
 	// past and next file
@@ -263,22 +262,72 @@ void test_print_time()
 	// classic file
 	util_print_time("/tmp/toto/modify", "Jun  3 13:27", 0);
 	util_print_time("/tmp/toto/modify", "Jun  3 13:27:26 2019", FT_LS_O_T);
-
-
-
-	// test with goo date
-
-	// test with option T
-
-	// test with date too old
-
-	// test with date too big
-
-//	"Sat Mar  2 03:03:00 2030\n"
-
-
 }
 
+void utils_print_line(char *path, char *file, char *res, int option)
+{
+	t_ls_2 ls;
+	t_ls_2 *l = &ls;
+	t_file f;
+	static int nb = 0;
+
+	ft_buffer_new(&l->buff, 200, sizeof(t_file));
+	ft_mem_copy(f.name, file, STRING_MODE);
+	lstat(path, &ls.fs);
+	l->options |= option;
+	print_line(l, &f);
+	if (strcmp(res, l->buff->data))
+	{
+		ft_print_error("print_line", nb);
+		printf("%s", l->buff->data);
+	}
+	nb++;
+}
+
+void test_print_line()
+{
+	// classic
+	utils_print_line("/tmp/toto/future",
+					 "future",
+					 "-rw-r--r--  1 adpusel  wheel  0 Mar  2  2030 future",
+					 0);
+	// other classic
+	utils_print_line("/tmp/toto/ttys0",
+					 "ttys0",
+					 "-rw-------  1 root  wheel  0 Jun  4 06:54 ttys0",
+					 0);
+	// driver
+	utils_print_line("/dev/ttys0",
+					 "ttys0",
+					 "crw-rw-rw-  1 root  wheel    4,  48 Jun  4 06:53 ttys0",
+					 0);
+	// autre driver
+	utils_print_line("/dev/ttyv4",
+					 "ttyv4",
+					 "crw-rw-rw-  1 root  wheel    4, 100 May 28 07:12 ttyv4",
+					 0);
+
+	// time test :
+	utils_print_line("/dev/ttyv4",
+					 "ttyv4",
+					 "crw-rw-rw-  1 root  wheel    4, 100 May 28 07:12:00 2019 ttyv4",
+					 FT_LS_O_T);
+
+	utils_print_line("/tmp/toto/past",
+					 "past",
+					 "-rw-r--r--  1 adpusel  wheel  0 Sep  2 22:33:00 1990 past",
+					 FT_LS_O_T);
+
+	utils_print_line("/tmp/toto/past",
+					 "past",
+					 "-rw-r--r--  1 adpusel  wheel  0 Jun  4 09:48:39 2019 past",
+					 FT_LS_O_T | FT_LS_O_c);
+
+	utils_print_line("/tmp/toto/past",
+					 "past",
+					 "-rw-r--r--  1 adpusel  wheel  0 Jun  4 09:46 past",
+					 FT_LS_O_u);
+}
 
 void test_print_long()
 {
@@ -286,20 +335,30 @@ void test_print_long()
 
 
 }
+// crw-rw----  1 root  _windowserver   19,   0 May 28 07:12 xcpm
+// crw-rw----  1 root  _windowserver   19,   0 May 28 07:12 xcpm
+// crw-rw-rw-  1 root  wheel    5,  18 May 28 07:12 ptyq2
+// -rw-r--r--  1 adpusel  wheel  0 Mar  2  2030 future
+// -rw-r--r--  1 adpusel  wheel  0 Mar  2  2030 future
+
+
 
 /* test sort ---------------------------------------------------------------- */
 
+//-rw-r--r--  1 adpusel  wheel   46 Jun  3 13:27:26 2019 modify
 
 
 void main_test_2()
 {
-	helper_test();
-	test_init_ls_2();
-	test_ft_ls_max();
-	test_ft_set_max();
+//	helper_test();
+//	test_init_ls_2();
+//	test_ft_ls_max();
+//	test_ft_set_max();
 //	test_array_file_name();
 //	test_fill_file();
 //	test_print_permission();
 //	test_get_acl_extended();
-	test_print_time();
+//	test_print_time();
+
+	test_print_line();
 }
