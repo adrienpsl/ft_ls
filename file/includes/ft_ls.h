@@ -151,7 +151,8 @@ int ft_ls_sort(t_ls *l);
 int init_t_ls(char *path, t_ls *l);
 int buffer_tab(t_ls *ls);
 int is_directory(char *path);
-
+int ft_ls_init(char *path, t_ls_2 *l);
+void ft_ls_free(t_ls_2 *l);
 
 /*
 **	helpers

@@ -36,7 +36,7 @@ mkdir directory
 mkdir dir
 chmod 000 dir
 
-mkfifo fifofile
+
 
 
 # test for sort data
@@ -56,6 +56,31 @@ chmod 777 change
 
 cd ..
 
+#
+### create all type of file
+#
+
+# block special
+/dev/disk0
+
+
+# regular file
+/Users/adpusel/.zshrc
+
+# directory
+/Users/adpusel/Applications
+
+# symbolic link
+/dev/stderr
+
+# char special
+/dev/ttyv0
+
+# fifo / socket
+mkfifo fifofile
+
+# socket
+/var/run/pppconfd
 
 
 

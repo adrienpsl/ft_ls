@@ -14,17 +14,16 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2afc938b-60dc-4473-94d2-ee5c8bc71943" name="Default Changelist" comment="new branche in progress to create the speed and beatiful ls">
+    <list default="true" id="2afc938b-60dc-4473-94d2-ee5c8bc71943" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/file/src/src_2/ft_ls_handle_stat.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/file/src/src_2/ft_ls_print_2.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/file/src/src_2/utils.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/note.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Note/Information.md" beforeDir="false" afterPath="$PROJECT_DIR$/Note/Information.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/file/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file/includes/ft_ls.h" beforeDir="false" afterPath="$PROJECT_DIR$/file/includes/ft_ls.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/file/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file/src/ft_ls_array.c" beforeDir="false" afterPath="$PROJECT_DIR$/file/src/ft_ls_array.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file/src/ft_ls_lstat_extracting.c" beforeDir="false" afterPath="$PROJECT_DIR$/file/src/ft_ls_lstat_extracting.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file/src/ft_ls_print.c" beforeDir="false" afterPath="$PROJECT_DIR$/file/src/ft_ls_print.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file/src/ft_ls_sorting.c" beforeDir="false" afterPath="$PROJECT_DIR$/file/src/ft_ls_sorting.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file/src/src_2/ft_ls_main_2.c" beforeDir="false" afterPath="$PROJECT_DIR$/file/src/src_2/ft_ls_main_2.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/main.test.c" beforeDir="false" afterPath="$PROJECT_DIR$/test/main.test.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/main.test_2.c" beforeDir="false" afterPath="$PROJECT_DIR$/test/main.test_2.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/test/test.sh" afterDir="false" />
     </list>
@@ -57,7 +56,7 @@
     <favorites_list name="ft_ls" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6990628">
+    <splitter split-orientation="horizontal" split-proportion="0.66817075">
       <split-first>
         <splitter split-orientation="horizontal" split-proportion="0.4386488">
           <split-first>
@@ -65,8 +64,8 @@
               <file pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/file/src/ft_ls_lstat_extracting.c">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="738">
-                      <caret line="96" column="26" selection-start-line="96" selection-start-column="26" selection-end-line="96" selection-end-column="26" />
+                    <state relative-caret-position="520">
+                      <caret line="92" column="48" lean-forward="true" selection-start-line="92" selection-start-column="48" selection-end-line="92" selection-end-column="48" />
                     </state>
                   </provider>
                 </entry>
@@ -74,11 +73,22 @@
               <file pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/test/main.test_2.c">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="551">
-                      <caret line="137" column="4" selection-start-line="137" selection-start-column="4" selection-end-line="137" selection-end-column="4" />
+                    <state relative-caret-position="623">
+                      <caret line="199" column="39" selection-start-line="199" selection-start-column="39" selection-end-line="199" selection-end-column="39" />
                       <folding>
-                        <element signature="e#0#18#0" expanded="true" />
-                        <element signature="e#2368#3845#0" />
+                        <element signature="e#0#19#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/file/includes/ft_ls.h">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="-1321">
+                      <caret line="45" column="63" lean-forward="true" selection-start-line="45" selection-start-column="63" selection-end-line="45" selection-end-column="63" />
+                      <folding>
+                        <element signature="e#1014#1037#0" expanded="true" />
                       </folding>
                     </state>
                   </provider>
@@ -89,36 +99,24 @@
           <split-second>
             <leaf>
               <file pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/file/includes/ft_ls.h">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="533">
-                      <caret line="147" column="8" lean-forward="true" selection-start-line="147" selection-start-column="8" selection-end-line="147" selection-end-column="8" />
-                      <folding>
-                        <element signature="e#1014#1037#0" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/file/src/ft_ls_print.c">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="-487">
-                      <caret line="17" column="27" lean-forward="true" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+                    <state relative-caret-position="873">
+                      <caret line="73" column="2" selection-start-line="73" selection-start-column="2" selection-end-line="73" selection-end-column="2" />
                     </state>
                   </provider>
                 </entry>
               </file>
               <file pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/file/src/ft_ls_lstat_extracting.c">
+                <entry file="file://$PROJECT_DIR$/file/src/src_2/ft_ls_print_2.c">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="479">
-                      <caret line="97" column="19" selection-start-line="97" selection-start-column="19" selection-end-line="97" selection-end-column="19" />
+                    <state relative-caret-position="901">
+                      <caret line="61" column="1" lean-forward="true" selection-start-line="61" selection-start-column="1" selection-end-line="61" selection-end-column="1" />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file pinned="false" current-in-tab="true">
+              <file pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/Note/Information.md">
                   <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
                     <state split_layout="FIRST">
@@ -131,10 +129,22 @@
                 </entry>
               </file>
               <file pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/file/main.c">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="306">
+                      <caret line="17" selection-start-line="17" selection-end-line="17" />
+                      <folding>
+                        <element signature="e#1#29#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/test/test.sh">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="336">
-                      <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+                    <state relative-caret-position="544">
+                      <caret line="73" selection-start-line="73" selection-end-line="73" selection-end-column="11" />
                     </state>
                   </provider>
                 </entry>
@@ -154,11 +164,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/file/src/src_2/ft_ls_main_2.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="419">
-                  <caret line="115" selection-start-line="115" selection-end-line="115" />
+                <state relative-caret-position="558">
+                  <caret line="31" column="26" selection-start-line="31" selection-end-line="31" selection-end-column="26" />
                 </state>
               </provider>
             </entry>
@@ -166,8 +176,26 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include/sys/_types/_s_ifmt.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="155">
-                  <caret line="34" column="24" lean-forward="true" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+                <state relative-caret-position="30">
+                  <caret line="38" column="8" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/file/src/src_2/ft_ls_handle_stat.c">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="552">
+                  <caret line="91" column="71" selection-start-line="91" selection-start-column="8" selection-end-line="91" selection-end-column="71" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include/sys/stat.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="149">
+                  <caret line="251" column="48" lean-forward="true" selection-start-line="251" selection-start-column="48" selection-end-line="251" selection-end-column="48" />
                 </state>
               </provider>
             </entry>
@@ -258,18 +286,23 @@
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/file/main.c" />
         <option value="$PROJECT_DIR$/file/src/ft_ls_print.c" />
-        <option value="$PROJECT_DIR$/file/src/ft_ls_lstat_extracting.c" />
-        <option value="$PROJECT_DIR$/file/includes/ft_ls.h" />
-        <option value="$PROJECT_DIR$/test/test.sh" />
         <option value="$PROJECT_DIR$/Note/Information.md" />
+        <option value="$PROJECT_DIR$/note.md" />
+        <option value="$PROJECT_DIR$/file/src/ft_ls_lstat_extracting.c" />
+        <option value="$PROJECT_DIR$/file/src/src_2/utils.c" />
         <option value="$PROJECT_DIR$/file/src/src_2/ft_ls_main_2.c" />
+        <option value="$PROJECT_DIR$/file/includes/ft_ls.h" />
+        <option value="$PROJECT_DIR$/file/src/src_2/ft_ls_handle_stat.c" />
+        <option value="$PROJECT_DIR$/file/src/src_2/ft_ls_print.cpp" />
+        <option value="$PROJECT_DIR$/test/test.sh" />
+        <option value="$PROJECT_DIR$/file/src/src_2/ft_ls_print_2.c" />
         <option value="$PROJECT_DIR$/test/main.test_2.c" />
       </list>
     </option>
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="OCResolveContextSettings">
-    <option name="configuration" value="0-ft_ls__run" />
+    <option name="configuration" value="0-ft_ls__lib" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="width" value="1720" />
@@ -294,7 +327,20 @@
             <path>
               <item name="ft_ls" type="b2602c69:ProjectViewProjectNode" />
               <item name="ls" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="file" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ft_ls" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ls" type="462c0819:PsiDirectoryNode" />
+              <item name="file" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ft_ls" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ls" type="462c0819:PsiDirectoryNode" />
+              <item name="file" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="src_2" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -495,11 +541,18 @@
       <option name="project" value="LOCAL" />
       <updated>1559509797613</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="get les data pour le sort ok">
+      <created>1559581233562</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1559581233562</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="175682000" />
+    <option name="totallyTimeSpent" value="183446000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -519,18 +572,18 @@
       <window_info id="Favorites" order="2" sideWeight="0.50298804" side_tool="true" weight="0.14561091" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49970344" weight="0.32973805" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.62603796" visible="true" weight="0.26194146" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.5557533" weight="0.31355932" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6254448" visible="true" weight="0.26194146" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.5533808" weight="0.31355932" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49958745" weight="0.32973805" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.37396204" side_tool="true" visible="true" weight="0.26194146" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.37455517" side_tool="true" visible="true" weight="0.26194146" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32973805" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49970344" weight="0.32973805" />
       <window_info anchor="bottom" id="CMake" order="11" sideWeight="0.49939469" weight="0.32819724" />
       <window_info anchor="bottom" id="Tail" order="12" />
-      <window_info anchor="bottom" id="Messages" order="13" sideWeight="0.3143535" weight="0.26656395" />
+      <window_info anchor="bottom" id="Messages" order="13" sideWeight="0.30575326" weight="0.26656395" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -583,7 +636,8 @@
     <MESSAGE value="- acl et attr ok !" />
     <MESSAGE value="save avant dodo" />
     <MESSAGE value="new branche in progress to create the speed and beatiful ls" />
-    <option name="LAST_COMMIT_MESSAGE" value="new branche in progress to create the speed and beatiful ls" />
+    <MESSAGE value="get les data pour le sort ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="get les data pour le sort ok" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -911,27 +965,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/file/main.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="e#1#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compact-libft/src/str/str.anatomy.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="249">
           <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include/sys/_types/_s_ifmt.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="34" column="24" lean-forward="true" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -942,37 +979,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/file/src/src_2/ft_ls_build_array.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include/sys/stat.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="231" column="31" selection-start-line="231" selection-start-column="31" selection-end-line="231" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file/includes/ft_ls.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="533">
-          <caret line="147" column="8" lean-forward="true" selection-start-line="147" selection-start-column="8" selection-end-line="147" selection-end-column="8" />
-          <folding>
-            <element signature="e#1014#1037#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include/time.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="298">
@@ -980,24 +986,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/file/src/ft_ls_lstat_extracting.c">
+    <entry file="file://$PROJECT_DIR$/file/src/src_2/ft_ls_build_array.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="96" column="26" selection-start-line="96" selection-start-column="26" selection-end-line="96" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file/src/ft_ls_print.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-487">
-          <caret line="17" column="27" lean-forward="true" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+        <state relative-caret-position="342">
+          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/file/src/src_2/ft_ls_main_2.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="115" selection-start-line="115" selection-end-line="115" />
+        <state relative-caret-position="558">
+          <caret line="31" column="26" selection-start-line="31" selection-end-line="31" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file/src/src_2/utils.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file/src/src_2/ft_ls_handle_stat.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="91" column="71" selection-start-line="91" selection-start-column="8" selection-end-line="91" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/note.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="36">
+            <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include/sys/_types/_s_ifmt.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="38" column="8" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include/sys/stat.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="251" column="48" lean-forward="true" selection-start-line="251" selection-start-column="48" selection-end-line="251" selection-end-column="48" />
         </state>
       </provider>
     </entry>
@@ -1011,13 +1048,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/file/includes/ft_ls.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1321">
+          <caret line="45" column="63" lean-forward="true" selection-start-line="45" selection-start-column="63" selection-end-line="45" selection-end-column="63" />
+          <folding>
+            <element signature="e#1014#1037#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file/src/ft_ls_print.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="873">
+          <caret line="73" column="2" selection-start-line="73" selection-start-column="2" selection-end-line="73" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file/src/src_2/ft_ls_print_2.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="901">
+          <caret line="61" column="1" lean-forward="true" selection-start-line="61" selection-start-column="1" selection-end-line="61" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#1#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file/src/ft_ls_lstat_extracting.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="92" column="48" lean-forward="true" selection-start-line="92" selection-start-column="48" selection-end-line="92" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="73" selection-start-line="73" selection-end-line="73" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/main.test_2.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="137" column="4" selection-start-line="137" selection-start-column="4" selection-end-line="137" selection-end-column="4" />
+        <state relative-caret-position="623">
+          <caret line="199" column="39" selection-start-line="199" selection-start-column="39" selection-end-line="199" selection-end-column="39" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#2368#3845#0" />
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>

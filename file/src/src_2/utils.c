@@ -12,28 +12,16 @@
 
 #include "ft_ls.h"
 
-/*
- * init and malloc an array to handle the file
- * */
-int ft_ls_init(char *path, t_ls_2 *l)
+int ft_api_lstat(t_ls_2 *l)
 {
-	ft_mem_copy(l->path, path, STRING_MODE);
-	if (ft_api_dir(l))
+	if (lstat(l->path, &l->fs))
 		return (-1);
-	while (readdir(l->dir))
-		l->elements++;
-	closedir(l->dir);
-	if (ft_array_new(&l->array, l->elements, sizeof(t_file)))
-		return (-1);
-	ft_str_len(&l->end_path, path);
 	return (0);
 }
 
-void ft_ls_free(t_ls_2 *l)
+int ft_api_dir(t_ls_2 *l)
 {
-	if (l->array)
-		ft_array_free(&l->array);
-	if (l->buff)
-		ft_buffer_free(&l->buff);
-	memset(l, 0, sizeof(t_ls_2));
+	if (!(l->dir = opendir(l->path)))
+		return (-1);
+	return (0);
 }

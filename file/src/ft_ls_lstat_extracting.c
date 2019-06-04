@@ -42,20 +42,20 @@ static char ft_get_type(const mode_t *st_mode_ptr)
 }
 
 // i need the s and the t at the end
-void ft_get_permission(const mode_t *st_mode, char *file_mode)
+void ft_get_permission(const mode_t mode, char *file_mode)
 {
-	// j'avance vers > pour set up tout les droits avec ma loop
-	file_mode[1] = *st_mode & (unsigned int) S_IRUSR ? 'r' : '-';
-	file_mode[2] = *st_mode & (unsigned int) S_IWUSR ? 'w' : '-';
-	file_mode[3] = *st_mode & (unsigned int) S_IXUSR ? 'x' : '-';
-	file_mode[4] = *st_mode & (unsigned int) S_IRGRP ? 'r' : '-';
-	file_mode[5] = *st_mode & (unsigned int) S_IWGRP ? 'w' : '-';
-	file_mode[6] = *st_mode & (unsigned int) S_IXGRP ? 'x' : '-';
-	file_mode[7] = *st_mode & (unsigned int) S_IROTH ? 'r' : '-';
-	file_mode[8] = *st_mode & (unsigned int) S_IWOTH ? 'w' : '-';
-	file_mode[9] = *st_mode & (unsigned int) S_IXOTH ? 'x' : '-';
+	static const char chars[] = "rwxrwxrwx";
+	ssize_t i;
+
+	i = -1;
+	while (i++ < 9)
+		file_mode[i + 1] = (mode & (1 << (8 - i))) ? chars[i] : '-';
+	file_mode[0] = ft_get_type(&mode);
+
 
 	// ensuite je set les suid, guid, et sticky bit.
+
+	// at the end of the 3 x I need to test if there is the good new test
 }
 
 void set_max_length(int witch_size, int *size_array, int nb, char *str)
@@ -89,7 +89,7 @@ int is_directory(char *path)
 
 int extract_lstat(struct stat *fs, t_f *f, t_ls *ls)
 {
-	ft_get_permission(&fs->st_mode, f->file_mode);
+	ft_get_permission(fs->st_mode, f->file_mode);
 	f->file_mode[0] = ft_get_type(&fs->st_mode);
 	f->hard_link = fs->st_nlink;
 	f->uid = getpwuid(fs->st_uid)->pw_name;

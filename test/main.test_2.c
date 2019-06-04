@@ -1,10 +1,8 @@
 # include <ft_ls.h>
-# include "../file/src/src_2/ft_ls_main_2.c"
+# include "../file/src/src_2/ft_ls_handle_stat.c"
+# include "../file/src/src_2/ft_ls_print_2.c"
 
-int init_ls_2(char *path, t_ls_2 *l);
-void ls_free(t_ls_2 *l);
-int ft_set_max(t_ls_2 *l, char *file_name);
-int array_file_name(t_ls_2 *l);
+/* test main ------------------------------------------------------------ */
 
 void helper_test()
 {
@@ -31,19 +29,20 @@ void test_init_ls_2()
 	int ret;
 
 	// test with good argv
-	ret = init_ls_2("/Users/adpusel", l);
+	ret = ft_ls_init("/Users/adpusel", l);
 	if (ret
 		|| l->array->length != 44
 		|| strcmp("/Users/adpusel", l->path))
 		ft_test_error("test_init_ls 1");
-	ls_free(l);
+	ft_ls_free(l);
 
 	// test with good arg
-	ret = init_ls_2("/Users/adpuselaoeu", l);
+	ret = ft_ls_init("/Users/adpuselaoeu", l);
 	if (!ret || l->array || strcmp("/Users/adpuselaoeu", l->path))
 		ft_test_error("test_init_ls 2");
 }
 
+/* test stat ------------------------------------------------------------ */
 void test_ft_ls_max()
 {
 	int arr[FT_LS_ARR_SZ] = {0};
@@ -144,7 +143,7 @@ void test_array_file_name()
 	t_ls_2 *l = &ls;
 	int ret;
 
-	init_ls_2("/Users/adpusel", l);
+	ft_ls_init("/Users/adpusel", l);
 	ret = array_file_name(l);
 	int max_size[6] = {4, 7, 5, 0, 5, 38};
 	if (ret
@@ -156,9 +155,9 @@ void test_array_file_name()
 		ft_test_error("test array_file_name 1");
 		test_print_int_array(l->size, 6);
 	}
-	ls_free(l);
+	ft_ls_free(l);
 
-	init_ls_2("/dev", l);
+	ft_ls_init("/dev", l);
 	l->options |= FT_LS_O_a;
 	ret = array_file_name(l);
 	int driver_size[6] = {1, 7, 13, 2, 5, 29};
@@ -174,6 +173,36 @@ void test_array_file_name()
 
 }
 
+
+/* test print --------------------------------------------------------------- */
+void utils_print_permission(char *path, char *res)
+{
+	struct stat fs;
+	char buff[300];
+	static int nb;
+	(void) res;
+
+	ft_mem_set(buff, 0, 300);
+	lstat(path, &fs);
+	ft_ls_get_permission(fs.st_mode, buff);
+	if (strcmp(res, buff))
+		ft_print_error("print_permission ", nb);
+	nb++;
+}
+
+void test_print_permission()
+{
+	// block special
+	utils_print_permission("/dev/disk0", "brw-r-----");
+	utils_print_permission("/Users/adpusel/.zshrc", "-rw-r--r--");
+	utils_print_permission("/Users/adpusel/Applications", "drwx------");
+	utils_print_permission("/dev/stderr", "lr-xr-xr-x");
+	utils_print_permission("/dev/ttyv0", "crw-rw-rw-");
+	utils_print_permission("/tmp/toto/fifo", "prw-r--r--");
+	utils_print_permission("/var/run/pppconfd", "srwxrwxrwx");
+}
+/* test sort ---------------------------------------------------------------- */
+
 void main_test_2()
 {
 	helper_test();
@@ -182,4 +211,5 @@ void main_test_2()
 	test_ft_set_max();
 	test_array_file_name();
 	test_fill_file();
+	test_print_permission();
 }
