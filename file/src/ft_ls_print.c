@@ -139,7 +139,7 @@ static void ft_add_size(t_ls_2 *l)
 	{
 		if (l->has_driver)
 			ft_sprintf(l->buff, "%*ld ",
-					   l->size[FT_LS___FILE] + 3, l->fs.st_size);
+					   l->size[FT_LS___FILE] + 4, l->fs.st_size);
 		else
 			ft_sprintf(l->buff, "%*ld ",
 					   l->size[FT_LS___FILE], l->fs.st_size);

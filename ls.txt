@@ -1,15 +1,8 @@
-total 10
-dr-xr-xr-x   3 root     wheel              4770 May 28 07:12 .
-drwxr-xr-x@ 29 root     wheel               928 May 23 10:45 ..
 crw-------   1 root     wheel           18,   1 May 28 07:12 afsc_type5
 crw-------   1 root     wheel           10,   0 May 28 07:12 auditpipe
 crw-r--r--   1 root     wheel            9,   4 May 28 07:12 auditsessions
 crw-------   1 root     wheel           31,   0 May 28 07:12 autofs
 crw-------   1 root     wheel           35,   0 May 28 07:12 autofs_control
-crw-rw-rw-   1 root     wheel           34, 0x00000187 May 28 07:12 autofs_homedirmounter
-crw-rw-rw-   1 root     wheel           34, 0x000001a1 May 28 07:12 autofs_homedirmounter
-crw-rw-rw-   1 root     wheel           33, 0x00000187 May 28 07:12 autofs_notrigger
-crw-rw-rw-   1 root     wheel           32, 0x00003cd7 May 28 07:12 autofs_nowait
 crw-------   1 root     wheel           23,   0 May 28 07:12 bpf0
 crw-------   1 root     wheel           23,   1 May 28 07:12 bpf1
 crw-------   1 root     wheel           23,   2 May 31 12:31 bpf2
