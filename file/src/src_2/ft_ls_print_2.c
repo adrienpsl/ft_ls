@@ -21,20 +21,19 @@ void ft_ls_get_permission(const mode_t mode, char *file)
 	static char char_type[] = "bcpdls-";
 	ssize_t i;
 
-	i = 0;
-	while (i < 9)
+	i = -1;
+	while (++i < 9)
 	{
 		file[i + 1] = (mode & (1 << (8 - i))) ? rights[i] : '-';
-		if (i == 2 && (mode & S_ISUID))
+		if (i == 3 && (mode & S_ISUID))
 			file[i] = file[i] == 'x' ? 's' : 'S';
-		if (i == 5 && (mode & S_ISGID))
+		if (i == 6 && (mode & S_ISGID))
 			file[i] = file[i] == 'x' ? 's' : 'S';
 		if (i == 8 && (mode & S_ISVTX))
-			file[i] = file[i] == 'x' ? 't' : 'T';
-		i++;
+			file[i + 1] = file[i + 1] == 'x' ? 't' : 'T';
 	}
 	i = -1;
-	while (i++ < 7)
+	while (++i < 7)
 	{
 		if ((S_IFMT & mode)  == filters[i])
 		{

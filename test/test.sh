@@ -82,5 +82,39 @@ mkfifo fifofile
 # socket
 /var/run/pppconfd
 
+#
+### test guid / sticky bit / uid
+#
+
+# S udi
+touch uids_big
+chmod u+s uids_big
+
+# s uid
+touch uids_little
+chmod 700 uids_little
+chmod u+s uids_little
+
+# S gdi
+touch gids_big
+chmod 707 gids_big
+sudo chmod g+s gids_big
+
+# s gid
+touch gids_little
+chmod 770 gids_little
+sudo chmod g+s gids_little
+
+# sticky T
+touch sticky_big
+chmod +t sticky_big
+
+# sticky t
+touch sticky_little
+chmod 707 sticky_little
+chmod +t sticky_little
+
+
+
 
 

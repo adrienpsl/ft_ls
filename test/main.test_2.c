@@ -186,7 +186,11 @@ void utils_print_permission(char *path, char *res)
 	lstat(path, &fs);
 	ft_ls_get_permission(fs.st_mode, buff);
 	if (strcmp(res, buff))
+	{
 		ft_print_error("print_permission ", nb);
+		printf("ls   : %s \n", res);
+		printf("buff : %s \n", buff);
+	}
 	nb++;
 }
 
@@ -200,6 +204,18 @@ void test_print_permission()
 	utils_print_permission("/dev/ttyv0", "crw-rw-rw-");
 	utils_print_permission("/tmp/toto/fifo", "prw-r--r--");
 	utils_print_permission("/var/run/pppconfd", "srwxrwxrwx");
+
+	// uid
+	utils_print_permission("/tmp/toto/uid-guid/uids_big", "-rwSr--r--");
+	utils_print_permission("/tmp/toto/uid-guid/uids_little", "-rws------");
+
+	// guid
+	utils_print_permission("/tmp/toto/uid-guid/gids_big", "-rwx--Srwx");
+	utils_print_permission("/tmp/toto/uid-guid/gids_little", "-rwxrws---");
+
+	// t
+	utils_print_permission("/tmp/toto/uid-guid/sticky_big", "-rw-r--r-T");
+	utils_print_permission("/tmp/toto/uid-guid/sticky_little", "-rwx---rwt");
 }
 /* test sort ---------------------------------------------------------------- */
 
@@ -209,7 +225,7 @@ void main_test_2()
 	test_init_ls_2();
 	test_ft_ls_max();
 	test_ft_set_max();
-	test_array_file_name();
-	test_fill_file();
+//	test_array_file_name();
+//	test_fill_file();
 	test_print_permission();
 }
