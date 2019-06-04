@@ -106,23 +106,11 @@ static void type_size_uid_guid(t_ls_2 *l)
 	}
 }
 
-static void size_time(t_ls_2 *l)
+static void ft_add_time(t_ls_2 *l)
 {
 	int time_size;
 	char buffer[24];
 
-	if (S_ISBLK(l->fs.st_mode) || S_ISCHR(l->fs.st_mode))
-	{
-		l->size[FT_LS___FILE] < 4 && (l->size[FT_LS___FILE] = 4);
-		l->size[FT_LS_DRIVER] < 3 && (l->size[FT_LS_DRIVER] = 3);
-		ft_sprintf(l->buff, "%*d,",
-				   l->size[FT_LS_DRIVER], major(l->fs.st_rdev));
-		ft_sprintf(l->buff, "%*d ",
-				   l->size[FT_LS___FILE], minor(l->fs.st_rdev));
-	}
-	else
-		ft_sprintf(l->buff, "%*ld ",
-				   l->size[FT_LS___FILE], l->fs.st_size);
 	if (FT_LS_O_u & l->options)
 		time_size = print_time(l->fs.st_atimespec.tv_sec, buffer, l->options);
 	else if (FT_LS_O_c & l->options)
@@ -130,6 +118,32 @@ static void size_time(t_ls_2 *l)
 	else
 		time_size = print_time(l->fs.st_mtimespec.tv_sec, buffer, l->options);
 	ft_buffer_add(l->buff, buffer, time_size);
+}
+
+static void ft_add_size(t_ls_2 *l)
+{
+	if (S_ISBLK(l->fs.st_mode) || S_ISCHR(l->fs.st_mode))
+	{
+		(l->size[FT_LS___FILE] = 4);
+		(l->size[FT_LS_DRIVER] = 3);
+		ft_sprintf(l->buff, "%*d,",
+				   l->size[FT_LS_DRIVER], major(l->fs.st_rdev));
+		if (minor(l->fs.st_rdev) > 255)
+			ft_sprintf(l->buff, " %0*x ",
+					   10, minor(l->fs.st_rdev));
+		else
+			ft_sprintf(l->buff, "%*d ",
+					   l->size[FT_LS___FILE], minor(l->fs.st_rdev));
+	}
+	else
+	{
+		if (l->has_driver)
+			ft_sprintf(l->buff, "%*ld ",
+					   l->size[FT_LS___FILE] + 3, l->fs.st_size);
+		else
+			ft_sprintf(l->buff, "%*ld ",
+					   l->size[FT_LS___FILE], l->fs.st_size);
+	}
 }
 
 static int name_symlink(t_ls_2 *l, t_file *file)
@@ -160,6 +174,7 @@ int print_stats(t_ls_2 *l)
 	t_file *file;
 	size_t file_size;
 
+	ft_ls_sort(l);
 	while ((file = (t_file *) ft_array_next_el(l->array)))
 	{
 		if (!*file->name)
@@ -167,12 +182,13 @@ int print_stats(t_ls_2 *l)
 		ft_str_len(&file_size, l->path);
 		ft_mem_copy(l->path + l->end_path, file->name, STRING_MODE);
 		if (ft_api_lstat(l))
-			continue ;
+			continue;
 		if (FT_ISLNK(l->fs.st_mode)
 			&& readlink(l->path, l->link, FT_LS_MAX_FILE) == -1)
 			return (-1);
 		type_size_uid_guid(l);
-		size_time(l);
+		ft_add_size(l);
+		ft_add_time(l);
 		name_symlink(l, file);
 		ft_buffer_add(l->buff, "\n", 1);
 	}

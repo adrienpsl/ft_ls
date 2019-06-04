@@ -51,6 +51,7 @@ int ft_set_max(t_ls_2 *l, char *file_name)
 	{
 		ft_ls_max(&l->size[FT_LS_DRIVER], major(l->fs.st_rdev), NULL);
 		ft_ls_max(&l->size[FT_LS___FILE], minor(l->fs.st_rdev), NULL);
+		l->has_driver = 1;
 	}
 	ft_ls_max(&l->size[FT_LS___NAME], 0, file_name);
 	ft_ls_max(&l->size[FT_LS_____HL], l->fs.st_nlink, NULL);

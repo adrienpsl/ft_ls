@@ -277,7 +277,7 @@ void utils_print_line(char *path, char *file, char *res, int option)
 	l->options |= option;
 
 	type_size_uid_guid(l);
-	size_time(l);
+	ft_add_size(l);
 	ft_mem_copy(l->path, path, STRING_MODE);
 	if (FT_ISLNK(l->fs.st_mode))
 		readlink(l->path, l->link, FT_LS_MAX_FILE);
@@ -348,12 +348,12 @@ void test_print_long()
 	t_ls_2 *l = &ls;
 
 //	ft_ls_init("/tmp/toto", l);
-	ft_ls_init("/Users/adpusel/Downloads", l);
+	ft_ls_init("/dev", l);
 	l->options |= FT_LS_O_a;
 	array_file_name(l);
 	l->array->i = 0;
 	if (l->options & FT_LS_O_a)
-		ft_sprintf(l->buff, "total : %ld\n", l->total);
+		ft_sprintf(l->buff, "total %ld\n", l->total);
 	print_stats(l);
 	ft_buffer_clean(l->buff);
 

@@ -15,15 +15,15 @@
 void swap_func(void *a, void *b)
 {
 	t_f tmp;
-	ft_mem_copy(&tmp, a, sizeof(t_f));
-	ft_mem_copy(a, b, sizeof(t_f));
-	ft_mem_copy(b, &tmp, sizeof(t_f));
+	ft_mem_copy(&tmp, a, sizeof(t_file));
+	ft_mem_copy(a, b, sizeof(t_file));
+	ft_mem_copy(b, &tmp, sizeof(t_file));
 }
 
 int sort_func(void *p_l1, void *p_l2, void *p_param)
 {
-	t_f *l1;
-	t_f *l2;
+	t_file *l1;
+	t_file *l2;
 	long param;
 	int ret;
 
@@ -40,7 +40,7 @@ int sort_func(void *p_l1, void *p_l2, void *p_param)
 	return  param & FT_LS_O_r ? !ret : ret;
 }
 
-int ft_ls_sort(t_ls *l)
+int ft_ls_sort(t_ls_2 *l)
 {
 	t_quick quick;
 
@@ -48,6 +48,6 @@ int ft_ls_sort(t_ls *l)
 	quick.array = l->array;
 	quick.param = &l->options;
 	quick.cmp_func = sort_func;
-	ft_quick_sort(&quick, 0, l->nb_elements - 1);
+	ft_quick_sort(&quick, 0, l->elements - 1);
 	return (0);
 }

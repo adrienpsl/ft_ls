@@ -84,6 +84,7 @@ typedef struct s_ls_2
 	t_array *array;
 	char file[256];
 	char link[256];
+	int has_driver;
 } t_ls_2;
 
 # define FT_LS_DRIVER_MIN 0
@@ -149,7 +150,7 @@ typedef struct s_file
 */
 char *get_time(long int *time, int mode, char *out);
 int extract_lstat(struct stat *fs, t_f *f, t_ls *ls);
-int ft_ls_sort(t_ls *l);
+int ft_ls_sort(t_ls_2 *l);
 int init_t_ls(char *path, t_ls *l);
 int buffer_tab(t_ls *ls);
 int is_directory(char *path);
