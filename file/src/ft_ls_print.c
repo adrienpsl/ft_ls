@@ -47,13 +47,13 @@ int ft_get_acl_extended(char *path, char *buff)
 	acl_t acl;
 
 	acl = acl_get_file(path, ACL_TYPE_EXTENDED);
-	if (acl > 0)
+	if (listxattr(path, NULL, 0, 0) > 0)
+		*buff = '@';
+	else if (acl > 0)
 	{
 		*buff = '+';
 		acl_free((void *) acl);
 	}
-	else if (listxattr(path, NULL, 0, 0) > 0)
-		*buff = '@';
 	else
 		*buff = ' ';
 	return (0);
@@ -84,53 +84,73 @@ int print_time(long int time_nb, char *out, long option)
 	return ret;
 }
 
-int print_in_col(t_ls_2 *l)
+
+void print_col(t_ls_2 *l, int line_size)
+{
+	l->f = ft_array_el(l->array, l->i + (l->y * line_size));
+	if (l->options & FT_LS_O_1)
+		ft_sprintf(l->buff, "%s\n", l->f->name);
+	else
+		ft_sprintf(l->buff, "%-*s",
+				   l->size[FT_LS___NAME] + 1, l->f->name);
+}
+
+int print_all_col(t_ls_2 *l)
 {
 	struct ttysize ts;
 	int col_size;
 	int line_size;
-	ioctl(0, TIOCGWINSZ, &ts);
 
-	l->i = 0;
+	ioctl(0, TIOCGWINSZ, &ts);
+	l->i = -1;
 	l->array->i = 0;
 	col_size = ts.ts_cols / (l->size[FT_LS___NAME] + 1);
 	col_size <= 0 ? col_size = 1 : 0;
 	line_size = (l->elements / col_size) + 1;
 	if (l->options & FT_LS_O_1)
-	    ;
-	while (l->i < line_size)
-	{
-		l->y = 0;
-		while (l->y < col_size)
+		while (++l->i < l->elements)
+			print_col(l, l->i);
+	else
+		while (++l->i < line_size)
 		{
-			if (l->i + (l->y * line_size) < l->elements)
+			l->y = -1;
+			while (++l->y < col_size)
 			{
-				l->f = ft_array_el(l->array, l->i + (l->y * line_size));
-				ft_sprintf(l->buff, "%-*s",
-						l->size[FT_LS___NAME] + 1, l->f->name);
+				if (l->i + (l->y * line_size) < l->elements)
+					print_col(l, line_size);
 			}
-			l->y++;
+			ft_buffer_add(l->buff, "\n", 1);
 		}
-		ft_buffer_add(l->buff, "\n", 1);
-		l->i += 1;
-	}
 	return 0;
 }
 
 int print_all(t_ls_2 *l)
 {
-	if (l->options & FT_LS_O_R)
+	static int is_first = 1;
+
+	if ((l->options & FT_LS_O_R) && !is_first)
 	{
+		ft_buffer_add(l->buff, "\n", 1);
 		ft_buffer_add(l->buff, l->path, l->end_path - 1);
 		ft_buffer_add(l->buff, ":", 1);
 		ft_buffer_add(l->buff, "\n", 1);
 	}
+	is_first = 0;
 	if (l->options & FT_LS_O_l)
 	{
 		ft_sprintf(l->buff, "total %ld\n", l->total);
-		print_stats(l);
+		while ((l->f = (t_file *) ft_array_next_el(l->array)))
+		{
+			if (!*l->f->name)
+				continue;
+			ft_str_len(&l->s, l->path);
+			ft_mem_copy(l->path + l->end_path, l->f->name, STRING_MODE);
+			if (ft_api_lstat(l))
+				continue;
+			print_stats(l);
+		}
 	}
 	else
-		print_in_col(l);
+		print_all_col(l);
 	return (0);
 }

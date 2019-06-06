@@ -288,7 +288,7 @@ void utils_print_line(char *path, char *file, char *res, int option)
 	ft_add_size(l);
 	ft_mem_copy(l->path, path, STRING_MODE);
 	if (FT_ISLNK(l->fs.st_mode))
-		readlink(l->path, l->link, FT_LS_MAX_FILE);
+		readlink(l->path, l->link_ptr, FT_LS_MAX_FILE);
 	name_symlink(l, &f);
 
 	if (strcmp(res, l->buff->data))
@@ -366,7 +366,7 @@ void test_print_long()
 		ft_sprintf(l->buff, "total %ld\n", l->total);
 	ft_ls_sort(l);
 //	print_stats(l);
-	print_in_col(l);
+	print_all_col(l);
 	ft_buffer_clean(l->buff);
 
 	

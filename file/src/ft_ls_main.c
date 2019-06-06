@@ -42,37 +42,34 @@ void ft_ls_free(t_ls_2 *l)
 
 void print_err(char *dir_name)
 {
-	static char buff[300] = "ft_ls: ";
+	static char buff[PATH_MAX + 10] = "ls: ";
 	size_t dir_name_size;
 
 	ft_str_len(&dir_name_size, dir_name);
-	ft_mem_copy(buff + 7, dir_name, STRING_MODE);
+	ft_mem_copy(buff + 4, dir_name, STRING_MODE);
 	perror(buff);
 }
 
 int ft_all(char *path, int options, t_buff *buff, char *dir_name)
 {
-	t_file *file;
 	t_ls_2 l;
 	char full_path[PATH_MAX + 1];
 
 	if (!ft_ls_init(path, &l, buff, options)
-		&& !array_file_name(&l) && !ft_ls_sort(&l)
-		&& !print_all(&l))
+		&& !array_file_name(&l) && !ft_ls_sort(&l) && !print_all(&l))
 	{
-		ft_buffer_add(l.buff, "\n", 1);
-		while ((file = ft_array_next_el(l.array)) != NULL)
-		{
-			if (file->directory
-				&& ft_mem_cmp(file->name, ".", 2)
-				&& ft_mem_cmp(file->name, "..", 3))
+		if (options & FT_LS_O_R)
+			while ((l.f = ft_array_next_el(l.array)) != NULL)
 			{
-				ft_mem_set(full_path, 0, PATH_MAX + 1);
-				ft_mem_copy(full_path, l.path, l.end_path);
-				ft_mem_copy(full_path + l.end_path, file->name, STRING_MODE);
-				ft_all(full_path, options, buff, file->name);
+				if (l.f->directory && ft_mem_cmp(l.f->name, ".", 2)
+					&& ft_mem_cmp(l.f->name, "..", 3))
+				{
+					ft_mem_set(full_path, 0, PATH_MAX + 1);
+					ft_mem_copy(full_path, l.path, l.end_path);
+					ft_mem_copy(full_path + l.end_path, l.f->name, STRING_MODE);
+					ft_all(full_path, options, buff, l.f->name);
+				}
 			}
-		}
 	}
 	else
 		print_err(dir_name);

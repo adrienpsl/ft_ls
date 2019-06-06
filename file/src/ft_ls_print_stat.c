@@ -78,31 +78,19 @@ static int name_symlink(t_ls_2 *l, t_file *file)
 {
 	ft_sprintf(l->buff, " %s", file->name);
 	if (FT_ISLNK(l->fs.st_mode))
-		ft_sprintf(l->buff, " -> %s", l->link);
+		ft_sprintf(l->buff, " -> %s", l->link_ptr);
 	return (0);
 }
 
 int print_stats(t_ls_2 *l)
 {
-	t_file *file;
-	size_t file_size;
-
-	while ((file = (t_file *) ft_array_next_el(l->array)))
-	{
-		if (!*file->name)
-			continue;
-		ft_str_len(&file_size, l->path);
-		ft_mem_copy(l->path + l->end_path, file->name, STRING_MODE);
-		if (ft_api_lstat(l))
-			continue;
-		if (FT_ISLNK(l->fs.st_mode)
-			&& readlink(l->path, l->link, FT_LS_MAX_FILE) == -1)
-			continue;
-		type_size_uid_guid(l);
-		ft_add_size(l);
-		ft_add_time(l);
-		name_symlink(l, file);
-		ft_buffer_add(l->buff, "\n", 1);
-	}
+	if (FT_ISLNK(l->fs.st_mode)
+		&& readlink(l->path, l->link_ptr, FT_LS_MAX_FILE) == -1)
+		return (-1);
+	type_size_uid_guid(l);
+	ft_add_size(l);
+	ft_add_time(l);
+	name_symlink(l, l->f);
+	ft_buffer_add(l->buff, "\n", 1);
 	return (0);
 }

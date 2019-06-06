@@ -61,7 +61,7 @@ typedef struct s_file
 {
 	char directory;
 	long sort_data;
-	char name[FT_LS_MAX_FILE];
+	char name[1065];
 } t_file;
 
 
@@ -90,11 +90,13 @@ typedef struct s_ls_2
 	DIR *dir;
 	t_buff *buff;
 	t_array *array;
-	char link[256];
+	char link_ptr[256];
 	int has_driver;
 	t_file *f;
 	int i;
 	int y;
+	size_t s;
+
 } t_ls_2;
 
 # define FT_LS_DRIVER_MIN 0
@@ -175,7 +177,7 @@ int print_stats(t_ls_2 *l);
 void ft_ls_get_permission(const mode_t mode, char *file);
 int ft_get_acl_extended(char *path, char *buff);
 int print_time(long int time_nb, char *out, long option);
-int print_in_col(t_ls_2 *l);
+int print_all_col(t_ls_2 *l);
 int print_all(t_ls_2 *l);
 
 void print_err(char *dir_name);

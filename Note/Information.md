@@ -391,8 +391,8 @@ do in stats
 Sort by last modification -t
 Sort by last access date: -u
 Sort by last status change date: -c
-
 Sort by file size: -S
+
 - n not convert group in str.
 
 do in print

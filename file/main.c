@@ -1,91 +1,89 @@
 
 #include <ft_libft_struct.h>
 #include "ft_ls.h"
+
 void main_test_2();
 
-int main()
+int parsing_options(char *av, long *p_options)
 {
-	main_test_2();
+	static char *options = "RlartncSguT1";
+
+	if (ft_io_catch_options(av, options, p_options))
+	{
+		ft_printf("usage : ft_ls -[%s]", options);
+		return (-1);
+	}
+	return (0);
+}
 
 
-//	DIR *current_dir;
-//
-//	current_dir = opendir("test");
-//	t_array *array;
-//	struct dirent *dp;
-//	t_ls_link *link1;
-//	int nb_elements = 0;
-//	char *path;
-//	t_ls ls;
-//	ft_mem_set(&ls, 0, sizeof(ls));
-//
-//	ft_array_new(&array, 200, sizeof(t_ls_link));
-//
-//	printf("%d \n", PATH_MAX);
+int test_file(char *path, int options)
+{
+	t_buff *buff;
+	t_ls_2 ls;
+	t_file file;
+
+	if (lstat(path, &ls.fs) || ft_buffer_new(&buff, 35000, 1))
+		return (1);
+	if (S_ISDIR(ls.fs.st_mode))
+		ft_all(path, options, buff, path);
+	else
+	{
+		ls.buff = buff;
+		ls.options = options;
+		ft_mem_copy(ls.path, path, STRING_MODE);
+		if (options & FT_LS_O_l)
+		{
+			ls.f = &file;
+			ft_mem_copy(file.name, path, STRING_MODE);
+			print_stats(&ls);
+		}
+		else
+			ft_sprintf(buff, "%s\n", path);
+	}
+	ft_buffer_clean(buff);
+	ft_buffer_free(&buff);
+	return (0);
+}
+
+int main(int ac, char **av)
+{
+	static int i = 1;
+	static long option = 0;
+	static int is_path = 0;
+
+	while (i < ac)
+	{
+		if (av[i][0] == '-')
+		{
+			if (parsing_options(av[i] + 1, &option))
+				return (EXIT_FAILURE);
+		}
+		else
+		{
+			if (test_file(av[i], option))
+				print_err(av[i]);
+			is_path = 1;
+		}
+		i++;
+	}
+
+	if (is_path == 0)
+		test_file(".", option);
 
 
-//	struct stat fileStat;
+//	main_test_2();
 
-//	lstat("test/toto", &fileStat);
-//	test(fileStat);
+	// si option >
+	//  bad option
 
-//
-//	while ((dp = readdir(current_dir)) > 0)
-//	{
-//		link1 = ft_array_next_el(array);
-//		// je set le nom de mon file avant
-//		link1->name_size = ft_str_len(dp->d_name);
-//		ft_mem_copy(link1->name, dp->d_name, link1->name_size);
-//
-//		ft_str_join(&path, "test/", link1->name);
-//
-//		ft_fill_link(path, link1, &ls);
-//		nb_elements++;
-//	}
-//
-//	array->i = 0;
-//
-//
-//
-//	print_list(nb_elements, array, &ls);
-//	array->i = 0;
-//	print_list(nb_elements, array, &ls);
-//
-//	//	int nbBlock = 0;
+	// si plusieur option
 
+	// si pas d'argument
 
+	// si argv is file
 
-
-	// check le retour de read dir, et les err qu'il retourn
-
-
-
-
-
-
-
-//	ret = stat("/Users/adpusel/Downloads/papier-20190528T062221Z-001.zip", &fileStat);
-//	test(fileStat);
-//	printf("%d \n", ret);
-//	ft_get_permission(&fileStat.st_mode, fileMode);
-
-	// I got fileStat struct, i want get the group of the user
-
-
-	// je print ses permissions
-
-//	printf("%s \n", fileMode);
-//	printf("----%d  --- %d\n", MAXPATHLEN, sizeof(t_ls) * 200); // 240000 // 200 kio
-//
-//
-//
-//
-//
-//	// file 2 ======================================
-//	dp = readdir(currentDir);
-//	printf("%s \n", dp->d_name);
-	// retourn les deux premier shit de tout dossier
-
+	// si arvg is directory
 
 	return 0;
 }
