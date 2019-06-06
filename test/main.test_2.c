@@ -1,6 +1,7 @@
 # include <ft_ls.h>
 # include "../file/src/ft_ls_handle_stat.c"
 # include "../file/src/ft_ls_print.c"
+# include "../file/src/ft_ls_print_stat.c"
 
 /* test main ------------------------------------------------------------ */
 
@@ -28,8 +29,11 @@ void test_init_ls_2()
 	l = &ls2;
 	int ret;
 
+	t_buff *buff;
+	ft_buffer_new(&buff, 100, 1);
+
 	// test with good argv
-	ret = ft_ls_init("/Users/adpusel", l);
+	ret = ft_ls_init("/Users/adpusel", l, buff, 0);
 	if (ret
 		|| l->array->length != 44
 		|| strcmp("/Users/adpusel", l->path))
@@ -37,7 +41,7 @@ void test_init_ls_2()
 	ft_ls_free(l);
 
 	// test with good arg
-	ret = ft_ls_init("/Users/adpuselaoeu", l);
+	ret = ft_ls_init("/Users/adpuselaoeu", l, buff, 0);
 	if (!ret || l->array || strcmp("/Users/adpuselaoeu", l->path))
 		ft_test_error("test_init_ls 2");
 }
@@ -45,7 +49,7 @@ void test_init_ls_2()
 /* test stat ------------------------------------------------------------ */
 void test_ft_ls_max()
 {
-	int arr[FT_LS_ARR_SZ] = {0};
+	size_t arr[FT_LS_ARR_SZ] = {0};
 
 	// test with null
 	ft_ls_max(&arr[2], 10, NULL);
@@ -64,7 +68,7 @@ void test_ft_set_max()
 
 	printf("%lu-- \n", sizeof(long));
 	// regular file
-	int download_file[6] = {2, 7, 5, 0, 4, 9};
+	size_t download_file[6] = {2, 7, 5, 0, 4, 9};
 	ft_mem_set(&l, 0, sizeof(t_ls_2));
 	lstat("/Users/adpusel/Downloads", &l.fs);
 	ft_set_max(&l, "Downloads");
@@ -73,7 +77,7 @@ void test_ft_set_max()
 
 
 	// driver
-	int driver[6] = {1, 7, 3, 2, 1, 7};
+	size_t driver[6] = {1, 7, 3, 2, 1, 7};
 	ft_mem_set(&l, 0, sizeof(t_ls_2));
 	lstat("/dev/ttys000", &l.fs);
 	ft_set_max(&l, "ttys000");
@@ -82,7 +86,8 @@ void test_ft_set_max()
 
 
 	// FT_LS_O_n trigger
-	int option[6] = {2, 3, 2, 0, 4, 9};
+
+	size_t option[6] = {2, 3, 2, 0, 4, 9};
 	ft_mem_set(&l, 0, sizeof(t_ls_2));
 	lstat("/Users/adpusel/Downloads", &l.fs);
 	l.options |= FT_LS_O_n;
@@ -143,9 +148,12 @@ void test_array_file_name()
 	t_ls_2 *l = &ls;
 	int ret;
 
-	ft_ls_init("/Users/adpusel", l);
+	t_buff *buff;
+	ft_buffer_new(&buff, 100, 1);
+
+	ft_ls_init("/Users/adpusel", l, buff, 0);
 	ret = array_file_name(l);
-	int max_size[6] = {4, 7, 5, 0, 5, 38};
+	size_t max_size[6] = {4, 7, 5, 0, 5, 38};
 	if (ret
 		|| strcmp(l->path, "/Users/adpusel/")
 		|| l->end_path != 15
@@ -157,10 +165,10 @@ void test_array_file_name()
 	}
 	ft_ls_free(l);
 
-	ft_ls_init("/dev", l);
+	ft_ls_init("/dev", l, buff, 0);
 	l->options |= FT_LS_O_a;
 	ret = array_file_name(l);
-	int driver_size[6] = {1, 7, 13, 2, 5, 29};
+	size_t driver_size[6] = {1, 7, 13, 2, 5, 29};
 	if (ret
 		|| strcmp(l->path, "/dev/")
 		|| l->end_path != 5
@@ -346,35 +354,55 @@ void test_print_long()
 {
 	t_ls_2 ls;
 	t_ls_2 *l = &ls;
+	t_buff *buff;
+	ft_buffer_new(&buff, 100, 1);
 
-//	ft_ls_init("/tmp/toto", l);
-	ft_ls_init("/dev", l);
+	//	ft_ls_init("/tmp/toto", l);
+	ft_ls_init("/Users/adpusel/Applications", l, buff, 0);
 	l->options |= FT_LS_O_a;
 	array_file_name(l);
 	l->array->i = 0;
 	if (l->options & FT_LS_O_a)
 		ft_sprintf(l->buff, "total %ld\n", l->total);
-	print_stats(l);
+	ft_ls_sort(l);
+//	print_stats(l);
+	print_in_col(l);
 	ft_buffer_clean(l->buff);
 
-	char *t = "drwxr-xr-x  13 adpusel  wheel  416 Jun  4 21:31 .\n"
-			  "drwxrwxrwt   6 root     wheel  192 Jun  4 19:06 ..\n"
-			  "lrwxr-xr-x   1 adpusel  wheel    4 Jun  4 21:31 link_past -> past\n"
-			  "-rwxrwxrwx   1 adpusel  wheel    0 Jun  3 13:27 change\n"
-			  "drwxr-xr-x   8 adpusel  wheel  256 Jun  4 08:18 uid-guid\n"
-			  "-rw-r--r--   1 adpusel  wheel    0 Sep  2  1990 past\n"
-			  "-rw-r--r--   1 adpusel  wheel    0 Mar  2  2030 futur\n"
-			  "-rw-r--r--   1 adpusel  wheel   46 Jun  3 13:27 modify\n"
-			  "-rw-------   1 root     wheel    0 Jun  4 06:54 ttys0\n"
-			  "prw-r--r--   1 adpusel  wheel    0 Jun  4 06:50 fifo\n"
-			  "-rw-r--r--   1 adpusel  wheel    0 Jun  3 13:27 origin\n"
-			  "-rw-r--r--   1 adpusel  wheel    0 Mar  2  2030 future\n"
-			  "-rw-r--r--   1 adpusel  wheel    0 Mar  2  1990 paste\n";
 	
-	if (strcmp(l->buff->data, t))
-	    printf("errer \n");
+//	if (strcmp(l->buff->data, t))
+//	    printf("errer \n");
 
 }
+
+/* test one line -R --------------------------------------------------------- */
+void test_one_line_R()
+{
+	t_ls_2 ls;
+	t_ls_2 *l = &ls;
+	t_buff *buff;
+	ft_buffer_new(&buff, 100, 1);
+
+	ft_ls_init("/Users/adpusel", l, buff, 0);
+	l->options |= (FT_LS_O_a | FT_LS_O_l | FT_LS_O_R);
+	array_file_name(l);
+	l->array->i = 0;
+	ft_ls_sort(l);
+	print_all(l);
+	ft_buffer_clean(l->buff);
+}
+
+void test_all_directory_R()
+{
+	t_buff *buff;
+	ft_buffer_new(&buff, 35000, 1);
+//	ft_all("/Users/adpusel/code/42/ls/cmake-build-debug", FT_LS_O_R |  FT_LS_O_l, buff);
+	ft_all("/", FT_LS_O_R, buff, "test");
+//	ft_all("/Volumes/com.apple.TimeMachine.localsnapshots/Backups.backupdb/adpusel’s MacBook Pro/2019-06-05-214523/Macintosh HD/Users/adpusel/code/42/ls/cmake-build-debug/test/no_parent/aeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoe", FT_LS_O_R, buff, "test");
+}
+
+
+
 /* test sort ---------------------------------------------------------------- */
 
 //-rw-r--r--  1 adpusel  wheel   46 Jun  3 13:27:26 2019 modify
@@ -392,5 +420,7 @@ void main_test_2()
 //	test_get_acl_extended();
 //	test_print_time();
 //	test_print_line();
-	test_print_long();
+//	test_print_long();
+//	test_one_line_R();
+	test_all_directory_R();
 }

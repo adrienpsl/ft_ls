@@ -84,118 +84,53 @@ int print_time(long int time_nb, char *out, long option)
 	return ret;
 }
 
-static void type_size_uid_guid(t_ls_2 *l)
+int print_in_col(t_ls_2 *l)
 {
-	char buff[30];
+	struct ttysize ts;
+	int col_size;
+	int line_size;
+	ioctl(0, TIOCGWINSZ, &ts);
 
-	ft_ls_get_permission(l->fs.st_mode, buff);
-	ft_get_acl_extended(l->path, buff + 10);
-	ft_buffer_add(l->buff, buff, 11);
-	ft_sprintf(l->buff, " %*d ", l->size[FT_LS_____HL], l->fs.st_nlink);
-	if (l->options & FT_LS_O_n)
+	l->i = 0;
+	l->array->i = 0;
+	col_size = ts.ts_cols / (l->size[FT_LS___NAME] + 1);
+	col_size <= 0 ? col_size = 1 : 0;
+	line_size = (l->elements / col_size) + 1;
+	if (l->options & FT_LS_O_1)
+	    ;
+	while (l->i < line_size)
 	{
-		ft_sprintf(l->buff, "%-*d", l->size[FT_LS____UID], l->fs.st_uid);
-		ft_sprintf(l->buff, "%-*d", l->size[FT_LS___GUID], l->fs.st_gid);
+		l->y = 0;
+		while (l->y < col_size)
+		{
+			if (l->i + (l->y * line_size) < l->elements)
+			{
+				l->f = ft_array_el(l->array, l->i + (l->y * line_size));
+				ft_sprintf(l->buff, "%-*s",
+						l->size[FT_LS___NAME] + 1, l->f->name);
+			}
+			l->y++;
+		}
+		ft_buffer_add(l->buff, "\n", 1);
+		l->i += 1;
 	}
-	else
-	{
-		ft_sprintf(l->buff, "%-*s",
-				   l->size[FT_LS____UID], getpwuid(l->fs.st_uid)->pw_name);
-		ft_sprintf(l->buff, "  %-*s  ",
-				   l->size[FT_LS___GUID], getgrgid(l->fs.st_gid)->gr_name);
-	}
+	return 0;
 }
 
-static void ft_add_time(t_ls_2 *l)
+int print_all(t_ls_2 *l)
 {
-	int time_size;
-	char buffer[24];
-
-	if (FT_LS_O_u & l->options)
-		time_size = print_time(l->fs.st_atimespec.tv_sec, buffer, l->options);
-	else if (FT_LS_O_c & l->options)
-		time_size = print_time(l->fs.st_ctimespec.tv_sec, buffer, l->options);
-	else
-		time_size = print_time(l->fs.st_mtimespec.tv_sec, buffer, l->options);
-	ft_buffer_add(l->buff, buffer, time_size);
-}
-
-static void ft_add_size(t_ls_2 *l)
-{
-	if (S_ISBLK(l->fs.st_mode) || S_ISCHR(l->fs.st_mode))
+	if (l->options & FT_LS_O_R)
 	{
-		(l->size[FT_LS___FILE] = 4);
-		(l->size[FT_LS_DRIVER] = 3);
-		ft_sprintf(l->buff, "%*d,",
-				   l->size[FT_LS_DRIVER], major(l->fs.st_rdev));
-		if (minor(l->fs.st_rdev) > 255)
-			ft_sprintf(l->buff, " %0*x ",
-					   10, minor(l->fs.st_rdev));
-		else
-			ft_sprintf(l->buff, "%*d ",
-					   l->size[FT_LS___FILE], minor(l->fs.st_rdev));
-	}
-	else
-	{
-		if (l->has_driver)
-			ft_sprintf(l->buff, "%*ld ",
-					   l->size[FT_LS___FILE] + 4, l->fs.st_size);
-		else
-			ft_sprintf(l->buff, "%*ld ",
-					   l->size[FT_LS___FILE], l->fs.st_size);
-	}
-}
-
-static int name_symlink(t_ls_2 *l, t_file *file)
-{
-	ft_sprintf(l->buff, " %s", file->name);
-	if (FT_ISLNK(l->fs.st_mode))
-		ft_sprintf(l->buff, " -> %s", l->link);
-	return (0);
-}
-
-
-//// TODO : add l'option -n
-//// ici je vais print dans mon buffer, avec le sprintf
-//int print_stats_element(t_ls_2 *l, t_file *file)
-//{
-//	// les droit et types du file
-//	// les acl et @
-//	// taille
-//	// uid et guid //
-//	// taille : si c'est le type drivers, ne pas tout print
-//	// l'heure : gere si file too old ou too young + option T, je vais faire tt les test en T
-//	// name file + if needed symlink
-//}
-
-// que print en foncion des options en long
-int print_stats(t_ls_2 *l)
-{
-	t_file *file;
-	size_t file_size;
-
-	ft_ls_sort(l);
-	while ((file = (t_file *) ft_array_next_el(l->array)))
-	{
-		if (!*file->name)
-			continue;
-		ft_str_len(&file_size, l->path);
-		ft_mem_copy(l->path + l->end_path, file->name, STRING_MODE);
-		if (ft_api_lstat(l))
-			continue;
-		if (FT_ISLNK(l->fs.st_mode)
-			&& readlink(l->path, l->link, FT_LS_MAX_FILE) == -1)
-			return (-1);
-		type_size_uid_guid(l);
-		ft_add_size(l);
-		ft_add_time(l);
-		name_symlink(l, file);
+		ft_buffer_add(l->buff, l->path, l->end_path - 1);
+		ft_buffer_add(l->buff, ":", 1);
 		ft_buffer_add(l->buff, "\n", 1);
 	}
+	if (l->options & FT_LS_O_l)
+	{
+		ft_sprintf(l->buff, "total %ld\n", l->total);
+		print_stats(l);
+	}
+	else
+		print_in_col(l);
 	return (0);
 }
-
-
-// print en col
-
-//

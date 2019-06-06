@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-static void ft_ls_max(int *size_array, int nb, char *str)
+static void ft_ls_max(size_t *size_array, int nb, char *str)
 {
 	size_t size;
 	static const char *base = "0123456789";
@@ -26,7 +26,7 @@ static void ft_ls_max(int *size_array, int nb, char *str)
 		ft_itoa_base(nb, base, buff, 0);
 		ft_str_len(&size, buff);
 	}
-	if ((int) size > *size_array)
+	if (size > *size_array)
 		*size_array = size;
 }
 
@@ -71,6 +71,25 @@ static void ft_get_sort_data(t_ls_2 *l, t_file *file)
 		file->sort_data = l->fs.st_size;
 }
 
+static int ft_fill_file(t_ls_2 *l, struct dirent *dp, size_t file_name_size)
+{
+	t_file *arr_p;
+	char buff[300] = "ls : lstat : ";
+
+	if ((arr_p = ft_array_next_el(l->array)) == NULL || ft_api_lstat(l))
+	{
+		ft_mem_set(buff, 0, 300);
+		ft_mem_copy(buff + 13, dp->d_name, 255);
+		perror(buff);
+		return (-1);
+	}
+	if (l->options & FT_LS_CUSTOM_SORT)
+		ft_get_sort_data(l, arr_p);
+	if (S_ISDIR(l->fs.st_mode))
+		arr_p->directory = 1;
+	ft_mem_copy(arr_p->name, dp->d_name, file_name_size);
+	return (0);
+}
 // TODO : implement continue for option A
 /*
  * browse and save the name of the file, and the size of each column
@@ -80,27 +99,27 @@ int array_file_name(t_ls_2 *l)
 {
 	struct dirent *dp;
 	size_t file_name_size;
-	t_file *arr_p;
 
 	if (ft_api_dir(l))
 		return (-1);
-	l->path[l->end_path++] = '/';
+	// TODO : delete this condition
+	if (l->path[l->end_path - 1] != '/')
+		l->path[l->end_path++] = '/';
 	while ((dp = readdir(l->dir)) != NULL)
 	{
 		if (!(l->options & FT_LS_O_a) && dp->d_name[0] == '.')
 			continue;
 		ft_str_len(&file_name_size, dp->d_name);
+		if (file_name_size + l->end_path > PATH_MAX)
+			continue;
 		ft_mem_copy(l->path + l->end_path, dp->d_name, file_name_size);
-		ft_mem_copy(l->file, dp->d_name, file_name_size);
-		if ((arr_p = ft_array_next_el(l->array)) == NULL || ft_api_lstat(l))
-			return (-1);
-		if (l->options & FT_LS_CUSTOM_SORT)
-			ft_get_sort_data(l, arr_p);
-		ft_mem_copy(arr_p->name, dp->d_name, file_name_size);
-		ft_set_max(l, dp->d_name);
+		if (ft_fill_file(l, dp, file_name_size) == 0)
+			ft_set_max(l, dp->d_name);
 		ft_mem_set(l->path + l->end_path, 0, file_name_size);
 		l->total += l->fs.st_blocks;
+		l->elements++;
 	}
+	l->array->i = 0;
 	closedir(l->dir);
 	return (0);
 }

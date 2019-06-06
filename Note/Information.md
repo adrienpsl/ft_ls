@@ -400,19 +400,18 @@ Show every entry except for current and previous directories: -A
 -g suppress owner
 
 
-
-
-
 l'option -c est modifier en meme temps que l'option -t, car  je dois read mon file pour
 ecrire dedans 
 
 
+- faire les differents sort
 
+- parcer les arguments en entree
 
-
-- faire les chemin dans mon programme de la data
-- reprendre mes notes car la je ne sais pas ou je vais 
-- 
+- pour l'option -l bien tout print
+  - le path 
+  - les column
+  - la data 
 
 
 

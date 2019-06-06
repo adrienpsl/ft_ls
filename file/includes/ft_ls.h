@@ -57,6 +57,14 @@
 
 # define FT_LS_MAX_FILE 255
 
+typedef struct s_file
+{
+	char directory;
+	long sort_data;
+	char name[FT_LS_MAX_FILE];
+} t_file;
+
+
 typedef struct s_ls
 {
 	int nb_elements;
@@ -75,16 +83,18 @@ typedef struct s_ls_2
 	int elements;
 	long options;
 	size_t end_path;
-	int size[6];
+	size_t size[6];
 	long total;
 	char path[PATH_MAX + 1];
 	struct stat fs;
 	DIR *dir;
 	t_buff *buff;
 	t_array *array;
-	char file[256];
 	char link[256];
 	int has_driver;
+	t_file *f;
+	int i;
+	int y;
 } t_ls_2;
 
 # define FT_LS_DRIVER_MIN 0
@@ -107,11 +117,7 @@ typedef struct s_ls_link
 	char sym_real_file[FT_LS_MAX_FILE];
 } t_f;
 
-typedef struct s_file
-{
-	long sort_data;
-	char name[FT_LS_MAX_FILE];
-} t_file;
+
 
 
 /*
@@ -142,6 +148,8 @@ typedef struct s_file
 # define FT_LS_O_g    (1 << 8)
 # define FT_LS_O_u    (1 << 9)
 # define FT_LS_O_T    (1 << 10)
+# define FT_LS_O_1    (1 << 11)
+
 
 # define FT_LS_CUSTOM_SORT (FT_LS_O_t | FT_LS_O_c | FT_LS_O_S | FT_LS_O_u)
 
@@ -154,8 +162,23 @@ int ft_ls_sort(t_ls_2 *l);
 int init_t_ls(char *path, t_ls *l);
 int buffer_tab(t_ls *ls);
 int is_directory(char *path);
-int ft_ls_init(char *path, t_ls_2 *l);
+int ft_ls_init(char *path, t_ls_2 *l, t_buff *buff, long options);
 void ft_ls_free(t_ls_2 *l);
+
+int array_file_name(t_ls_2 *l);
+int ft_all(char *path, int options, t_buff *buff, char *dir_name);
+
+/*
+**	print function
+*/
+int print_stats(t_ls_2 *l);
+void ft_ls_get_permission(const mode_t mode, char *file);
+int ft_get_acl_extended(char *path, char *buff);
+int print_time(long int time_nb, char *out, long option);
+int print_in_col(t_ls_2 *l);
+int print_all(t_ls_2 *l);
+
+void print_err(char *dir_name);
 
 /*
 **	helpers
