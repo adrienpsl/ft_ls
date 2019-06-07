@@ -1,57 +1,92 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: angavrel <angavrel@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/01/28 18:36:22 by angavrel          #+#    #+#              #
-#    Updated: 2017/02/22 07:01:42 by angavrel         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+.PHONY: all, $(NAME), clean, fclean, re
 
-NAME = ft_ls
+#*------------------------------------*\
+#    color
+#*------------------------------------*/
+__TEXT_1__ = @echo "\033[1;34m
+__TEXT_2__ = \t\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
 
-### PATH ###
-SRCS_PATH = file/src/
-OBJ_PATH  = obj/
-LIBFT_PATH = libft/
 
-FLAGS = -Wall -Werror -Wextra
-INC = -I ./file/includes/ -I ./$(LIBFT_PATH)includes/
+#*------------------------------------*\
+#    path all src
+#*------------------------------------*/
+__PATH__ = ./src
 
-SRCS_NAME = ft_ls_handle_stat.c \
-             ft_ls_main.c       \
-            ft_ls_print.c  \
-            ft_ls_print_stat.c  \
-            ft_ls_sorting.c     \
-            utils.c
+#*------------------------------------*\
+#    name
+#*------------------------------------*/
+__NAME__ = ft_ls
 
-SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
-OBJ = $(addprefix $(OBJ_PATH), $(SRCS_NAME:.c=.o))
 
-all: $(NAME)
+#*------------------------------------*\
+#    compilateur
+#*------------------------------------*/
+__CC__ = gcc
+__CFLAGS__ = -Wall -Werror -Wextra
 
-$(NAME): $(OBJ)
-	@make -C $(LIBFT_PATH)
-	@gcc $(FLAGS) $(OBJ) $(INC) -L $(LIBFT_PATH) -lft -o $(NAME)
-	@echo "\033[32mBinary \033[1;32m$(NAME)\033[1;0m\033[32m created.\033[0m"
 
-$(OBJ_PATH)%.o: $(SRCS_PATH)%.c
-	@mkdir -p obj
-	@gcc -c $(FLAGS) $(INC) $< -o $@
-	@echo "\033[34m\033[1mCompilation of \033[0m\033[36m$(notdir $<)\033[1m\033[34m done.\033[0m"
+#*------------------------------------*\
+#    lib sources
+#*------------------------------------*/
+
+#lib ft :
+__LIB_FT_PATH__ = compact-libft
+__LIB_FT_INC__ = ${__LIB_FT_PATH__}includes/
+
+
+#*------------------------------------*\
+#    sources project push
+#*------------------------------------*/
+__SOURCES_PATH__ = ${__PATH__}src/
+
+# COMMANDE find . -type f -name '*.c' | sed 's/^..//'  |  tr '\n' ' ' | pbcopy)
+__TMP__ := $(shell cd ${__SOURCES_PATH__} ; find . -type f -name '*.c' | sed 's/^..//'  |  tr '\n' ' ')
+#__TMP__ = data/best_path.c data/finder_finder_link.c data/lem.c data/map.c data/move.c data/room.c data/tunnel.c debug/debug_set.c debug/src/debug_map.c debug/src/debug_parseur.c debug/src/debug_path.c main.c main_2.c parseur/get_room.c parseur/get_room_utils.c parseur/get_tunnel.c parseur/getter.c solver/algo/algo.c solver/algo/find_best_path.c solver/algo/shorty_baby.c solver/move_f.c solver/move_f_main.c solver/sort_path/generate_map_path.c solver/split_path/clean_working_dll.c solver/split_path/split_path.c
+
+__SRC__ = $(addprefix $(__SOURCES_PATH__), $(__TMP__))
+
+__OBJ__ = $(__SRC__:.c=.o)
+
+__HEADER_DIR__ = ${__PATH__}/includes/
+
+#*------------------------------------*\
+#    make rule
+#*------------------------------------*/
+all: push_push
+
+
+push_push: $(__NAME__)
+
+#*------------------------------------*\
+#    buld and push
+#*------------------------------------*/
+$(__NAME__): $(__OBJ__)
+
+#	build other lib 	################################
+	@make -C $(__LIB_FT_PATH__)
+
+#	compile project 	################################
+	@$(__CC__) $(__CFLAGS__) -o $(__NAME__) $(__OBJ__) -L${__LIB_FT_PATH__} -lft
+
+	$(shell mv lem_in ./test)
+	$(__TEXT_1__) $(__NAME__) $(__TEXT_2__)
+
+#*------------------------------------*\
+#    if change into .c
+#*------------------------------------*/
+%.o: %.c $(__HEADER_DIR__) $(__LIB_FT_INC__)
+	@$(__CC__) $(__CFLAG__) -I $(__HEADER_DIR__) -I $(__LIB_FT_INC__) -o $@ -c $<
+
 
 clean:
-	@make -C $(LIBFT_PATH)/ clean
-	@/bin/rm -rf $(OBJ_PATH)
-	@echo "\033[31mObjects files \033[1;31m$(OBJS_LIST)\033[1;0m\033[31m removed.\033[0m"
+	@make clean -C $(__LIB_FT_PATH__)
+	@rm -rf $(__OBJ__)
+#	@echo "\033[1;34mlem-in\t\t\033[1;33mCleaning obj\t\033[0;32m[OK]\033[0m"
+
 
 fclean: clean
-	@make -C $(LIBFT_PATH)/ fclean
-	@/bin/rm -rf $(NAME)
-	@echo "\033[31mBin \033[1;31m$(NAME)\033[1;0m\033[31m removed.\033[0m"
+	@make fclean -C $(__LIB_FT_PATH__)
+	@rm -rf $(__NAME__)
+	@echo "\033[1;34mlem-in \t\t\033[1;33mCleaning lib\t\033[0;32m[OK]\033[0m"
 
 re: fclean all
-
-.PHONY: all, clean, fclean, re

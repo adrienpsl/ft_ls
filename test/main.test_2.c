@@ -1,7 +1,7 @@
 # include <ft_ls.h>
-# include "../file/src/ft_ls_handle_stat.c"
-# include "../file/src/ft_ls_print.c"
-# include "../file/src/ft_ls_print_stat.c"
+# include "../src/ft_ls_handle_stat.c"
+# include "../src/ft_ls_print.c"
+# include "../src/ft_ls_print_stat.c"
 
 /* test main ------------------------------------------------------------ */
 

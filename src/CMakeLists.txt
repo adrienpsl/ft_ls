@@ -5,7 +5,7 @@ file(GLOB SOURCES_FILES_2 "./**/*.c")
 file(GLOB SOURCES_FILES_3 "./**/**/*.c")
 file(GLOB SOURCES_FILES_4 "./**/**/**/*.c")
 
-file(GLOB includes "./**/*.h")
+file(GLOB ../includes "./**/*.h")
 
 
 add_library(ft_ls__lib STATIC
@@ -19,4 +19,4 @@ add_library(ft_ls__lib STATIC
 #    link avec les lib
 #*------------------------------------*/
 target_link_libraries(ft_ls__lib libft)
-target_include_directories(ft_ls__lib PUBLIC includes)
+target_include_directories(ft_ls__lib PUBLIC ../includes)
