@@ -15,9 +15,9 @@
 /*
  * init and malloc an array to handle the file
  * */
-int ft_ls_init(char *path, t_ls_2 *l, t_buff *buff, long options)
+int ft_ls_init(char *path, t_ls *l, t_buff *buff, long options)
 {
-	ft_mem_set(l, 0, sizeof(t_ls_2));
+	ft_mem_set(l, 0, sizeof(t_ls));
 	ft_mem_copy(l->path, path, STRING_MODE);
 	if (ft_api_dir(l))
 		return (-1);
@@ -33,11 +33,11 @@ int ft_ls_init(char *path, t_ls_2 *l, t_buff *buff, long options)
 	return (0);
 }
 
-void ft_ls_free(t_ls_2 *l)
+void ft_ls_free(t_ls *l)
 {
 	if (l->array)
 		ft_array_free(&l->array);
-	ft_mem_set(l, 0, sizeof(t_ls_2));
+	ft_mem_set(l, 0, sizeof(t_ls));
 }
 
 void print_err(char *dir_name)
@@ -52,7 +52,7 @@ void print_err(char *dir_name)
 
 int ft_all(char *path, int options, t_buff *buff, char *dir_name)
 {
-	t_ls_2 l;
+	t_ls l;
 	char full_path[PATH_MAX + 1];
 
 	if (!ft_ls_init(path, &l, buff, options)

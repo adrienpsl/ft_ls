@@ -38,7 +38,7 @@ int sort_func(void *p_l1, void *p_l2, void *p_param)
 	return param & FT_LS_O_r ? !ret : ret;
 }
 
-int ft_ls_sort(t_ls_2 *l)
+int ft_ls_sort(t_ls *l)
 {
 	t_quick quick;
 

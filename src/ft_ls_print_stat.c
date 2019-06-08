@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-static void type_size_uid_guid(t_ls_2 *l)
+static void type_size_uid_guid(t_ls *l)
 {
 	char buff[30];
 
@@ -34,7 +34,7 @@ static void type_size_uid_guid(t_ls_2 *l)
 	}
 }
 
-static void ft_add_time(t_ls_2 *l)
+static void ft_add_time(t_ls *l)
 {
 	int time_size;
 	char buffer[24];
@@ -48,7 +48,7 @@ static void ft_add_time(t_ls_2 *l)
 	ft_buffer_add(l->buff, buffer, time_size);
 }
 
-static void ft_add_size(t_ls_2 *l)
+static void ft_add_size(t_ls *l)
 {
 	if (S_ISBLK(l->fs.st_mode) || S_ISCHR(l->fs.st_mode))
 	{
@@ -74,23 +74,24 @@ static void ft_add_size(t_ls_2 *l)
 	}
 }
 
-static int name_symlink(t_ls_2 *l, t_file *file)
+static int name_symlink(t_ls *l)
 {
-	ft_sprintf(l->buff, " %s", file->name);
+	ft_sprintf(l->buff, " %s", l->f->name);
 	if (FT_ISLNK(l->fs.st_mode))
 		ft_sprintf(l->buff, " -> %s", l->link_ptr);
 	return (0);
 }
 
-int print_stats(t_ls_2 *l)
+int print_stats(t_ls *l)
 {
+	ft_mem_set(l->link_ptr, 0, PATH_MAX);
 	if (FT_ISLNK(l->fs.st_mode)
-		&& readlink(l->path, l->link_ptr, FT_LS_MAX_FILE) == -1)
+		&& readlink(l->path, l->link_ptr, PATH_MAX) == -1)
 		return (-1);
 	type_size_uid_guid(l);
 	ft_add_size(l);
 	ft_add_time(l);
-	name_symlink(l, l->f);
+	name_symlink(l);
 	ft_buffer_add(l->buff, "\n", 1);
 	return (0);
 }

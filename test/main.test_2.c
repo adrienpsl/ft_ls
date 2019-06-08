@@ -7,8 +7,8 @@
 
 void helper_test()
 {
-	t_ls_2 ls2;
-	t_ls_2 *l;
+	t_ls ls2;
+	t_ls *l;
 	l = &ls2;
 	ft_mem_set(&ls2, 0, sizeof(ls2));
 
@@ -24,8 +24,8 @@ void helper_test()
 
 void test_init_ls_2()
 {
-	t_ls_2 ls2;
-	t_ls_2 *l;
+	t_ls ls2;
+	t_ls *l;
 	l = &ls2;
 	int ret;
 
@@ -64,12 +64,12 @@ void test_ft_ls_max()
 
 void test_ft_set_max()
 {
-	t_ls_2 l;
+	t_ls l;
 
 	printf("%lu-- \n", sizeof(long));
 	// regular file
 	size_t download_file[6] = {2, 7, 5, 0, 4, 9};
-	ft_mem_set(&l, 0, sizeof(t_ls_2));
+	ft_mem_set(&l, 0, sizeof(t_ls));
 	lstat("/Users/adpusel/Downloads", &l.fs);
 	ft_set_max(&l, "Downloads");
 	if (test_cmp_int_array(download_file, l.size, 6))
@@ -78,7 +78,7 @@ void test_ft_set_max()
 
 	// driver
 	size_t driver[6] = {1, 7, 3, 2, 1, 7};
-	ft_mem_set(&l, 0, sizeof(t_ls_2));
+	ft_mem_set(&l, 0, sizeof(t_ls));
 	lstat("/dev/ttys000", &l.fs);
 	ft_set_max(&l, "ttys000");
 	if (test_cmp_int_array(driver, l.size, 6))
@@ -88,7 +88,7 @@ void test_ft_set_max()
 	// FT_LS_O_n trigger
 
 	size_t option[6] = {2, 3, 2, 0, 4, 9};
-	ft_mem_set(&l, 0, sizeof(t_ls_2));
+	ft_mem_set(&l, 0, sizeof(t_ls));
 	lstat("/Users/adpusel/Downloads", &l.fs);
 	l.options |= FT_LS_O_n;
 	ft_set_max(&l, "Downloads");
@@ -96,15 +96,15 @@ void test_ft_set_max()
 		ft_test_error("test_ft_set_max 3");
 
 	// FT_LS_O_n trigger
-	ft_mem_set(&l, 0, sizeof(t_ls_2));
+	ft_mem_set(&l, 0, sizeof(t_ls));
 	lstat("/Users/adpusel/Downloads", &l.fs);
 
 }
 
 void test_fill_file()
 {
-	t_ls_2 ls;
-	t_ls_2 *l = &ls;
+	t_ls ls;
+	t_ls *l = &ls;
 	t_file f;
 
 	ft_mem((void **) &f, 1000);
@@ -144,8 +144,8 @@ void test_fill_file()
 
 void test_array_file_name()
 {
-	t_ls_2 ls;
-	t_ls_2 *l = &ls;
+	t_ls ls;
+	t_ls *l = &ls;
 	int ret;
 
 	t_buff *buff;
@@ -272,15 +272,13 @@ void test_print_time()
 	util_print_time("/tmp/toto/modify", "Jun  3 13:27:26 2019", FT_LS_O_T);
 }
 
-void utils_print_line(char *path, char *file, char *res, int option)
+void utils_print_line(char *path, char *res, int option)
 {
-	t_ls_2 ls;
-	t_ls_2 *l = &ls;
-	t_file f;
+	t_ls ls;
+	t_ls *l = &ls;
 	static int nb = 0;
 
 	ft_buffer_new(&l->buff, 200, sizeof(t_file));
-	ft_mem_copy(f.name, file, STRING_MODE);
 	lstat(path, &ls.fs);
 	l->options |= option;
 
@@ -289,7 +287,7 @@ void utils_print_line(char *path, char *file, char *res, int option)
 	ft_mem_copy(l->path, path, STRING_MODE);
 	if (FT_ISLNK(l->fs.st_mode))
 		readlink(l->path, l->link_ptr, FT_LS_MAX_FILE);
-	name_symlink(l, &f);
+	name_symlink(l);
 
 	if (strcmp(res, l->buff->data))
 	{
@@ -343,17 +341,17 @@ void test_print_line()
 //					 "-rw-r--r--  1 adpusel  wheel  0 Jun  4 09:46 past",
 //					 FT_LS_O_u);
 
-	utils_print_line("/tmp/toto/link_past",
-					 "link_past",
-					 "lrwxr-xr-x  1 adpusel  wheel  4 Jun  4 21:31 link_past -> past",
-					//lrwxr-xr-x  1 adpusel  wheel  4 Jun  4 21:31 link_past -> past
-					 0);
+//	utils_print_line("/tmp/toto/link_past",
+//					 "link_past",
+//					 "lrwxr-xr-x  1 adpusel  wheel  4 Jun  4 21:31 link_past -> past",
+//					//lrwxr-xr-x  1 adpusel  wheel  4 Jun  4 21:31 link_past -> past
+//					 0);
 }
 
 void test_print_long()
 {
-	t_ls_2 ls;
-	t_ls_2 *l = &ls;
+	t_ls ls;
+	t_ls *l = &ls;
 	t_buff *buff;
 	ft_buffer_new(&buff, 100, 1);
 
@@ -378,8 +376,8 @@ void test_print_long()
 /* test one line -R --------------------------------------------------------- */
 void test_one_line_R()
 {
-	t_ls_2 ls;
-	t_ls_2 *l = &ls;
+	t_ls ls;
+	t_ls *l = &ls;
 	t_buff *buff;
 	ft_buffer_new(&buff, 100, 1);
 

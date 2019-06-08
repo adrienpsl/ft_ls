@@ -18,6 +18,7 @@ add_library(ft_ls_lib STATIC
         src/ft_ls_print_stat.c
         src/ft_ls_sorting.c
         src/utils.c
+
         )
 
 target_include_directories(ft_ls_lib PUBLIC includes)

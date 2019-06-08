@@ -65,20 +65,20 @@ typedef struct s_file
 } t_file;
 
 
-typedef struct s_ls
+typedef struct s_ft_ls
 {
-	int nb_elements;
-	struct stat fs;
-	DIR *dir;
 	long options;
-	int size_coll[FT_LS_ARR_SZ];
-	long total;
-	char path[PATH_MAX + 1];
+	int option_catched;
+	char **av;
+	int ac;
+	int i;
 	t_buff *buff;
-	t_array *array;
-} t_ls;
+} t_ft_ls;
 
-typedef struct s_ls_2
+
+
+
+typedef struct s_ls
 {
 	int elements;
 	long options;
@@ -90,37 +90,21 @@ typedef struct s_ls_2
 	DIR *dir;
 	t_buff *buff;
 	t_array *array;
-	char link_ptr[256];
+	char link_ptr[PATH_MAX + 1];
 	int has_driver;
 	t_file *f;
 	int i;
 	int y;
 	size_t s;
+	int is_path;
+	int ret;
+	int option_catched;
+	int multiple_file;
 
-} t_ls_2;
+} t_ls;
 
 # define FT_LS_DRIVER_MIN 0
 # define FT_LS_DRIVER_MAX 1
-
-
-typedef struct s_ls_link
-{
-	int hard_link;
-	int acl;
-	int attr;
-	int driver[2];
-	char *guid;
-	char *uid;
-	long mtime;
-	size_t name_size;
-	unsigned long long size;
-	char file_mode[11];
-	char name[FT_LS_MAX_FILE];
-	char sym_real_file[FT_LS_MAX_FILE];
-} t_f;
-
-
-
 
 /*
 **	classic option
@@ -151,6 +135,7 @@ typedef struct s_ls_link
 # define FT_LS_O_u    (1 << 9)
 # define FT_LS_O_T    (1 << 10)
 # define FT_LS_O_1    (1 << 11)
+# define FT_LS_O_M    (1 << 12)
 
 
 # define FT_LS_CUSTOM_SORT (FT_LS_O_t | FT_LS_O_c | FT_LS_O_S | FT_LS_O_u)
@@ -159,32 +144,29 @@ typedef struct s_ls_link
 **	functions
 */
 char *get_time(long int *time, int mode, char *out);
-int extract_lstat(struct stat *fs, t_f *f, t_ls *ls);
-int ft_ls_sort(t_ls_2 *l);
-int init_t_ls(char *path, t_ls *l);
-int buffer_tab(t_ls *ls);
+int ft_ls_sort(t_ls *l);
 int is_directory(char *path);
-int ft_ls_init(char *path, t_ls_2 *l, t_buff *buff, long options);
-void ft_ls_free(t_ls_2 *l);
+int ft_ls_init(char *path, t_ls *l, t_buff *buff, long options);
+void ft_ls_free(t_ls *l);
 
-int array_file_name(t_ls_2 *l);
+int array_file_name(t_ls *l);
 int ft_all(char *path, int options, t_buff *buff, char *dir_name);
 
 /*
 **	print function
 */
-int print_stats(t_ls_2 *l);
+int print_stats(t_ls *l);
 void ft_ls_get_permission(const mode_t mode, char *file);
 int ft_get_acl_extended(char *path, char *buff);
 int print_time(long int time_nb, char *out, long option);
-int print_all_col(t_ls_2 *l);
-int print_all(t_ls_2 *l);
+int print_all_col(t_ls *l);
+int print_all(t_ls *l);
 
 void print_err(char *dir_name);
 
 /*
 **	helpers
 */
-int ft_api_lstat(t_ls_2 *l);
-int ft_api_dir(t_ls_2 *l);
+int ft_api_lstat(t_ls *l);
+int ft_api_dir(t_ls *l);
 #endif

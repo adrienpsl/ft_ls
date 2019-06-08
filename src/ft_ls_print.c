@@ -85,7 +85,7 @@ int print_time(long int time_nb, char *out, long option)
 }
 
 
-void print_col(t_ls_2 *l, int line_size)
+void print_col(t_ls *l, int line_size)
 {
 	l->f = ft_array_el(l->array, l->i + (l->y * line_size));
 	if (l->options & FT_LS_O_1)
@@ -95,7 +95,7 @@ void print_col(t_ls_2 *l, int line_size)
 				   l->size[FT_LS___NAME] + 1, l->f->name);
 }
 
-int print_all_col(t_ls_2 *l)
+int print_all_col(t_ls *l)
 {
 	struct ttysize ts;
 	int col_size;
@@ -124,13 +124,14 @@ int print_all_col(t_ls_2 *l)
 	return 0;
 }
 
-int print_all(t_ls_2 *l)
+int print_all(t_ls *l)
 {
 	static int is_first = 1;
 
-	if ((l->options & FT_LS_O_R) && !is_first)
+	if (((l->options & FT_LS_O_R) && !is_first) || (l->options & FT_LS_O_M))
 	{
-		ft_buffer_add(l->buff, "\n", 1);
+		if (!is_first)
+			ft_buffer_add(l->buff, "\n", 1);
 		ft_buffer_add(l->buff, l->path, l->end_path - 1);
 		ft_buffer_add(l->buff, ":", 1);
 		ft_buffer_add(l->buff, "\n", 1);

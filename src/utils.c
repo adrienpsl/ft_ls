@@ -12,15 +12,17 @@
 
 #include "ft_ls.h"
 
-int ft_api_lstat(t_ls_2 *l)
+int ft_api_lstat(t_ls *l)
 {
 	if (lstat(l->path, &l->fs))
 		return (-1);
 	return (0);
 }
 
-int ft_api_dir(t_ls_2 *l)
+int ft_api_dir(t_ls *l)
 {
+	// je dois open le link de lstat ? comment faire ?
+
 	if (!(l->dir = opendir(l->path)))
 		return (-1);
 	return (0);
@@ -37,10 +39,6 @@ int ft_api_dir(t_ls_2 *l)
 //	return type == 'd' ? 1 : 0;
 //}
 
-int ft_ls_option_parse(char *arg_str, t_ls *ls)
-{
-	return ft_io_catch_options(arg_str, "Rlart", &ls->options);
-}
 
 void exit_and_display_error(int ret_function)
 {

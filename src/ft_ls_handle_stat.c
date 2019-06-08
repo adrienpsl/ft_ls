@@ -35,7 +35,7 @@ static void ft_ls_max(size_t *size_array, int nb, char *str)
  * second if : the driver will add a column in the -l, I add that size
  * the syntax &arr[n] is used for better clarity, not for optimisation.
  * */
-int ft_set_max(t_ls_2 *l, char *file_name)
+int ft_set_max(t_ls *l, char *file_name)
 {
 	if (l->options & FT_LS_O_n)
 	{
@@ -59,7 +59,7 @@ int ft_set_max(t_ls_2 *l, char *file_name)
 	return (0);
 }
 
-static void ft_get_sort_data(t_ls_2 *l, t_file *file)
+static void ft_get_sort_data(t_ls *l, t_file *file)
 {
 	if (FT_LS_O_t & l->options)
 		file->sort_data = l->fs.st_mtimespec.tv_sec;
@@ -71,7 +71,7 @@ static void ft_get_sort_data(t_ls_2 *l, t_file *file)
 		file->sort_data = l->fs.st_size;
 }
 
-static int ft_fill_file(t_ls_2 *l, struct dirent *dp, size_t file_name_size)
+static int ft_fill_file(t_ls *l, struct dirent *dp, size_t file_name_size)
 {
 	t_file *arr_p;
 	char buff[300] = "ls : lstat : ";
@@ -90,12 +90,14 @@ static int ft_fill_file(t_ls_2 *l, struct dirent *dp, size_t file_name_size)
 	ft_mem_copy(arr_p->name, dp->d_name, file_name_size);
 	return (0);
 }
+// je dois trier les arguments que je recois en paramatere si file dans l'ordre alphabetique.
+
 // TODO : implement continue for option A
 /*
  * browse and save the name of the file, and the size of each column
  * the first char keep is the file is an directory.
  * */
-int array_file_name(t_ls_2 *l)
+int array_file_name(t_ls *l)
 {
 	struct dirent *dp;
 	size_t file_name_size;
@@ -103,7 +105,7 @@ int array_file_name(t_ls_2 *l)
 	if (ft_api_dir(l))
 		return (-1);
 	// TODO : delete this condition
-	if (l->path[l->end_path - 1] != '/')
+//	if (l->path[l->end_path - 1] != '/')
 		l->path[l->end_path++] = '/';
 	while ((dp = readdir(l->dir)) != NULL)
 	{

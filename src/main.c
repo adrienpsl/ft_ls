@@ -4,88 +4,101 @@
 
 void main_test_2();
 
-int parsing_options(char *av, long *p_options)
+int parsing_options(char *av, t_ls *l)
 {
 	static char *options = "RlartncSguT1";
 
-	if (ft_io_catch_options(av, options, p_options))
+	av++;
+	if (*av)
 	{
-		ft_printf("usage : ft_ls -[%s]", options);
+		l->option_catched = 1;
+		return (0);
+	}
+	if (av[0] == '-')
+		av += 1;
+	if (!*av)
+	{
+		l->i++;
+		l->option_catched = 1;
+		return (0);
+	}
+	if (ft_io_catch_options(av, options, &l->options))
+	{
+		ft_printf("ls : illegal option -", options);
+		ft_putchar_fd(*options, 1);
+		ft_printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] "
+				  "[file ...]", options);
 		return (-1);
 	}
-	return (0);
+	return (1);
 }
 
-
-int test_file(char *path, int options)
+int test_file(char *path, t_ls *l)
 {
-	t_buff *buff;
-	t_ls_2 ls;
 	t_file file;
 
-	if (lstat(path, &ls.fs) || ft_buffer_new(&buff, 35000, 1))
+	ft_mem_set(&file, 0, sizeof(t_file));
+	if (stat(path, &l->fs) && lstat(path, &l->fs))
 		return (1);
-	if (S_ISDIR(ls.fs.st_mode))
-		ft_all(path, options, buff, path);
+	if (S_ISDIR(l->fs.st_mode))
+		ft_all(path, l->options, l->buff, path);
 	else
 	{
-		ls.buff = buff;
-		ls.options = options;
-		ft_mem_copy(ls.path, path, STRING_MODE);
-		if (options & FT_LS_O_l)
+		if (lstat(path, &l->fs))
+			return (-1);
+		ft_mem_copy(l->path, path, STRING_MODE);
+		if (l->options & FT_LS_O_l)
 		{
-			ls.f = &file;
-			ft_mem_copy(file.name, path, STRING_MODE);
-			print_stats(&ls);
+			l->f = &file;
+			ft_mem_copy(l->f->name, path, STRING_MODE);
+			print_stats(l);
 		}
 		else
-			ft_sprintf(buff, "%s\n", path);
+			ft_sprintf(l->buff, "%s\n", path);
 	}
-	ft_buffer_clean(buff);
-	ft_buffer_free(&buff);
 	return (0);
 }
 
+// ici je veux quoi ? je veux avancer sur
+
+// && ((av[ls.i][0] == '-' && av[ls.i][1])
+//				|| (av[ls.i][0] == '-' && av[ls.i][1] == '-' && av[ls.i][2])))
+
+
+// je dois loop sur les aguments
+// - > coupe la prise d'arguments
+// -- pass les argument
 int main(int ac, char **av)
 {
-	static int i = 1;
-	static long option = 0;
-	static int is_path = 0;
+	t_ls ls;
+	t_ft_ls l;
 
-	while (i < ac)
+	ls.i = -1;
+	ft_mem_set(&ls, 0, sizeof(t_ls));
+	if (ft_buffer_new(&ls.buff, 35000, 1))
+		return (EXIT_FAILURE);
+	while (++ls.i < ac)
 	{
-		if (av[i][0] == '-')
+		if (!ls.option_catched && av[ls.i][0] == '-')
 		{
-			if (parsing_options(av[i] + 1, &option))
-				return (EXIT_FAILURE);
+			if (parsing_options(av[ls.i], &ls) == -1)
+				break;
 		}
 		else
+			ls.option_catched = 1;
+		if (ls.option_catched && ls.i < ac)
 		{
-			if (test_file(av[i], option))
-				print_err(av[i]);
-			is_path = 1;
+			if ((ac - ls.i) > 1)
+				ls.options |= FT_LS_O_M;
+			if (test_file(av[ls.i], &ls))
+				print_err(av[ls.i]);
+			ls.is_path = 1;
 		}
-		i++;
 	}
-
-	if (is_path == 0)
-		test_file(".", option);
-
-
-//	main_test_2();
-
-	// si option >
-	//  bad option
-
-	// si plusieur option
-
-	// si pas d'argument
-
-	// si argv is file
-
-	// si arvg is directory
-
+	if (ls.is_path == 0)
+		test_file(".", &ls);
+	(ft_buffer_clean(ls.buff) || ft_buffer_free(&ls.buff));
+	// TODO : free ls here
 	return 0;
 }
-
 
