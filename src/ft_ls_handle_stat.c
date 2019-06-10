@@ -86,7 +86,7 @@ static int ft_fill_file(t_ls *l, struct dirent *dp, size_t file_name_size)
 	if (l->options & FT_LS_CUSTOM_SORT)
 		ft_get_sort_data(l, arr_p);
 	if (S_ISDIR(l->fs.st_mode))
-		arr_p->directory = 1;
+		arr_p->dir = 1;
 	ft_mem_copy(arr_p->name, dp->d_name, file_name_size);
 	return (0);
 }
@@ -97,7 +97,7 @@ static int ft_fill_file(t_ls *l, struct dirent *dp, size_t file_name_size)
  * browse and save the name of the file, and the size of each column
  * the first char keep is the file is an directory.
  * */
-int array_file_name(t_ls *l)
+int get_lstat_and_filename(t_ls *l)
 {
 	struct dirent *dp;
 	size_t file_name_size;
@@ -121,6 +121,7 @@ int array_file_name(t_ls *l)
 		l->total += l->fs.st_blocks;
 		l->elements++;
 	}
+	l->array->length = l->elements;
 	l->array->i = 0;
 	closedir(l->dir);
 	return (0);

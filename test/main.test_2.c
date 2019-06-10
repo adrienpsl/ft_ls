@@ -38,7 +38,6 @@ void test_init_ls_2()
 		|| l->array->length != 44
 		|| strcmp("/Users/adpusel", l->path))
 		ft_test_error("test_init_ls 1");
-	ft_ls_free(l);
 
 	// test with good arg
 	ret = ft_ls_init("/Users/adpuselaoeu", l, buff, 0);
@@ -152,7 +151,7 @@ void test_array_file_name()
 	ft_buffer_new(&buff, 100, 1);
 
 	ft_ls_init("/Users/adpusel", l, buff, 0);
-	ret = array_file_name(l);
+	ret = get_lstat_and_filename(l);
 	size_t max_size[6] = {4, 7, 5, 0, 5, 38};
 	if (ret
 		|| strcmp(l->path, "/Users/adpusel/")
@@ -163,11 +162,10 @@ void test_array_file_name()
 		ft_test_error("test array_file_name 1");
 		test_print_int_array(l->size, 6);
 	}
-	ft_ls_free(l);
 
 	ft_ls_init("/dev", l, buff, 0);
 	l->options |= FT_LS_O_a;
-	ret = array_file_name(l);
+	ret = get_lstat_and_filename(l);
 	size_t driver_size[6] = {1, 7, 13, 2, 5, 29};
 	if (ret
 		|| strcmp(l->path, "/dev/")
@@ -358,7 +356,7 @@ void test_print_long()
 	//	ft_ls_init("/tmp/toto", l);
 	ft_ls_init("/Users/adpusel/Applications", l, buff, 0);
 	l->options |= FT_LS_O_a;
-	array_file_name(l);
+	get_lstat_and_filename(l);
 	l->array->i = 0;
 	if (l->options & FT_LS_O_a)
 		ft_sprintf(l->buff, "total %ld\n", l->total);
@@ -383,7 +381,7 @@ void test_one_line_R()
 
 	ft_ls_init("/Users/adpusel", l, buff, 0);
 	l->options |= (FT_LS_O_a | FT_LS_O_l | FT_LS_O_R);
-	array_file_name(l);
+	get_lstat_and_filename(l);
 	l->array->i = 0;
 	ft_ls_sort(l);
 	print_all(l);

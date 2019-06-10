@@ -84,7 +84,6 @@ int print_time(long int time_nb, char *out, long option)
 	return ret;
 }
 
-
 void print_col(t_ls *l, int line_size)
 {
 	l->f = ft_array_el(l->array, l->i + (l->y * line_size));
@@ -124,19 +123,22 @@ int print_all_col(t_ls *l)
 	return 0;
 }
 
-int print_all(t_ls *l)
+void print_argv(t_ls *l)
 {
 	static int is_first = 1;
 
 	if (((l->options & FT_LS_O_R) && !is_first) || (l->options & FT_LS_O_M))
 	{
-		if (!is_first)
-			ft_buffer_add(l->buff, "\n", 1);
 		ft_buffer_add(l->buff, l->path, l->end_path - 1);
 		ft_buffer_add(l->buff, ":", 1);
 		ft_buffer_add(l->buff, "\n", 1);
 	}
 	is_first = 0;
+}
+
+int print_all(t_ls *l)
+{
+	print_argv(l);
 	if (l->options & FT_LS_O_l)
 	{
 		ft_sprintf(l->buff, "total %ld\n", l->total);

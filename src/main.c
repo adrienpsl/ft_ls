@@ -12,12 +12,6 @@
 
 #include "ft_ls.h"
 
-// cette fonction va faire des checks,
-// ce que je veux c'est qu'elle test et set up pour la suite la marche a suivre
-// elle ne doit pas rediriger car je ne peux pas tester ce qu'elle fait !
-// car ici je test des trucs donc je peux avoir des err. pour cela
-// je ne dois pas rediriger vers ailleur
-
 int test_file_type(char *path, t_ft_ls *l)
 {
 	if (stat(path, &l->ls.fs))
@@ -27,6 +21,7 @@ int test_file_type(char *path, t_ft_ls *l)
 		l->mode = FT_LS_MODE_DIR;
 		ft_str_len(&l->ls.end_path, path);
 		ft_mem_copy(l->ls.path, path, l->ls.end_path);
+		ft_handle_dir(path, l->options, l->buff, path);
 	}
 	else
 	{
@@ -36,8 +31,12 @@ int test_file_type(char *path, t_ft_ls *l)
 		if (l->options & FT_LS_O_l)
 		{
 			l->ls.f = &l->file;
+			l->ls.buff = l->buff;
 			ft_mem_copy(l->ls.f->name, path, STRING_MODE);
+			print_stats(&l->ls);
 		}
+		else
+			ft_sprintf(l->buff, "%s\n", path);
 	}
 	return (0);
 }
@@ -74,7 +73,7 @@ int ft_ls_parse_argv(t_ft_ls *l)
 
 	if (l->i >= l->ac)
 		return (0);
-	l->has_path = (l->i == l->ac) ? 1 : 0;
+	l->has_path = (l->i == l->ac) ? 0 : (l->options |= FT_LS_O_M);
 	ft_array_new(&(l->argv), l->ac - l->i, sizeof(char *));
 	while (l->i < l->ac)
 	{
@@ -84,6 +83,7 @@ int ft_ls_parse_argv(t_ft_ls *l)
 	}
 	l->sort.array = l->argv;
 	ft_array_bubble(&l->sort);
+	l->argv->i = 0;
 	return (0);
 }
 
@@ -106,19 +106,20 @@ int main(int ac, char **av)
 {
 	(void) ac;
 	(void) av;
-	all_test();
-//	t_ft_ls l;
-//	char **path_p;
+//	all_test();
+	t_ft_ls l;
+	char **path_p;
 //
-//	init_ls(&l, ac, av);
-//	ft_ls_parse_options(&l);
-//	ft_ls_parse_argv(&l);
-//	l.argv->i = 0;
-//	while ((path_p = ft_array_next_el(l.argv)))
-//		test_file_type(*path_p, &l);
-//	if (l.no_path == 0)
-//		test_file_type(".", &l);
-//	// TODO : free ls here
+	init_ls(&l, ac, av);
+	ft_ls_parse_options(&l);
+	ft_ls_parse_argv(&l);
+	if (l.has_path)
+		while ((path_p = ft_array_next_el(l.argv)))
+			test_file_type((char *) path_p, &l);
+	else
+		test_file_type(".", &l);
+	// TODO : free ls here
+	ft_buffer_clean(l.buff);
 //	(ft_buffer_clean(l.buff) || ft_buffer_free(&l.buff));
-//	return 0;
+	return 0;
 }

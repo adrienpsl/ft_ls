@@ -47,3 +47,24 @@ pb padding avec le -l et un file
 
 
 
+
+                    
+                    
+                  
+libft                                 
+libft_ls_lib.a                        
+src                   
+                  
+
+
+
+
+
+
+
+
+
+
+
+
+

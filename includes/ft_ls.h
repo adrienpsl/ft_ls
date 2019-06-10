@@ -59,7 +59,7 @@
 
 typedef struct s_file
 {
-	char directory;
+	char dir;
 	long sort_data;
 	char name[1065];
 } t_file;
@@ -141,6 +141,9 @@ typedef struct s_ft_ls
 # define FT_LS_O_u    (1 << 9)
 # define FT_LS_O_T    (1 << 10)
 # define FT_LS_O_1    (1 << 11)
+/*
+**	is use to set when ls has more that one argv
+*/
 # define FT_LS_O_M    (1 << 12)
 
 
@@ -153,6 +156,7 @@ void ft_swap_file(void *a, void *b);
 int ft_cmp_file(void *p_l1, void *p_l2, void *p_param);
 void ft_swap_char(void *a, void *b);
 int ft_cmp_char(void *a, void *b, void *p_param);
+
 /*
 **	functions
 */
@@ -162,7 +166,7 @@ int is_directory(char *path);
 int ft_ls_init(char *path, t_ls *l, t_buffer *buff, long options);
 void ft_ls_free(t_ls *l);
 
-int array_file_name(t_ls *l);
+int get_lstat_and_filename(t_ls *l);
 int ft_handle_dir(char *path, int options, t_buffer *buff, char *dir_name);
 
 /*
@@ -174,7 +178,6 @@ int ft_get_acl_extended(char *path, char *buff);
 int print_time(long int time_nb, char *out, long option);
 int print_all_col(t_ls *l);
 int print_all(t_ls *l);
-
 void print_err(char *dir_name);
 
 /*

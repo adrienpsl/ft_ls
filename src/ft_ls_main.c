@@ -34,12 +34,6 @@ int ft_ls_init(char *path, t_ls *l, t_buffer *buff, long options)
 	return (0);
 }
 
-void ft_ls_free(t_ls *l)
-{
-	if (l->array)
-		ft_array_free(&l->array);
-	ft_mem_set(l, 0, sizeof(t_ls));
-}
 
 void print_err(char *dir_name)
 {
@@ -56,16 +50,20 @@ int ft_handle_dir(char *path, int options, t_buffer *buff, char *dir_name)
 	t_ls l;
 	char full_path[PATH_MAX + 1];
 
+	ft_mem_set(full_path, 0, PATH_MAX + 1);
 	if (!ft_ls_init(path, &l, buff, options)
-		&& !array_file_name(&l) && !ft_ls_sort(&l) && !print_all(&l))
+		&& !get_lstat_and_filename(&l)
+		&& !ft_ls_sort(&l)
+		&& !print_all(&l))
 	{
 		if (options & FT_LS_O_R)
 			while ((l.f = ft_array_next_el(l.array)) != NULL)
 			{
-				if (l.f->directory && ft_mem_cmp(l.f->name, ".", 2)
-					&& ft_mem_cmp(l.f->name, "..", 3))
+				if (l.f->dir && !(l.f->name[0] != '.' && l.f->name[1] == 0)
+					&& !(l.f->name[0] != '.' && l.f->name[1] != '.'
+						&& !l.f->name[2])
+						)
 				{
-					ft_mem_set(full_path, 0, PATH_MAX + 1);
 					ft_mem_copy(full_path, l.path, l.end_path);
 					ft_mem_copy(full_path + l.end_path, l.f->name, STRING_MODE);
 					ft_handle_dir(full_path, options, buff, l.f->name);
@@ -74,7 +72,6 @@ int ft_handle_dir(char *path, int options, t_buffer *buff, char *dir_name)
 	}
 	else
 		print_err(dir_name);
-	ft_ls_free(&l);
+	free(l.array);
 	return (0);
 }
-
