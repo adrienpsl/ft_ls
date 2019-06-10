@@ -29,7 +29,7 @@ void test_init_ls_2()
 	l = &ls2;
 	int ret;
 
-	t_buff *buff;
+	t_buffer *buff;
 	ft_buffer_new(&buff, 100, 1);
 
 	// test with good argv
@@ -72,7 +72,7 @@ void test_ft_set_max()
 	ft_mem_set(&l, 0, sizeof(t_ls));
 	lstat("/Users/adpusel/Downloads", &l.fs);
 	ft_set_max(&l, "Downloads");
-	if (test_cmp_int_array(download_file, l.size, 6))
+	if (test_cmp_array(download_file, l.size, 6))
 		ft_test_error("test_ft_set_max 1");
 
 
@@ -81,7 +81,7 @@ void test_ft_set_max()
 	ft_mem_set(&l, 0, sizeof(t_ls));
 	lstat("/dev/ttys000", &l.fs);
 	ft_set_max(&l, "ttys000");
-	if (test_cmp_int_array(driver, l.size, 6))
+	if (test_cmp_array(driver, l.size, 6))
 		ft_test_error("test_ft_set_max 2");
 
 
@@ -92,7 +92,7 @@ void test_ft_set_max()
 	lstat("/Users/adpusel/Downloads", &l.fs);
 	l.options |= FT_LS_O_n;
 	ft_set_max(&l, "Downloads");
-	if (test_cmp_int_array(option, l.size, 6))
+	if (test_cmp_array(option, l.size, 6))
 		ft_test_error("test_ft_set_max 3");
 
 	// FT_LS_O_n trigger
@@ -148,7 +148,7 @@ void test_array_file_name()
 	t_ls *l = &ls;
 	int ret;
 
-	t_buff *buff;
+	t_buffer *buff;
 	ft_buffer_new(&buff, 100, 1);
 
 	ft_ls_init("/Users/adpusel", l, buff, 0);
@@ -157,7 +157,7 @@ void test_array_file_name()
 	if (ret
 		|| strcmp(l->path, "/Users/adpusel/")
 		|| l->end_path != 15
-		|| test_cmp_int_array(max_size, l->size, 6)
+		|| test_cmp_array(max_size, l->size, 6)
 		|| l->total != 408)
 	{
 		ft_test_error("test array_file_name 1");
@@ -172,7 +172,7 @@ void test_array_file_name()
 	if (ret
 		|| strcmp(l->path, "/dev/")
 		|| l->end_path != 5
-		|| test_cmp_int_array(driver_size, l->size, 6)
+		|| test_cmp_array(driver_size, l->size, 6)
 		|| l->total != 0)
 	{
 		ft_test_error("test array_file_name 2");
@@ -352,7 +352,7 @@ void test_print_long()
 {
 	t_ls ls;
 	t_ls *l = &ls;
-	t_buff *buff;
+	t_buffer *buff;
 	ft_buffer_new(&buff, 100, 1);
 
 	//	ft_ls_init("/tmp/toto", l);
@@ -378,7 +378,7 @@ void test_one_line_R()
 {
 	t_ls ls;
 	t_ls *l = &ls;
-	t_buff *buff;
+	t_buffer *buff;
 	ft_buffer_new(&buff, 100, 1);
 
 	ft_ls_init("/Users/adpusel", l, buff, 0);
@@ -392,7 +392,7 @@ void test_one_line_R()
 
 void test_all_directory_R()
 {
-	t_buff *buff;
+	t_buffer *buff;
 	ft_buffer_new(&buff, 35000, 1);
 //	ft_all("/Users/adpusel/code/42/ls/cmake-build-debug", FT_LS_O_R |  FT_LS_O_l, buff);
 	ft_all("/", FT_LS_O_R, buff, "test");

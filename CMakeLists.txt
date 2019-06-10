@@ -4,9 +4,9 @@ project(ft_ls C)
 
 set(CMAKE_C_STANDARD 99)
 #set(CMAKE_C_FLAGS "-Wall -Wextra -Werror -og -g3")
-set(CMAKE_C_FLAGS "-Wall -Wextra -Werror")
-#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address -g")
-#-fsanitize=memory-fsanitize-memory-track-origins=2 -fsanitize=address
+#set(CMAKE_C_FLAGS "-Wall -Wextra -Werror")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address -g")
+ #-fsanitize=memory-fsanitize-memory-track-origins=2 -fsanitize=address
 
 #include_directories(PRIVATE includes)
 add_subdirectory(compact-libft)
@@ -27,7 +27,7 @@ add_executable(
         ft_ls
         src/main.c
         test/main.test_2.c
-)
+        test/test_main.c test/all_test.c)
 
 
 

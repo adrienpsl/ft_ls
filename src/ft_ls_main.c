@@ -14,11 +14,14 @@
 
 /*
  * init and malloc an array to handle the file
+ * return an error if can't open directory.
  * */
-int ft_ls_init(char *path, t_ls *l, t_buff *buff, long options)
+int ft_ls_init(char *path, t_ls *l, t_buffer *buff, long options)
 {
 	ft_mem_set(l, 0, sizeof(t_ls));
 	ft_mem_copy(l->path, path, STRING_MODE);
+	ft_str_len(&l->end_path, path);
+	l->options = options;
 	if (ft_api_dir(l))
 		return (-1);
 	while (readdir(l->dir))
@@ -27,8 +30,6 @@ int ft_ls_init(char *path, t_ls *l, t_buff *buff, long options)
 	if (ft_array_new(&l->array, l->elements, sizeof(t_file)))
 		return (-1);
 	l->buff = buff;
-	ft_str_len(&l->end_path, path);
-	l->options = options;
 	l->elements = 0;
 	return (0);
 }
@@ -50,7 +51,7 @@ void print_err(char *dir_name)
 	perror(buff);
 }
 
-int ft_all(char *path, int options, t_buff *buff, char *dir_name)
+int ft_all(char *path, int options, t_buffer *buff, char *dir_name)
 {
 	t_ls l;
 	char full_path[PATH_MAX + 1];

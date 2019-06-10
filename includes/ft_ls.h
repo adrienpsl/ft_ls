@@ -64,20 +64,6 @@ typedef struct s_file
 	char name[1065];
 } t_file;
 
-
-typedef struct s_ft_ls
-{
-	long options;
-	int option_catched;
-	char **av;
-	int ac;
-	int i;
-	t_buff *buff;
-} t_ft_ls;
-
-
-
-
 typedef struct s_ls
 {
 	int elements;
@@ -88,7 +74,7 @@ typedef struct s_ls
 	char path[PATH_MAX + 1];
 	struct stat fs;
 	DIR *dir;
-	t_buff *buff;
+	t_buffer *buff;
 	t_array *array;
 	char link_ptr[PATH_MAX + 1];
 	int has_driver;
@@ -102,6 +88,21 @@ typedef struct s_ls
 	int multiple_file;
 
 } t_ls;
+
+typedef struct s_ft_ls
+{
+	char **av;
+	int ac;
+	long options;
+	int has_path;
+	int i;
+	t_buffer *buff;
+	t_ls ls;
+	t_file file;
+	t_array *argv;
+	t_sort sort;
+} t_ft_ls;
+
 
 # define FT_LS_DRIVER_MIN 0
 # define FT_LS_DRIVER_MAX 1
@@ -141,16 +142,23 @@ typedef struct s_ls
 # define FT_LS_CUSTOM_SORT (FT_LS_O_t | FT_LS_O_c | FT_LS_O_S | FT_LS_O_u)
 
 /*
+**	sorting function
+*/
+void ft_swap_file(void *a, void *b);
+int ft_cmp_file(void *p_l1, void *p_l2, void *p_param);
+void ft_swap_char(void *a, void *b);
+int ft_cmp_char(void *a, void *b, void *p_param);
+/*
 **	functions
 */
 char *get_time(long int *time, int mode, char *out);
 int ft_ls_sort(t_ls *l);
 int is_directory(char *path);
-int ft_ls_init(char *path, t_ls *l, t_buff *buff, long options);
+int ft_ls_init(char *path, t_ls *l, t_buffer *buff, long options);
 void ft_ls_free(t_ls *l);
 
 int array_file_name(t_ls *l);
-int ft_all(char *path, int options, t_buff *buff, char *dir_name);
+int ft_all(char *path, int options, t_buffer *buff, char *dir_name);
 
 /*
 **	print function

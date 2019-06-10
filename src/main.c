@@ -1,57 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adpusel <adpusel@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/19 10:48:07 by adpusel           #+#    #+#             */
+/*   Updated: 2017/11/16 12:45:50 by adpusel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <ft_libft_struct.h>
 #include "ft_ls.h"
 
-void main_test_2();
-
-int parsing_options(char *av, t_ls *l)
+int test_file_type(char *path, t_ft_ls *l)
 {
-	static char *options = "RlartncSguT1";
-
-	av++;
-	if (*av)
-	{
-		l->option_catched = 1;
-		return (0);
-	}
-	if (av[0] == '-')
-		av += 1;
-	if (!*av)
-	{
-		l->i++;
-		l->option_catched = 1;
-		return (0);
-	}
-	if (ft_io_catch_options(av, options, &l->options))
-	{
-		ft_printf("ls : illegal option -", options);
-		ft_putchar_fd(*options, 1);
-		ft_printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] "
-				  "[file ...]", options);
-		return (-1);
-	}
-	return (1);
-}
-
-int test_file(char *path, t_ls *l)
-{
-	t_file file;
-
-	ft_mem_set(&file, 0, sizeof(t_file));
-	if (stat(path, &l->fs) && lstat(path, &l->fs))
+	if (stat(path, &l->ls.fs) && lstat(path, &l->ls.fs))
 		return (1);
-	if (S_ISDIR(l->fs.st_mode))
+	if (S_ISDIR(l->ls.fs.st_mode))
 		ft_all(path, l->options, l->buff, path);
 	else
 	{
-		if (lstat(path, &l->fs))
+		if (lstat(path, &l->ls.fs))
 			return (-1);
-		ft_mem_copy(l->path, path, STRING_MODE);
+		ft_mem_copy(l->ls.path, path, STRING_MODE);
 		if (l->options & FT_LS_O_l)
 		{
-			l->f = &file;
-			ft_mem_copy(l->f->name, path, STRING_MODE);
-			print_stats(l);
+			l->ls.f = &l->file;
+			ft_mem_copy(l->ls.f->name, path, STRING_MODE);
+			print_stats(&l->ls);
 		}
 		else
 			ft_sprintf(l->buff, "%s\n", path);
@@ -59,46 +35,84 @@ int test_file(char *path, t_ls *l)
 	return (0);
 }
 
-// ici je veux quoi ? je veux avancer sur
-
-// && ((av[ls.i][0] == '-' && av[ls.i][1])
-//				|| (av[ls.i][0] == '-' && av[ls.i][1] == '-' && av[ls.i][2])))
-
-
-// je dois loop sur les aguments
-// - > coupe la prise d'arguments
-// -- pass les argument
-int main(int ac, char **av)
+int ft_ls_parse_options(t_ft_ls *l)
 {
-	t_ls ls;
-	t_ft_ls l;
+	int y;
+	char *options = "RlartncSguT1";
+	int ret;
 
-	ls.i = -1;
-	ft_mem_set(&ls, 0, sizeof(t_ls));
-	if (ft_buffer_new(&ls.buff, 35000, 1))
-		return (EXIT_FAILURE);
-	while (++ls.i < ac)
+	while (l->i < l->ac
+		   && l->av[l->i][0] == '-')
 	{
-		if (!ls.option_catched && av[ls.i][0] == '-')
+		if (l->av[l->i][1] == '\0')
+			return (l->i++ & 0);
+		y = (l->av[l->i][1] == '-') ? 2 : 1;
+		if (l->av[l->i][y] == '\0')
+			return (l->i++ & 0);
+		if ((ret = ft_io_catch_options(l->av[l->i] + y, options, &l->options)))
 		{
-			if (parsing_options(av[ls.i], &ls) == -1)
-				break;
+			ft_printf("ls : illegal option -- ");
+			ft_putchar_fd(ret, 1);
+			ft_printf("\nusage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
+			return (-1);
 		}
-		else
-			ls.option_catched = 1;
-		if (ls.option_catched && ls.i < ac)
-		{
-			if ((ac - ls.i) > 1)
-				ls.options |= FT_LS_O_M;
-			if (test_file(av[ls.i], &ls))
-				print_err(av[ls.i]);
-			ls.is_path = 1;
-		}
+		l->i++;
 	}
-	if (ls.is_path == 0)
-		test_file(".", &ls);
-	(ft_buffer_clean(ls.buff) || ft_buffer_free(&ls.buff));
-	// TODO : free ls here
-	return 0;
+	return (0);
 }
 
+int ft_ls_parse_argv(t_ft_ls *l)
+{
+	char **arr_ptr;
+
+	if (l->i >= l->ac)
+		return (0);
+	l->has_path = (l->i == l->ac) ? 1 : 0;
+	ft_array_new(&(l->argv), l->ac - l->i, sizeof(char *));
+	while (l->i < l->ac)
+	{
+		arr_ptr = ft_array_next_el(l->argv);
+		ft_mem_copy(arr_ptr, l->av[l->i], sizeof(char*));
+		l->i++;
+	}
+	l->sort.array = l->argv;
+	ft_array_bubble(&l->sort);
+	return (0);
+}
+
+
+int init_ls(t_ft_ls *l, int ac, char **av)
+{
+	ft_mem_set(l, 0, sizeof(t_ft_ls));
+	if (ft_buffer_new(&l->buff, 35000, 1))
+		return (-1);
+	l->ac = ac;
+	l->av = av;
+	l->i = 1;
+	l->sort.param = &l->options;
+	l->sort.swap_func = ft_swap_char;
+	l->sort.cmp_func = ft_cmp_char;
+	return (0);
+}
+
+void all_test();
+int main(int ac, char **av)
+{
+	(void) ac;
+	(void) av;
+	all_test();
+//	t_ft_ls l;
+//	char **path_p;
+//
+//	init_ls(&l, ac, av);
+//	ft_ls_parse_options(&l);
+//	ft_ls_parse_argv(&l);
+//	l.argv->i = 0;
+//	while ((path_p = ft_array_next_el(l.argv)))
+//		test_file_type(*path_p, &l);
+//	if (l.no_path == 0)
+//		test_file_type(".", &l);
+//	// TODO : free ls here
+//	(ft_buffer_clean(l.buff) || ft_buffer_free(&l.buff));
+//	return 0;
+}
