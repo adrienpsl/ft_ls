@@ -89,11 +89,16 @@ typedef struct s_ls
 
 } t_ls;
 
+
+# define FT_LS_MODE_DIR 0
+# define FT_LS_MODE_FILE 1
+
 typedef struct s_ft_ls
 {
 	char **av;
 	int ac;
 	long options;
+	int mode;
 	int has_path;
 	int i;
 	t_buffer *buff;
@@ -158,7 +163,7 @@ int ft_ls_init(char *path, t_ls *l, t_buffer *buff, long options);
 void ft_ls_free(t_ls *l);
 
 int array_file_name(t_ls *l);
-int ft_all(char *path, int options, t_buffer *buff, char *dir_name);
+int ft_handle_dir(char *path, int options, t_buffer *buff, char *dir_name);
 
 /*
 **	print function

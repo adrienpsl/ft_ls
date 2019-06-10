@@ -51,7 +51,7 @@ void print_err(char *dir_name)
 	perror(buff);
 }
 
-int ft_all(char *path, int options, t_buffer *buff, char *dir_name)
+int ft_handle_dir(char *path, int options, t_buffer *buff, char *dir_name)
 {
 	t_ls l;
 	char full_path[PATH_MAX + 1];
@@ -68,7 +68,7 @@ int ft_all(char *path, int options, t_buffer *buff, char *dir_name)
 					ft_mem_set(full_path, 0, PATH_MAX + 1);
 					ft_mem_copy(full_path, l.path, l.end_path);
 					ft_mem_copy(full_path + l.end_path, l.f->name, STRING_MODE);
-					ft_all(full_path, options, buff, l.f->name);
+					ft_handle_dir(full_path, options, buff, l.f->name);
 				}
 			}
 	}

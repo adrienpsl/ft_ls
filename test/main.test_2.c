@@ -395,7 +395,7 @@ void test_all_directory_R()
 	t_buffer *buff;
 	ft_buffer_new(&buff, 35000, 1);
 //	ft_all("/Users/adpusel/code/42/ls/cmake-build-debug", FT_LS_O_R |  FT_LS_O_l, buff);
-	ft_all("/", FT_LS_O_R, buff, "test");
+	ft_handle_dir("/", FT_LS_O_R, buff, "test");
 //	ft_all("/Volumes/com.apple.TimeMachine.localsnapshots/Backups.backupdb/adpusel’s MacBook Pro/2019-06-05-214523/Macintosh HD/Users/adpusel/code/42/ls/cmake-build-debug/test/no_parent/aeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoeuaeouaoeuaoeuaoe", FT_LS_O_R, buff, "test");
 }
 

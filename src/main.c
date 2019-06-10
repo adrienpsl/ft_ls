@@ -12,25 +12,32 @@
 
 #include "ft_ls.h"
 
+// cette fonction va faire des checks,
+// ce que je veux c'est qu'elle test et set up pour la suite la marche a suivre
+// elle ne doit pas rediriger car je ne peux pas tester ce qu'elle fait !
+// car ici je test des trucs donc je peux avoir des err. pour cela
+// je ne dois pas rediriger vers ailleur
+
 int test_file_type(char *path, t_ft_ls *l)
 {
-	if (stat(path, &l->ls.fs) && lstat(path, &l->ls.fs))
+	if (stat(path, &l->ls.fs))
 		return (1);
 	if (S_ISDIR(l->ls.fs.st_mode))
-		ft_all(path, l->options, l->buff, path);
+	{
+		l->mode = FT_LS_MODE_DIR;
+		ft_str_len(&l->ls.end_path, path);
+		ft_mem_copy(l->ls.path, path, l->ls.end_path);
+	}
 	else
 	{
+		l->mode = FT_LS_MODE_FILE;
 		if (lstat(path, &l->ls.fs))
 			return (-1);
-		ft_mem_copy(l->ls.path, path, STRING_MODE);
 		if (l->options & FT_LS_O_l)
 		{
 			l->ls.f = &l->file;
 			ft_mem_copy(l->ls.f->name, path, STRING_MODE);
-			print_stats(&l->ls);
 		}
-		else
-			ft_sprintf(l->buff, "%s\n", path);
 	}
 	return (0);
 }
@@ -72,14 +79,13 @@ int ft_ls_parse_argv(t_ft_ls *l)
 	while (l->i < l->ac)
 	{
 		arr_ptr = ft_array_next_el(l->argv);
-		ft_mem_copy(arr_ptr, l->av[l->i], sizeof(char*));
+		ft_mem_copy(arr_ptr, l->av[l->i], sizeof(char *));
 		l->i++;
 	}
 	l->sort.array = l->argv;
 	ft_array_bubble(&l->sort);
 	return (0);
 }
-
 
 int init_ls(t_ft_ls *l, int ac, char **av)
 {

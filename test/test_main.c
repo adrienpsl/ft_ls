@@ -5,7 +5,28 @@
 int init_ls(t_ft_ls *l, int ac, char **av);
 int ft_ls_parse_options(t_ft_ls *l);
 int ft_ls_parse_argv(t_ft_ls *l);
+int test_file_type(char *path, t_ft_ls *l);
 
+typedef struct testop
+{
+	char **options_str;
+	int size_option;
+	long res_option;
+	int ret;
+	int stop;
+	char **res_array;
+	int res_array_cmp;
+	int option_number;
+
+} t_test_ft;
+
+typedef struct s_tt
+{
+	char *av[10];
+	int ac;
+	int function_ret;
+
+} t_tt;
 
 void utils_build_array_str(char **s, t_array **array, int size)
 {
@@ -131,18 +152,6 @@ void test_ft_ls_parse_argv()
 
 }
 
-typedef struct testop
-{
-	char **options_str;
-	int size_option;
-	long res_option;
-	int ret;
-	int stop;
-	char **res_array;
-	int res_array_cmp;
-	int option_number;
-
-} t_test_ft;
 
 void u_test_ft_ls_parse_option_argv(t_test_ft *test)
 {
@@ -178,6 +187,47 @@ void u_test_ft_ls_parse_option_argv(t_test_ft *test)
 	nb++;
 }
 
+void test_ft_ls_parse_option_argv()
+{
+	char *tab3[20] = {"name", "-a", "-R", "c", "b", "a", "e", "aoue", "aou"};
+	char *tab_3[20] = {"a", "aou", "aoue", "b", "c", "e"};
+
+	t_test_ft t = {tab3, 9, (FT_LS_O_R | FT_LS_O_a), 0, 9, tab_3, 0, 3};
+	u_test_ft_ls_parse_option_argv(&t);
+
+	char *tab4[20] = {"name", "-", "c", "b", "a", "e", "aoue", "-R", "aou"};
+	char *tab_4[20] = {"-R", "a", "aou", "aoue", "b", "c", "e"};
+
+	t_test_ft t4 = {tab4, 9, 0, 0, 9, tab_4, 0, 2};
+	u_test_ft_ls_parse_option_argv(&t4);
+
+}
+
+void u_test_file_type(t_tt *test, int size)
+{
+	t_ft_ls ls;
+	t_ft_ls *l = &ls;
+	void *p;
+	int ret;
+	int i = 0;
+
+
+	for (int j = 0; j < size; ++j)
+	{
+		init_ls(l, test[i].ac, test[i].av);
+		ft_ls_parse_options(l);
+		ft_ls_parse_argv(l);
+		l->argv->i = 0;
+
+		while ((p = ft_array_next_el(l->argv)))
+		{
+			ret = test_file_type(p, l);
+			if (ret != test[i].function_ret)
+				ft_print_error("test", 0);
+		}
+	}
+}
+
 
 void test_main_main()
 {
@@ -189,20 +239,14 @@ void test_main_main()
 
 //	test_ft_ls_parse_options();
 //	test_ft_ls_parse_argv();
+//	test_ft_ls_parse_option_argv();
 
+	t_tt test[10] = {
+//			{{"ft_ls", "dir_link"}, 2, 0},
+			{{"ft_ls", "ft_ls"}, 2, 0}};
+	u_test_file_type(test, 1);
 
-
-//	char *tab3[20] = {"name", "-a", "-R", "c", "b", "a", "e", "aoue", "aou"};
-//	char *tab_3[20] = {"a", "aou", "aoue", "b", "c", "e"};
-//
-//	t_test_ft t = {tab3, 9, (FT_LS_O_R | FT_LS_O_a), 0, 9, tab_3, 0, 3};
-//	u_test_ft_ls_parse_option_argv(&t);
-
-	char *tab4[20] = {"name", "-", "-R", "c", "b", "a", "e", "aoue", "aou"};
-	char *tab_4[20] = {"-R", "a", "aou", "aoue", "b", "c", "e"};
-
-	t_test_ft t4 = {tab4, 9, 0, 0, 9, tab_4, 0, 2};
-	u_test_ft_ls_parse_option_argv(&t4);
-
-
+// si lance bien le dir avec un symbolic
+	// un file
+	// un dir existe pas
 }
