@@ -63,42 +63,9 @@ ls -R | sed -n -e '/^\.\//p' > toto.txt
 awk 'length>300' toto.txt
 
 
-# breaking new 
-- la size max d'un file est de 255 c ' '
-- la size maxe de mon path est de PATH_MAX. pas besoin de mettre plus.
+- continuer les tests de 42filesh pour un rendu mercredi.
 
-# faire une refacto du code
-faire la fonction de test qui init la recursivite
-lancer la recursivite
-et voila ! :)
 
-- faire la recursivite !
-    - 1
-
-- pour le moment je compte le nb d'element pour allouer mon tab, ensuite je ferai le print
-- ajouter les trie
-- implemeter tout les trie possbile
-- la couleur c'est style ! 
-- le truc des groupes user aussi c'est style
-- je suis pas sur qu'avec mes buffer ca soit bullet proof, /a voir avec les tests
-- ajouter les colomne ?
-- faire l'affichage en fonction des options
-- faire l'input, la boucle sur les arguments,
-  
-- faire les tests du truc de test
-- faire regarder les best projets de ce ls
-- 
-
-- if the file has 3 stuff, no need to use a sorting
-
-// 1 build_sorted_array
-    X - compte le nb d'element et init le tab avec 
-    X - loop sur le tab d'element et fill le tab
-j
-1 -> faire le parcing et faire mettre les arguments en ordre. 
-2 -> tester avec les -.
-3 -> coder un trie a bulle pour mon array.
-3 -> apprendre comment marche 42 files checker en l'utiliser pour faire mes corrections ?. 
 
 
 

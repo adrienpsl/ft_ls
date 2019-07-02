@@ -21,23 +21,22 @@ void ft_swap_file(void *a, void *b)
 	ft_mem_copy(b, &tmp, sizeof(t_file));
 }
 
-void ft_swap_char(void *a, void *b)
-{
-	char tmp[sizeof(char *)];
-
-	ft_mem_copy(tmp, a, sizeof(char *));
-	ft_mem_copy(a, b, sizeof(char *));
-	ft_mem_copy(b, tmp, sizeof(char *));
-}
-
 int ft_cmp_char(void *a, void *b, void *p_param)
 {
 	long param;
 	int ret;
+	t_file *aa;
+	t_file *bb;
+
 
 	(void) param;
 	param = *(long *) p_param;
-	ret = ft_mem_cmp(a, b, STRING_MODE) > 0 ? 1 : 0;
+	aa = a;
+	bb = b;
+
+	if (aa->dir > bb->dir)
+		return 1;
+	ret = ft_mem_cmp(aa->argv, bb->argv, STRING_MODE) > 0 ? 1 : 0;
 	return param & FT_LS_O_r ? !ret : ret;
 }
 

@@ -59,8 +59,8 @@ int ft_handle_dir(char *path, int options, t_buffer *buff, char *dir_name)
 		if (options & FT_LS_O_R)
 			while ((l.f = ft_array_next_el(l.array)) != NULL)
 			{
-				if (l.f->dir && !(l.f->name[0] != '.' && l.f->name[1] == 0)
-					&& !(l.f->name[0] != '.' && l.f->name[1] != '.'
+				if (l.f->dir && !(l.f->name[0] == '.' && l.f->name[1] == 0)
+					&& !(l.f->name[0] == '.' && l.f->name[1] == '.'
 						&& !l.f->name[2])
 						)
 				{

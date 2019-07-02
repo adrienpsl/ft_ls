@@ -127,11 +127,14 @@ void print_argv(t_ls *l)
 {
 	static int is_first = 1;
 
-	if (((l->options & FT_LS_O_R) && !is_first) || (l->options & FT_LS_O_M))
+	if ((!is_first && (l->options & FT_LS_O_R)) || (l->options & FT_LS_O_M))
 	{
+		if (l->buff->data[l->buff->i] != '\n' && !is_first)
+		    ft_buffer_add(l->buff, "\n", 1);
+		if ((l->options & FT_LS_O_M))
+			ft_buffer_add(l->buff, "\n", 1);
 		ft_buffer_add(l->buff, l->path, l->end_path - 1);
-		ft_buffer_add(l->buff, ":", 1);
-		ft_buffer_add(l->buff, "\n", 1);
+		ft_buffer_add(l->buff, ":\n", 2);
 	}
 	is_first = 0;
 }
@@ -144,8 +147,6 @@ int print_all(t_ls *l)
 		ft_sprintf(l->buff, "total %ld\n", l->total);
 		while ((l->f = (t_file *) ft_array_next_el(l->array)))
 		{
-			if (!*l->f->name)
-				continue;
 			ft_str_len(&l->s, l->path);
 			ft_mem_copy(l->path + l->end_path, l->f->name, STRING_MODE);
 			if (ft_api_lstat(l))

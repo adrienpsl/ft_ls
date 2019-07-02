@@ -61,6 +61,7 @@ typedef struct s_file
 {
 	char dir;
 	long sort_data;
+	char *argv;
 	char name[1065];
 } t_file;
 
@@ -84,9 +85,6 @@ typedef struct s_ls
 	size_t s;
 	int is_path;
 	int ret;
-	int option_catched;
-	int multiple_file;
-
 } t_ls;
 
 
@@ -141,6 +139,7 @@ typedef struct s_ft_ls
 # define FT_LS_O_u    (1 << 9)
 # define FT_LS_O_T    (1 << 10)
 # define FT_LS_O_1    (1 << 11)
+
 /*
 **	is use to set when ls has more that one argv
 */
