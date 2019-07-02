@@ -178,7 +178,7 @@ int print_time(long int time_nb, char *out, long option);
 int print_all_col(t_ls *l);
 int print_all(t_ls *l);
 void print_err(char *dir_name);
-
+void print_argv(t_ls *l);
 /*
 **	helpers
 */

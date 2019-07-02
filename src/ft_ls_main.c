@@ -71,7 +71,10 @@ int ft_handle_dir(char *path, int options, t_buffer *buff, char *dir_name)
 			}
 	}
 	else
+	{
+		ft_sprintf(l.buff, full_path);
 		print_err(dir_name);
+	}
 	free(l.array);
 	return (0);
 }
