@@ -126,13 +126,20 @@ int print_all_col(t_ls *l)
 void print_argv(t_ls *l)
 {
 	static int is_first = 1;
-
-	if ((!is_first && (l->options & FT_LS_O_R)) || (l->options & FT_LS_O_M))
+	if (l->buff->data[0])
+		is_first = 0;
+	if (!is_first)
 	{
-		if (l->buff->data[l->buff->i] != '\n' && !is_first)
-		    ft_buffer_add(l->buff, "\n", 1);
-		if ((l->options & FT_LS_O_M))
+		if (l->options & FT_LS_O_M || (l->options & FT_LS_O_R))
 			ft_buffer_add(l->buff, "\n", 1);
+	}
+	if ((l->options & FT_LS_O_R) && !is_first)
+	{
+		ft_buffer_add(l->buff, l->path, l->end_path - 1);
+		ft_buffer_add(l->buff, ":\n", 2);
+	}
+	if ((l->options & FT_LS_O_M))
+	{
 		ft_buffer_add(l->buff, l->path, l->end_path - 1);
 		ft_buffer_add(l->buff, ":\n", 2);
 	}
@@ -144,7 +151,8 @@ int print_all(t_ls *l)
 	print_argv(l);
 	if (l->options & FT_LS_O_l)
 	{
-		ft_sprintf(l->buff, "total %ld\n", l->total);
+		if (l->array->length > 1)
+			ft_sprintf(l->buff, "total %ld\n", l->total);
 		while ((l->f = (t_file *) ft_array_next_el(l->array)))
 		{
 			ft_str_len(&l->s, l->path);

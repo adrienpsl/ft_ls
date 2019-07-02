@@ -52,7 +52,12 @@ int ft_cmp_file(void *p_l1, void *p_l2, void *p_param)
 	l2 = p_l2;
 
 	if (param & FT_LS_CUSTOM_SORT)
-		ret = (l1->sort_data > l2->sort_data) ? 0 : 1;
+	{
+		if (l1->sort_data == l2->sort_data)
+			ret = ft_mem_cmp(l1->name, l2->name, FT_LS_MAX_FILE) > 0 ? 1 : 0;
+		else
+			ret = (l1->sort_data > l2->sort_data) ? 0 : 1;
+	}
 	else
 		ret = ft_mem_cmp(l1->name, l2->name, FT_LS_MAX_FILE) > 0 ? 1 : 0;
 	return param & FT_LS_O_r ? !ret : ret;
