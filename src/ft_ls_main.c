@@ -61,7 +61,7 @@ int ft_handle_dir(char *path, int options, t_buffer *buff, char *dir_name)
 			{
 				if (l.f->dir && !(l.f->name[0] == '.' && l.f->name[1] == 0)
 					&& !(l.f->name[0] == '.' && l.f->name[1] == '.'
-						&& !l.f->name[2])
+						 && !l.f->name[2])
 						)
 				{
 					ft_mem_copy(full_path, l.path, l.end_path);
@@ -72,7 +72,9 @@ int ft_handle_dir(char *path, int options, t_buffer *buff, char *dir_name)
 	}
 	else
 	{
-		ft_sprintf(l.buff, full_path);
+		ft_sprintf(buff, "\n");
+		ft_sprintf(buff, path);
+		ft_sprintf(buff, ":\n");
 		print_err(dir_name);
 	}
 	free(l.array);

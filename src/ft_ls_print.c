@@ -138,7 +138,7 @@ void print_argv(t_ls *l)
 		ft_buffer_add(l->buff, l->path, l->end_path - 1);
 		ft_buffer_add(l->buff, ":\n", 2);
 	}
-	if ((l->options & FT_LS_O_M))
+	else if (l->options & FT_LS_O_M)
 	{
 		ft_buffer_add(l->buff, l->path, l->end_path - 1);
 		ft_buffer_add(l->buff, ":\n", 2);
