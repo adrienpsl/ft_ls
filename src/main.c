@@ -35,7 +35,10 @@ int test_file_type(char *path, t_ft_ls *l)
 			ft_sprintf(l->buff, "%s\n", path);
 	}
 	else
+	{
+		perror("toto");
 		return (-1);
+	}
 	return (0);
 }
 

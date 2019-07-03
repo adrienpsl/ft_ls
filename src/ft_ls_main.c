@@ -35,7 +35,7 @@ int ft_ls_init(char *path, t_ls *l, t_buffer *buff, long options)
 }
 
 
-void print_err(char *dir_name)
+void print_error(char *dir_name)
 {
 	static char buff[PATH_MAX + 10] = "ls: ";
 	size_t dir_name_size;
@@ -75,7 +75,7 @@ int ft_handle_dir(char *path, int options, t_buffer *buff, char *dir_name)
 		ft_sprintf(buff, "\n");
 		ft_sprintf(buff, path);
 		ft_sprintf(buff, ":\n");
-		print_err(dir_name);
+		print_error(dir_name);
 	}
 	free(l.array);
 	return (0);
