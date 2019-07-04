@@ -12,14 +12,35 @@
 
 #include "ft_ls.h"
 
+// si c'est un -l et un symlink, pas de mode dossier. sinon mode dossier
+// ici je regarde si c'set un link et si c'est un dossier. car en fonction
+// je ne fais pas le meme chose.
+
+// on va partir du principe que la vitesse c'est pas pour tout de suite.
+//
+
 int test_file_type(char *path, t_ft_ls *l)
 {
 	ft_str_len(&l->ls.end_path, path);
 	ft_mem_copy(l->ls.path, path, l->ls.end_path);
 	if (!stat(path, &l->ls.fs) && S_ISDIR(l->ls.fs.st_mode))
 	{
-		l->mode = FT_LS_MODE_DIR;
-		ft_handle_dir(path, l->options, l->buff, path);
+		if (!lstat(path, &l->ls.fs)
+			&& FT_ISLNK(l->ls.fs.st_mode)
+			&& (l->options & FT_LS_O_l))
+		{
+			l->ls.f = &l->file;
+			l->ls.buff = l->buff;
+			ft_mem_copy(l->ls.f->name, path, STRING_MODE);
+			print_stats(&l->ls);
+		}
+		else
+		{
+			stat(path, &l->ls.fs);
+			l->mode = FT_LS_MODE_DIR;
+			ft_handle_dir(path, l->options, l->buff, path);
+		}
+
 	}
 	else if (!lstat(path, &l->ls.fs))
 	{
@@ -69,7 +90,7 @@ int ft_ls_parse_options(t_ft_ls *l)
 }
 
 // nouveau je fais un type file, et je met les dir dedans,
-// ca va me permettre de mieux gere mes erreur.
+// ca va me permettre de mieux gere mes erreurs.
 // ici fais un stat sur mon fichier, et je le range ici ! hehe :).
 int ft_ls_parse_argv(t_ft_ls *l)
 {
@@ -89,7 +110,7 @@ int ft_ls_parse_argv(t_ft_ls *l)
 		l->i++;
 	}
 	l->sort.array = l->argv;
-	ft_quick_sort(&l->sort, 0, l->argv->length -1);
+	ft_quick_sort(&l->sort, 0, l->argv->length - 1);
 	l->argv->i = 0;
 	return (0);
 }

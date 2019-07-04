@@ -1,12 +1,30 @@
 #!/usr/bin/env bash
 
-OPTIONS='';
-FILES='';
-ERROR='';
-DIFF='';
-PATH_TEST_DIR="../test_dir/";
-OUR="${PATH_TEST_DIR}our";
-YOUR="${PATH_TEST_DIR}your";
+# *------------------------------------*\
+#    bug
+# *------------------------------------*/
+# -- at /, the symlink witch link to private.. no working.
+
+# *------------------------------------*\
+#    Script Option
+# *------------------------------------*/
+declare showDiff=1
+
+# *------------------------------------*\
+#    Variables use in that script
+# *------------------------------------*/
+declare     TITLE;
+declare -a  ARRAY;
+declare -a  COMMANDS;
+declare     OPTIONS;
+declare     FILES;
+
+declare     ERROR;
+declare     DIFF;
+
+declare     PATH_TEST_DIR="../test_dir";
+declare     OUR="${PATH_TEST_DIR}/our";
+declare     YOUR="${PATH_TEST_DIR}/your";
 
 # une options pour activer ou non les diffs pcq ca prends vite de la place cette merde !
 # faire des titres en petit, ca sert a rien de faire le ouf avec des trucs de malades !
@@ -16,40 +34,70 @@ YOUR="${PATH_TEST_DIR}your";
 # faire un test de segfault
 # faire un test de vitesse
 # prendre les test de truc et les applique a mon projet
-  # rester simple c'est la clee, le 42filesheker est overkill je trouve, c'est un peu trop lours pour moi
+# rester simple c'est la clee, le 42filesheker est overkill je trouve, c'est un peu trop lours pour moi
 
 # *------------------------------------*\
 #    Functions
 # *------------------------------------*/
+
 function testLs()
 {
-    OPTIONS=$1;
-    FILES=$2;
-    # the { } catch the result, and I redirect it in error
-    ERROR=$( { /bin/ls ${OPTIONS} ${FILES}  > ${OUR} && ./ft_ls ${OPTIONS} / ${FILES} > ${YOUR} ; } 2>&1 )
+    ERROR=$( { /bin/ls ${OPTIONS} ${FILES}  > ${OUR} && ./ft_ls ${OPTIONS} ${FILES} > ${YOUR} ; } 2>&1 )
+    # brief test file, without print the diff
     DIFF=$(  { diff --brief ${OUR} ${YOUR} ; } 2>&1 )
 }
 
 function printRes()
 {
     if [[ -n ${ERROR} ]]; then
-        echo "$ERROR"
+        echo  "\033[31mNo test the current error append:\033[37;1m \n$ERROR ---------- \033[0m"
     elif [[ -n ${DIFF} ]]; then
-        echo "\r\033[31mError:\t\t\033[0m\033[37;1m" \
-             "options :   ${OPTIONS}  ${FILES}  " | tee -a err-log-ls.txt;
-	    diff -y ${OUR} ${YOUR} >> err-log-ls.txt;
+        # tee write the data in the file ( append mode ), and show there in the console, \
+        # 1i / 2o like -|- a T connector :)
+        echo "\r\033[31mTest ko  : ${OPTIONS} ${FILES}\033[0m"  | tee -a err-log-ls.txt;
+	   [[ ${showDiff} -gt 0 ]]  && diff -y ${OUR} ${YOUR} | colordiff >> err-log-ls.txt; # you need to install that with brew ( in mac os )
 	else
-	   echo "\033[32mtest ok:\t\t\033[0m\033[37;1m ${OPTIONS}  ${FILES}"
+	   echo "\033[32mTest ok  : ${OPTIONS} ${FILES} \033[0m"
     fi
 }
+
+function printTitle()
+{
+    echo "# *------------------------------------* "
+    echo "   $TITLE"
+    echo "# *------------------------------------* "
+}
+
+function parseAndDo()
+{
+    printTitle;
+
+    for command in "${COMMANDS[@]}"
+    do
+        # split the line and reset the original IFS
+        ORIGINAL_IFS=${IFS}
+        IFS=';'
+        read -r -a argv <<< ${command};
+        IFS=${ORIGINAL_IFS}
+
+        OPTIONS=${argv[0]}
+        FILES=${argv[1]}
+
+        testLs;
+        printRes;
+    done
+}
+
+
+# if -l, the symlink is treat like a file.
 
 # *------------------------------------*\
 #    build and create program
 # *------------------------------------*/
-make > logs
-rm -rf ../test_dir 2> logs
-mkdir ../test_dir 2> logs
-rm err-log-ls.txt 2> logs
+make                > /dev/null
+rm -rf ../test_dir  > /dev/null
+mkdir ../test_dir   > /dev/null
+rm -f err-log-ls.txt
 
 # faire le check de nv.
 # faire le test de l'usage.
@@ -58,14 +106,16 @@ rm err-log-ls.txt 2> logs
 # *------------------------------------*\
 #    test error message
 # *------------------------------------*/
+TITLE="Error Test"
+COMMANDS=(
+    "-l ; /Users/adpusel"
+    "-l ; . ."
+    "-l ;   "
+    "-l ; /"
+)
+parseAndDo
 
-# je fais un array pour chaque test
-# je donne a cet array les bons tests
-# je valide tout ca mon gars ! yeah yeah yeah ! faty fatou !
 
-
-testLs "-l" "."
-printRes
 
 
 
