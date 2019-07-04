@@ -17,9 +17,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2afc938b-60dc-4473-94d2-ee5c8bc71943" name="Default Changelist" comment="optimisation du script de test, pour avoir une chose simple et efficace,&#10;pouvoir faire diff -y, + color diff c'est le super feu !!">
+    <list default="true" id="2afc938b-60dc-4473-94d2-ee5c8bc71943" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/test.sh" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -51,17 +50,37 @@
     <favorites_list name="ft_ls" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="474">
-              <caret line="108" column="18" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.6594892">
+      <split-first>
+        <leaf>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/test.sh">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="502">
+                  <caret line="62" column="60" lean-forward="true" selection-start-line="62" selection-start-column="60" selection-end-line="62" selection-end-column="60" />
+                  <folding>
+                    <element signature="e#2461#2591#0" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/test.sh">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="46">
+                  <caret line="22" selection-start-line="21" selection-end-line="22" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -74,8 +93,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>*out_type =</find>
-      <find>st_mode)</find>
       <find>S_</find>
       <find>lk.</find>
       <find>catch</find>
@@ -104,6 +121,8 @@
       <find>toto</find>
       <find>printRes</find>
       <find>ft_get_acl_extended</find>
+      <find>argv</find>
+      <find>OPTIONS</find>
     </findStrings>
     <replaceStrings>
       <replace>return</replace>
@@ -117,6 +136,7 @@
       <replace />
       <replace>PATH</replace>
       <replace>test_cmp_array</replace>
+      <replace>COMMANDS</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -186,7 +206,7 @@
     <option name="configuration" value="0-ft_ls" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1720" />
+    <option name="width" value="2376" />
     <option name="height" value="1440" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -314,7 +334,7 @@
       <workItem from="1560341442733" duration="324000" />
       <workItem from="1561993849983" duration="225000" />
       <workItem from="1562063475460" duration="3010000" />
-      <workItem from="1562070154804" duration="31700000" />
+      <workItem from="1562070154804" duration="36835000" />
     </task>
     <task id="LOCAL-00001" summary="le set up du pojet est ok et compile">
       <created>1548246592549</created>
@@ -568,11 +588,25 @@
       <option name="project" value="LOCAL" />
       <updated>1562192819617</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="script structure done">
+      <created>1562232571210</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1562232571210</updated>
+    </task>
+    <task id="LOCAL-00038" summary="improvement display test metadata">
+      <created>1562233517719</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1562233517719</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="385689000" />
+    <option name="totallyTimeSpent" value="390824000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -584,21 +618,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1720" height="1440" extended-state="0" />
+    <frame x="0" y="0" width="2376" height="1440" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4961929" visible="true" weight="0.18825665" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4961929" visible="true" weight="0.1347487" />
       <window_info id="Structure" order="1" sideWeight="0.5038071" side_tool="true" weight="0.17549261" />
       <window_info id="Favorites" order="2" sideWeight="0.50298804" side_tool="true" weight="0.14561091" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49935108" weight="0.32973805" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4394673" visible="true" weight="0.2989214" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4397747" visible="true" weight="0.2835131" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.53884935" weight="0.37596303" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49958745" weight="0.32973805" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.5605327" side_tool="true" visible="true" weight="0.2989214" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.5602253" side_tool="true" visible="true" weight="0.2835131" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32973805" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.59875447" weight="0.38366717" />
       <window_info anchor="bottom" id="CMake" order="11" sideWeight="0.4979241" weight="0.32819724" />
@@ -657,8 +691,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/libft" />
     </ignored-roots>
-    <MESSAGE value="- ls -la mache super ! mais j'ai pas encore fait les attributs etendu !" />
-    <MESSAGE value="- acl et attr ok !" />
     <MESSAGE value="save avant dodo" />
     <MESSAGE value="new branche in progress to create the speed and beatiful ls" />
     <MESSAGE value="get les data pour le sort ok" />
@@ -682,7 +714,9 @@
     <MESSAGE value="save" />
     <MESSAGE value="save before test errors message" />
     <MESSAGE value="optimisation du script de test, pour avoir une chose simple et efficace,&#10;pouvoir faire diff -y, + color diff c'est le super feu !!" />
-    <option name="LAST_COMMIT_MESSAGE" value="optimisation du script de test, pour avoir une chose simple et efficace,&#10;pouvoir faire diff -y, + color diff c'est le super feu !!" />
+    <MESSAGE value="script structure done" />
+    <MESSAGE value="improvement display test metadata" />
+    <option name="LAST_COMMIT_MESSAGE" value="improvement display test metadata" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1046,8 +1080,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="108" column="18" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
+        <state relative-caret-position="502">
+          <caret line="62" column="60" lean-forward="true" selection-start-line="62" selection-start-column="60" selection-end-line="62" selection-end-column="60" />
+          <folding>
+            <element signature="e#2461#2591#0" />
+          </folding>
         </state>
       </provider>
     </entry>
