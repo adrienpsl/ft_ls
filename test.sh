@@ -8,7 +8,9 @@
 # *------------------------------------*\
 #    Script Option
 # *------------------------------------*/
-declare showDiff=1
+declare showDiff=1;
+declare showOk=0;
+declare showTitle=0;
 
 # *------------------------------------*\
 #    Variables use in that script
@@ -22,7 +24,8 @@ declare     FILES;
 declare     ERROR;
 declare     DIFF;
 
-declare     PATH_TEST_DIR="../test_dir";
+declare     PATH_TEST_DIR="../cmp_dir";
+declare     PATH_WORKING="working_dir"
 declare     OUR="${PATH_TEST_DIR}/our";
 declare     YOUR="${PATH_TEST_DIR}/your";
 
@@ -42,7 +45,8 @@ declare     YOUR="${PATH_TEST_DIR}/your";
 
 function testLs()
 {
-    ERROR=$( { /bin/ls ${OPTIONS} ${FILES}  > ${OUR} && ./ft_ls ${OPTIONS} ${FILES} > ${YOUR} ; } 2>&1 )
+    ERROR=$( {  /bin/ls ${OPTIONS} ${FILES}  > ${OUR} \
+                && ${PATH_WORKING}/ft_ls ${OPTIONS} ${FILES} > ${YOUR} ; } 2>&1 )
     # brief test file, without print the diff
     DIFF=$(  { diff --brief ${OUR} ${YOUR} ; } 2>&1 )
 }
@@ -57,7 +61,7 @@ function printRes()
         echo "\r\033[31mTest ko  : ${OPTIONS} ${FILES}\033[0m"  | tee -a err-log-ls.txt;
 	   [[ ${showDiff} -gt 0 ]]  && diff -y ${OUR} ${YOUR} | colordiff >> err-log-ls.txt; # you need to install that with brew ( in mac os )
 	else
-	   echo "\033[32mTest ok  : ${OPTIONS} ${FILES} \033[0m"
+	   [[ ${showOk} -gt 0 ]] && echo "\033[32mTest ok  : ${OPTIONS} ${FILES} \033[0m"
     fi
 }
 
@@ -70,13 +74,13 @@ function printTitle()
 
 function parseAndDo()
 {
-    printTitle;
+     [[ ${showTitle} -gt 0 ]] && printTitle;
 
     for command in "${COMMANDS[@]}"
     do
         # split the line and reset the original IFS
         ORIGINAL_IFS=${IFS}
-        IFS=';'
+        IFS='~'
         read -r -a argv <<< ${command};
         IFS=${ORIGINAL_IFS}
 
@@ -86,6 +90,7 @@ function parseAndDo()
         testLs;
         printRes;
     done
+    echo
 }
 
 
@@ -94,24 +99,30 @@ function parseAndDo()
 # *------------------------------------*\
 #    build and create program
 # *------------------------------------*/
-make                > /dev/null
-rm -rf ../test_dir  > /dev/null
-mkdir ../test_dir   > /dev/null
-rm -f err-log-ls.txt
+chmod   -R 777          ${PATH_WORKING}  > /dev/null
+rm      -rf             ${PATH_WORKING}
+mkdir                   ${PATH_WORKING}
+make                                      > /dev/null
+mv ./ft_ls              ${PATH_WORKING}
+
+rm      -rf             ${PATH_TEST_DIR}  > /dev/null
+mkdir                   ${PATH_TEST_DIR}  > /dev/null
+rm -f  err-log-ls.txt
+echo
 
 # faire le check de nv.
 # faire le test de l'usage.
 # bien faire le test pour le trie des fichiers !
 
 # *------------------------------------*\
-#    test error message
+#    test Error Handling
 # *------------------------------------*/
-TITLE="Error Test"
+TITLE="Error Handling"
 COMMANDS=(
-    "-l ; /Users/adpusel"
-    "-l ; . ."
-    "-l ;   "
-    "-l ; /"
+    "-l ~ /Users/adpusel  ~ " # ici je fais un truc pour set up l'env de test ?
+    "-l ~ . ."
+    "-l ~   "
+    "-l ~ /"
 )
 parseAndDo
 
