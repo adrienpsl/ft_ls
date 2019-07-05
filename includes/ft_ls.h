@@ -159,12 +159,8 @@ int ft_cmp_char(void *a, void *b, void *p_param);
 /*
 **	functions
 */
-char *get_time(long int *time, int mode, char *out);
 int ft_ls_sort(t_ls *l);
-int is_directory(char *path);
 int ft_ls_init(char *path, t_ls *l, t_buffer *buff, long options);
-void ft_ls_free(t_ls *l);
-
 int get_lstat_and_filename(t_ls *l);
 int ft_handle_dir(char *path, int options, t_buffer *buff, char *dir_name);
 

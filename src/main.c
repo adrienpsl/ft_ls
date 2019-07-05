@@ -146,6 +146,8 @@ int main(int ac, char **av)
 			test_file_type(".", &l);
 	}
 	ft_buffer_clean(l.buff);
-//	free(&l.buff);
+	free(l.buff);
+	if (l.argv)
+		free(l.argv);
 	return (0);
 }
