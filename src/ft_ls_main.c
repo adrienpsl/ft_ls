@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
+/**/
 /*
  * init and malloc an array to handle the file
  * return an error if can't open directory.

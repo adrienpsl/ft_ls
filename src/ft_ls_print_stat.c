@@ -22,6 +22,8 @@ static void type_size_uid_guid(t_ls *l)
 	ft_sprintf(l->buff, " %*d ", l->size[FT_LS_____HL], l->fs.st_nlink);
 	if (l->options & FT_LS_O_n)
 	{
+		l->size[FT_LS____UID] = (l->size[FT_LS____UID] == 1) ? 3 : l->size[FT_LS____UID];
+		l->size[FT_LS___GUID] = (l->size[FT_LS___GUID] == 1) ? 3 : l->size[FT_LS___GUID];
 		ft_sprintf(l->buff, "%-*d", l->size[FT_LS____UID], l->fs.st_uid);
 		ft_sprintf(l->buff, "%-*d", l->size[FT_LS___GUID], l->fs.st_gid);
 	}
