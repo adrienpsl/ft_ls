@@ -54,7 +54,8 @@ int ft_handle_dir(char *path, int options, t_buffer *buff, char *dir_name)
 	if (!ft_ls_init(path, &l, buff, options)
 		&& !get_lstat_and_filename(&l)
 		&& !ft_ls_sort(&l)
-		&& !print_all(&l))
+		&& !print_all(&l)
+		)
 	{
 		if (options & FT_LS_O_R)
 			while ((l.f = ft_array_next_el(l.array)) != NULL)
@@ -69,12 +70,10 @@ int ft_handle_dir(char *path, int options, t_buffer *buff, char *dir_name)
 					ft_handle_dir(full_path, options, buff, l.f->name);
 				}
 			}
+		ft_array_free(&l.array);
 	}
 	else
 	{
-		ft_sprintf(buff, "\n");
-		ft_sprintf(buff, path);
-		ft_sprintf(buff, ":\n");
 		print_error(dir_name);
 	}
 	free(l.array);

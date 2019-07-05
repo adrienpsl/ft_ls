@@ -300,6 +300,32 @@ rm -rf  ${PATH_LOG} && mkdir ${PATH_LOG}
 #parseAndDo "-1 b" "mkdir a ; ln -s a b ; rm -rf a"
 
 
+# *------------------------------------*\
+#    error handling
+# *------------------------------------*/
+make && mv ft_ls ft-ls-test
+${TEST_DIR}/ft_ls "no_file"
+cd ${TEST_DIR}; mkdir not; chmod 000 not ; ./ft_ls "not" ; chmod 777 not; rm -rf not;
+echo
+./ft_ls -Z_this_option_does_not_exist
+echo
+./ft_ls -la--t
+#echo
+#./ft_ls --a
+echo
+./ft_ls -lZWYX243
+echo
+mkdir -p b; ./ft_ls -1 a b
+mkdir adir zdir ; touch afile zfile ; ln -s adir asymdir ; ln -s adir zsymdir ; ln -s afile asymfile ; ln -s afile zsymfile
+./ft_ls -1 adir zdir aNotExist zNotExistB afile zfile asymdir zsymdir asymfile zsymfile
+touch K j l
+./ft_ls -1r a c b l K j
+
+./ft_ls -1 ""
+./ft_ls -1 \\\"
+./ft_ls -l "" -R
+./ft_ls -lR . "" .
+./ft_ls aa bb ""
 
 
 
@@ -316,3 +342,13 @@ rm -rf  ${PATH_LOG} && mkdir ${PATH_LOG}
 
 ## option n = les guid in number
 #parseAndDo "-ln /usr"
+
+## option -F sort by size
+#parseAndDo "-lS /Users/adpusel"
+#parseAndDo "-lSr /Users/adpusel"
+
+## option -g > no effect but work
+#parseAndDo "-g1 /Users"
+
+## option -T > no effect but work
+#parseAndDo "-Tl /Users/adpusel"

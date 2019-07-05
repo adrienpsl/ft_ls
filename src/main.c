@@ -16,8 +16,7 @@
 // ici je regarde si c'set un link et si c'est un dossier. car en fonction
 // je ne fais pas le meme chose.
 
-// on va partir du principe que la vitesse c'est pas pour tout de suite.
-//
+// on va partir du principe que la vitesse c'est pas pour tout de suite
 
 int test_file_type(char *path, t_ft_ls *l)
 {
@@ -57,7 +56,10 @@ int test_file_type(char *path, t_ft_ls *l)
 	}
 	else
 	{
-		perror("toto");
+		ft_str_put_fd("ls: ", 2);
+		if (path[0] == 0)
+			ft_str_put_fd(": ", 2);
+		perror(path);
 		return (-1);
 	}
 	return (0);
@@ -106,7 +108,6 @@ int ft_ls_parse_argv(t_ft_ls *l)
 		file->argv = l->av[l->i];
 		if (!stat(file->argv, &l->ls.fs))
 			file->dir = S_ISDIR(l->ls.fs.st_mode);
-		// TODO : set error here !
 		l->i++;
 	}
 	l->sort.array = l->argv;
@@ -129,25 +130,22 @@ int init_ls(t_ft_ls *l, int ac, char **av)
 	return (0);
 }
 
-void all_test();
 int main(int ac, char **av)
 {
-	(void) ac;
-	(void) av;
-//	all_test();
 	t_ft_ls l;
 	t_file *file;
-//
-	init_ls(&l, ac, av);
-	ft_ls_parse_options(&l);
-	ft_ls_parse_argv(&l);
-	if (l.argv)
-		while ((file = ft_array_next_el(l.argv)))
-			test_file_type(file->argv, &l);
-	else
-		test_file_type(".", &l);
-	// TODO : free ls here
+
+	if (!init_ls(&l, ac, av)
+		&& !ft_ls_parse_options(&l)
+		&& !ft_ls_parse_argv(&l))
+	{
+		if (l.argv)
+			while ((file = ft_array_next_el(l.argv)))
+				test_file_type(file->argv, &l);
+		else
+			test_file_type(".", &l);
+	}
 	ft_buffer_clean(l.buff);
-//	(ft_buffer_clean(l.buff) || ft_buffer_free(&l.buff));
-	return 0;
+//	free(&l.buff);
+	return (0);
 }
