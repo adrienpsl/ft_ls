@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/stat.h>
+# include <sys/stat.h>
 # include <string.h>
-#include "ft_ls.h"
+# include "ft_ls.h"
 
 static int add_link(t_array **array, char *path, struct stat *fs)
 {
@@ -45,7 +45,7 @@ static int do_stat(char *path, t_ls_options *options, struct stat *fs)
 	}
 }
 
-int sort_func(void *a, void *b, void *param)
+static int sort_func(void *a, void *b, void *param)
 {
 	(void)param;
 	t_file *f_1;
