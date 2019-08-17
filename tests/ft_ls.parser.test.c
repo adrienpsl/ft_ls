@@ -122,6 +122,13 @@ void test_ls$parser()
 			  ". || 1\n");
 	}
 
+	/*
+	* test multiple file, need to sort the list
+	* */
+
+
+
+
 	g_test = 0;
 }
 

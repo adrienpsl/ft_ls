@@ -11,25 +11,15 @@
 /* ************************************************************************** */
 
 #include <sys/stat.h>
-#include "ft_ls.h"
 # include <string.h>
+#include "ft_ls.h"
 
-int fill_array_link(t_array **array, char *path, t_ls_options *ls_options)
+static int add_link(t_array **array, char *path, struct stat *fs)
 {
-	struct stat fs;
-	t_file file;
+	static t_file file;
 
 	ft_bzero(&file, sizeof(t_file));
-	if (
-		ls_options->long_format ?
-		lstat(path, &fs) :
-		stat(path, &fs)
-		)
-	{
-		ft_dprintf(2, "ls: %s: %s\n", path, strerror(errno));
-		return (1);
-	}
-	file.dir = S_ISDIR(fs.st_mode);
+	file.dir = S_ISDIR(fs->st_mode);
 	if (
 		NULL == (file.name = ft_strdup(path))
 		|| OK != ft_array$push(array, &file)
@@ -38,9 +28,27 @@ int fill_array_link(t_array **array, char *path, t_ls_options *ls_options)
 	return (0);
 }
 
+static int do_stat(char *path, t_ls_options *options, struct stat *fs)
+{
+	if (
+		options->long_format ?
+		lstat(path, fs) :
+		stat(path, fs)
+		)
+	{
+		ft_dprintf(2, "ls: %s: %s\n", path, strerror(errno));
+		return (-1);
+	}
+	else
+	{
+		return (0);
+	}
+}
+
 t_array *build_list(t_ls *ls, char **av)
 {
 	t_array *array;
+	struct stat fs;
 
 	if (
 		NULL == (array = ft_array$init(sizeof(t_file), 100))
@@ -48,10 +56,12 @@ t_array *build_list(t_ls *ls, char **av)
 		return (NULL);
 	while (NULL != *av)
 	{
-		// funtion qui copy les informations du directory dans mon array,
-		// c'est elle qui fait le next, si array est pas null !
-		//
-		fill_array_link(&array, *av, &ls->options);
+		if (
+			OK == do_stat(*av, &ls->options, &fs)
+			)
+		{
+			add_link(&array, *av, &fs);
+		}
 		av++;
 	}
 	return (array);
