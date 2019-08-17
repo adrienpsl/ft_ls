@@ -34,8 +34,15 @@ static void init()
 	chdir("test_dir");
 	mkdir("clean_dir", ACCESSPERMS);
 	mkdir("no_access", 0);
-	system("touch normal_file");
-	system("touch normal_file");
+	system("touch file_1");
+	system("touch file_2");
+
+	system("mkdir -p .hidden");
+	system("mkdir -p dir_1");
+	system("mkdir -p dir_2");
+	system("mkdir -p DIR_1");
+	system("mkdir -p DIR_2");
+
 	system("touch clean_dir/clean_dir_1");
 	system("ln -s clean_dir link_dir 2>1 toto");
 }
@@ -125,9 +132,17 @@ void test_ls$parser()
 	/*
 	* test multiple file, need to sort the list
 	* */
-
-
-
+	utils(". .hidden dir_1 dir_2 DIR_1 DIR_2 file_1 file_2 FILE_1 FILE_2",
+		  ". || 1\n"
+		  ".hidden || 1\n"
+		  "DIR_2 || 1\n"
+		  "DIR_1 || 1\n"
+		  "dir_2 || 1\n"
+		  "dir_1 || 1\n"
+		  "FILE_2 || 0\n"
+		  "FILE_1 || 0\n"
+		  "file_2 || 0\n"
+		  "file_1 || 0\n");
 
 	g_test = 0;
 }

@@ -45,6 +45,23 @@ static int do_stat(char *path, t_ls_options *options, struct stat *fs)
 	}
 }
 
+int sort_func(void *a, void *b, void *param)
+{
+	(void)param;
+	t_file *f_1;
+	t_file *f_2;
+
+	f_1 = a;
+	f_2 = b;
+
+	if (f_1->dir == f_2->dir)
+	{
+		return (ft_str_cmp(f_1->name, f_2->name) > 0);
+	}
+	else
+		return (f_1->dir < f_2->dir ?  1 : 0);
+}
+
 t_array *build_list(t_ls *ls, char **av)
 {
 	t_array *array;
@@ -64,24 +81,6 @@ t_array *build_list(t_ls *ls, char **av)
 		}
 		av++;
 	}
+	ft_array$sort_bubble(array, sort_func, NULL);
 	return (array);
 }
-
-
-
-
-// si pas de data > je set a . et je lance un ls de tout ca
-// more clear with one struct wich will stock all the data
-
-
-//int ls$parsing(t_ls *ls, char **av)
-//{
-//	//	ft_array$init(100)
-//	// si pas argv set .
-//
-//	// else do that
-//	while (*av != NULL)
-//	{
-//		av++;
-//	}
-//}
