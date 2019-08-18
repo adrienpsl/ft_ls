@@ -59,11 +59,11 @@ static int utils(char *av_str, char *result)
 
 	t_array *test_array = build_list(&ls, av);
 //	ft_array$func(test_array, print_link, NULL);
-
+//
 	ft_array$free(&test_array);
 	ft_strsplit_free(&av_split);
-//	if (lib_cmp_testbuff(result))
-//		return (1);
+	if (lib_cmp_testbuff(result))
+		return (1);
 
 	return (0);
 }
@@ -75,53 +75,52 @@ void test_ls$parser()
 	g_test = 1;
 	lib_clear_testbuff();
 
-//	/*
-//	* test error handling
-//	* */
-//	{
-//		// file not exist
-//		utils("did_not_exist",
-//			  "ls: did_not_exist: No such file or directory\n");
-//
-//		// file no permit
-//		utils("no_access/toto",
-//			  "ls: no_access/toto: Permission denied\n");
-//	}
-//
-//	/*
-//	* test all good one argv
-//	* */
-//	{
-//		// directory
-//		utils("no_access", "no_access || 1\n");
-//
-//		// file
-//		utils("normal_file", "normal_file || 0\n");
-//
-//		// symlink
-//		utils("link_dir", "link_dir || 1\n");
-//
-//		// symlink with -l
-//		utils("-l link_dir", "link_dir || 0\n");
-//	}
-//
-//	/*
-//	* test error multiple file
-//	* */
-//	{
-//		utils("aa bb .",
-//			  "ls: aa: No such file or directory\n"
-//			  "ls: bb: No such file or directory\n"
-//			  ". || 1\n");
-//
-//		utils("aa bb . no_access/toto",
-//			  "ls: aa: No such file or directory\n"
-//			  "ls: bb: No such file or directory\n"
-//			  "ls: no_access/toto: Permission denied\n"
-//			  ". || 1\n");
-//	}
+	/*
+	* test error handling
+	* */
+	{
+		// file not exist
+		utils("did_not_exist",
+			  "ls: did_not_exist: No such file or directory\n");
 
-g_test = 0;
+		// file no permit
+		utils("no_access/toto",
+			  "ls: no_access/toto: Permission denied\n");
+	}
+
+	/*
+	* test all good one argv
+	* */
+	{
+		// directory
+		utils("no_access", "no_access || 1\n");
+
+		// file
+		utils("normal_file", "normal_file || 0\n");
+
+		// symlink
+		utils("link_dir", "link_dir || 1\n");
+
+		// symlink with -l
+		utils("-l link_dir", "link_dir || 0\n");
+	}
+
+	/*
+	* test error multiple file
+	* */
+	{
+		utils("aa bb .",
+			  "ls: aa: No such file or directory\n"
+			  "ls: bb: No such file or directory\n"
+			  ". || 1\n");
+
+		utils("aa bb . no_access/toto",
+			  "ls: aa: No such file or directory\n"
+			  "ls: bb: No such file or directory\n"
+			  "ls: no_access/toto: Permission denied\n"
+			  ". || 1\n");
+	}
+
 	/*
 	* test multiple file, need to sort the list
 	* */
