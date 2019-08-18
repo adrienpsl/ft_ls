@@ -45,42 +45,49 @@ static int do_stat(char *path, t_ls_options *options, struct stat *fs)
 	}
 }
 
-static int sort_func(void *a, void *b, void *param)
+static void loop_on_av(char **av, t_ls_options *options, t_array **array)
 {
-	(void)param;
-	t_file *f_1;
-	t_file *f_2;
-
-	f_1 = a;
-	f_2 = b;
-
-	if (f_1->dir == f_2->dir)
-	{
-		return (ft_str_cmp(f_1->name, f_2->name) > 0);
-	}
-	else
-		return (f_1->dir < f_2->dir ?  1 : 0);
-}
-
-t_array *build_list(t_ls *ls, char **av)
-{
-	t_array *array;
 	struct stat fs;
 
-	if (
-		NULL == (array = ft_array$init(sizeof(t_file), 100))
-		)
-		return (NULL);
 	while (NULL != *av)
 	{
 		if (
-			OK == do_stat(*av, &ls->options, &fs)
+			OK == do_stat(*av, options, &fs)
 			)
 		{
-			add_link(&array, *av, &fs);
+			add_link(array, *av, &fs);
 		}
 		av++;
 	}
-	ft_array$sort_bubble(array, sort_func, NULL);
-	return (array);
+}
+
+/*
+**	func will set :
+*/
+t_array *build_list(t_ls *ls, char **av)
+{
+	t_array *dir_array;
+	t_array *file_array = NULL;
+
+	if (
+		NULL == (dir_array = ft_array$init(50, sizeof(t_file)))
+		)
+		return (NULL);
+	loop_on_av(av, &ls->options, &dir_array);
+	ft_array$sort_bubble(dir_array, ls_parsing$sort_func, NULL);
+	ft_array$func(dir_array, ls_parsing$first_dir_func, NULL);
+
+	if (dir_array->i > 0)
+	{
+		if (
+			NULL == (file_array = ft_array$slice_and_remove(dir_array, 0,
+															dir_array->i))
+			);
+	}
+	// TODO : do that with the print
+	if (file_array)
+		ft_array$func(file_array, print_link, NULL);
+	ft_array$func(dir_array, print_link, NULL);
+
+	return (dir_array);
 }

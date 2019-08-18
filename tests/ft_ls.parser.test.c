@@ -42,20 +42,10 @@ static void init()
 	system("mkdir -p dir_2");
 	system("mkdir -p DIR_1");
 	system("mkdir -p DIR_2");
+	system("mkdir -p DIR_3");
 
 	system("touch clean_dir/clean_dir_1");
 	system("ln -s clean_dir link_dir 2>1 toto");
-}
-
-int print_link(void *p_link, void *n)
-{
-	t_file *file;
-	(void)n;
-
-	file = p_link;
-	ft_printf("%s || %d\n", file->name, file->dir);
-
-	return (0);
 }
 
 static int utils(char *av_str, char *result)
@@ -63,15 +53,17 @@ static int utils(char *av_str, char *result)
 	char **av_split = ft_strsplit(av_str, " ");
 	char **av = av_split;
 	t_ls ls = { 0 };
+	(void)result;
 
 	ls$catch_options(&av, (long *)&ls.options);
 
 	t_array *test_array = build_list(&ls, av);
-	ft_array$func(test_array, print_link, NULL);
+//	ft_array$func(test_array, print_link, NULL);
 
 	ft_array$free(&test_array);
 	ft_strsplit_free(&av_split);
-	lib_cmp_testbuff(result);
+//	if (lib_cmp_testbuff(result))
+//		return (1);
 
 	return (0);
 }
@@ -83,66 +75,68 @@ void test_ls$parser()
 	g_test = 1;
 	lib_clear_testbuff();
 
-	/*
-	* test error handling
-	* */
-	{
-		// file not exist
-		utils("did_not_exist",
-			  "ls: did_not_exist: No such file or directory\n");
+//	/*
+//	* test error handling
+//	* */
+//	{
+//		// file not exist
+//		utils("did_not_exist",
+//			  "ls: did_not_exist: No such file or directory\n");
+//
+//		// file no permit
+//		utils("no_access/toto",
+//			  "ls: no_access/toto: Permission denied\n");
+//	}
+//
+//	/*
+//	* test all good one argv
+//	* */
+//	{
+//		// directory
+//		utils("no_access", "no_access || 1\n");
+//
+//		// file
+//		utils("normal_file", "normal_file || 0\n");
+//
+//		// symlink
+//		utils("link_dir", "link_dir || 1\n");
+//
+//		// symlink with -l
+//		utils("-l link_dir", "link_dir || 0\n");
+//	}
+//
+//	/*
+//	* test error multiple file
+//	* */
+//	{
+//		utils("aa bb .",
+//			  "ls: aa: No such file or directory\n"
+//			  "ls: bb: No such file or directory\n"
+//			  ". || 1\n");
+//
+//		utils("aa bb . no_access/toto",
+//			  "ls: aa: No such file or directory\n"
+//			  "ls: bb: No such file or directory\n"
+//			  "ls: no_access/toto: Permission denied\n"
+//			  ". || 1\n");
+//	}
 
-		// file no permit
-		utils("no_access/toto",
-			  "ls: no_access/toto: Permission denied\n");
-	}
-
-	/*
-	* test all good one argv
-	* */
-	{
-		// directory
-		utils("no_access", "no_access || 1\n");
-
-		// file
-		utils("normal_file", "normal_file || 0\n");
-
-		// symlink
-		utils("link_dir", "link_dir || 1\n");
-
-		// symlink with -l
-		utils("-l link_dir", "link_dir || 0\n");
-	}
-
-	/*
-	* test error multiple file
-	* */
-	{
-		utils("aa bb .",
-			  "ls: aa: No such file or directory\n"
-			  "ls: bb: No such file or directory\n"
-			  ". || 1\n");
-
-		utils("aa bb . no_access/toto",
-			  "ls: aa: No such file or directory\n"
-			  "ls: bb: No such file or directory\n"
-			  "ls: no_access/toto: Permission denied\n"
-			  ". || 1\n");
-	}
-
+g_test = 0;
 	/*
 	* test multiple file, need to sort the list
 	* */
-	utils(". .hidden dir_1 dir_2 DIR_1 DIR_2 file_1 file_2 FILE_1 FILE_2",
+	utils(" dir_1 dir_2 DIR_2 DIR_1 file_1 . .hidden  file_2 DIR_3  FILE_1 FILE_2",
+		  "FILE_1 || 0\n"
+		  "FILE_2 || 0\n"
+		  "file_1 || 0\n"
+		  "file_2 || 0\n"
 		  ". || 1\n"
 		  ".hidden || 1\n"
-		  "DIR_2 || 1\n"
 		  "DIR_1 || 1\n"
-		  "dir_2 || 1\n"
+		  "DIR_2 || 1\n"
+		  "DIR_3 || 1\n"
 		  "dir_1 || 1\n"
-		  "FILE_2 || 0\n"
-		  "FILE_1 || 0\n"
-		  "file_2 || 0\n"
-		  "file_1 || 0\n");
+		  "dir_2 || 1\n");
 
 	g_test = 0;
 }

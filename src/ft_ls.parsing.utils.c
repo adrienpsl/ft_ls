@@ -10,49 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_FT_LS_H
-#define FT_LS_FT_LS_H
+#include "ft_ls.h"
 
-# include "libft.h"
-
-
-# define LS_OPTIONS "aRl"
-
-typedef struct s_file
+int ls_parsing$sort_func(void *a, void *b, void *param)
 {
-	int dir;
-	long sort_data;
-	char *argv;
-	char *name;
-} t_file;
+	(void)param;
+	t_file *f_1;
+	t_file *f_2;
 
-typedef struct s_ls_options
+	f_1 = a;
+	f_2 = b;
+
+	if (f_1->dir == f_2->dir)
+	{
+		return (ft_str_cmp(f_1->name, f_2->name) > 0);
+	}
+	else
+		return (f_1->dir < f_2->dir ? 0 : 1);
+}
+
+int ls_parsing$first_dir_func(void *p_el, void *param)
 {
-	unsigned long all: 1;
-	unsigned long recursif: 1;
-	unsigned long long_format: 1;
+	(void)param;
+	t_file *file;
 
-} t_ls_options;
+	file = p_el;
 
-typedef struct s_ls
-{
-	t_ls_options options;
-} t_ls;
-
-/*
-**	utils
-*/
-int print_link(void *p_link, void *n);
-
-/*
-**	--- parsing ----------------------------------------------------------------
-*/
-int ls_parsing$sort_func(void *a, void *b, void *param);
-int ls_parsing$first_dir_func(void *p_el, void *param);
-
-int ls$catch_options(char ***p_av, long *option);
+	return (
+		file->dir
+	);
+}
 
 
-void test_ft_ls$main_test();
-
-#endif

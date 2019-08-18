@@ -10,49 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_FT_LS_H
-#define FT_LS_FT_LS_H
+#include "ft_ls.h"
 
-# include "libft.h"
-
-
-# define LS_OPTIONS "aRl"
-
-typedef struct s_file
+int print_link(void *p_link, void *n)
 {
-	int dir;
-	long sort_data;
-	char *argv;
-	char *name;
-} t_file;
+	t_file *file;
+	(void)n;
 
-typedef struct s_ls_options
-{
-	unsigned long all: 1;
-	unsigned long recursif: 1;
-	unsigned long long_format: 1;
+	file = p_link;
+	ft_printf("%s || %d\n", file->name, file->dir);
 
-} t_ls_options;
-
-typedef struct s_ls
-{
-	t_ls_options options;
-} t_ls;
-
-/*
-**	utils
-*/
-int print_link(void *p_link, void *n);
-
-/*
-**	--- parsing ----------------------------------------------------------------
-*/
-int ls_parsing$sort_func(void *a, void *b, void *param);
-int ls_parsing$first_dir_func(void *p_el, void *param);
-
-int ls$catch_options(char ***p_av, long *option);
-
-
-void test_ft_ls$main_test();
-
-#endif
+	return (0);
+}
