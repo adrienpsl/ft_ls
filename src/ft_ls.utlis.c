@@ -18,7 +18,7 @@ int print_link(void *p_link, void *n)
 	(void)n;
 
 	file = p_link;
-	ft_printf("%s || %d\n", file->name, file->dir);
+	ft_printf("%s || %d\n", file->name, file->is_dir);
 
 	return (0);
 }

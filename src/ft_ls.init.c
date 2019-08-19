@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-int ft_ls$init(t_ls *ls)
-{
-	ls->buffer.fd = 1;
-}
+//int ft_ls$init(t_ls *ls)
+//{
+//	ls->buffer.fd = 1;
+//}

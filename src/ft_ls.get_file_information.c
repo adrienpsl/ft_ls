@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <sys/acl.h>
-#include <sys/xattr.h>
+# include <sys/stat.h>
+# include <sys/acl.h>
+# include <sys/xattr.h>
 
 static void get_right(char *buff, const mode_t mode)
 {
@@ -58,27 +59,28 @@ static void get_type(char *buff, const mode_t mode)
 	}
 }
 
-static int get_acl_extended(t_buffer *buff, char *path)
+static int get_acl_extended(char *buff, char *path)
 {
 	acl_t acl;
 
 	acl = acl_get_file(path, ACL_TYPE_EXTENDED);
 	if (listxattr(path, NULL, 0, 0) > 0)
-		ft_buffer_add(buff, "@", 1);
+		*buff = '@';
 	else if (acl > 0)
 	{
-		ft_buffer_add(buff, "+", 1);
+		*buff = '+';
 		acl_free((void *)acl);
 	}
 	else
-		ft_buffer_add(buff, " ", 1);
-	ft_buffer_add(buff, " ", 1);
+		*buff = ' ';
+	buff[1] = ' ';
 	return (0);
 }
 
-void ls$get_file_information(t_buffer *buff, char *path, t_mode mode)
+void ls$get_file_information(char *buff, char *path, mode_t mode)
 {
-	get_right(buff, mode);
-	get_type(buff,mode);
-	get_acl_extended(buff, path);
+
+	get_type(buff, mode);
+	get_right(buff + 1, mode);
+	get_acl_extended(buff + 9, path);
 }

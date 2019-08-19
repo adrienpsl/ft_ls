@@ -47,7 +47,8 @@ static int utils(char *av_str, char *result)
 {
 	char **av_split = ft_strsplit(av_str, " ");
 	char **av = av_split;
-	t_ls ls = { 0 };
+	t_ls ls;
+	ft_bzero(&ls, sizeof(t_ls));
 	(void)result;
 
 	ls$catch_options(&av, (long *)&ls.options);
@@ -65,11 +66,6 @@ static int utils(char *av_str, char *result)
 
 	return (0);
 }
-
-
-
-
-
 
 void test_ls$print()
 {

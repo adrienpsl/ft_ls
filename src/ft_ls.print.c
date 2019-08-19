@@ -29,9 +29,9 @@ int print_func(void *p_element, void *p_param)
 
 	if (lstat(file->name, &fs))
 		(void)1;
-	print_file_type(fs.st_mode);
-	get_rigth(fs.st_mode);
-	get_acl_extended(file->name);
+//	print_file_type(fs.st_mode);
+//	get_rigth(fs.st_mode);
+//	get_acl_extended(file->name);
 
 
 

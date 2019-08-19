@@ -10,17 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void test_ls$catch_option();
-void test_ls$parse_argv();
-void test_ls$parser();
-void test_ls$print();
-void test_ls$get_dir_array();
+#include "ft_ls.h"
 
-int main()
+t_array *loop_current_directory(char *dir_path, t_ls *ls);
+
+int test_print(void *p_el, void *param)
 {
-	test_ls$catch_option();
-	test_ls$parse_argv();
-	test_ls$parser();
-//	test_ls$print();
-	test_ls$get_dir_array();
+	t_file *file;
+
+	(void)param;
+	file = p_el;
+
+	printf("%s %s %s %s %s %s\n",
+		   file->type,
+		   file->hardlink_nb,
+		   file->uid,
+		   file->gid,
+		   file->size,
+		   file->name);
+	return (0);
+}
+
+void test_ls$get_dir_array()
+{
+	t_ls ls;
+	t_array *array = loop_current_directory("/Users/adpusel/test_ls",
+		&ls);
+	ft_array$func(array, test_print, NULL);
+
+	// test la list directory avec:
 }

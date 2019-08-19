@@ -52,14 +52,15 @@ static int utils(char *av_str, char *result)
 {
 	char **av_split = ft_strsplit(av_str, " ");
 	char **av = av_split;
-	t_ls ls = { 0 };
+	t_ls ls;
+	ft_bzero(&ls, sizeof(t_ls));
 	(void)result;
 
 	ls$catch_options(&av, (long *)&ls.options);
 
 	t_array *test_array = build_list(&ls, av);
-//	ft_array$func(test_array, print_link, NULL);
-//
+	//	ft_array$func(test_array, print_link, NULL);
+	//
 	ft_array$free(&test_array);
 	ft_strsplit_free(&av_split);
 	if (lib_cmp_testbuff(result))
@@ -124,18 +125,19 @@ void test_ls$parser()
 	/*
 	* test multiple file, need to sort the list
 	* */
-	utils(" dir_1 dir_2 DIR_2 DIR_1 file_1 . .hidden  file_2 DIR_3  FILE_1 FILE_2",
-		  "FILE_1 || 0\n"
-		  "FILE_2 || 0\n"
-		  "file_1 || 0\n"
-		  "file_2 || 0\n"
-		  ". || 1\n"
-		  ".hidden || 1\n"
-		  "DIR_1 || 1\n"
-		  "DIR_2 || 1\n"
-		  "DIR_3 || 1\n"
-		  "dir_1 || 1\n"
-		  "dir_2 || 1\n");
+	utils(
+		" dir_1 dir_2 DIR_2 DIR_1 file_1 . .hidden  file_2 DIR_3  FILE_1 FILE_2",
+		"FILE_1 || 0\n"
+		"FILE_2 || 0\n"
+		"file_1 || 0\n"
+		"file_2 || 0\n"
+		". || 1\n"
+		".hidden || 1\n"
+		"DIR_1 || 1\n"
+		"DIR_2 || 1\n"
+		"DIR_3 || 1\n"
+		"dir_1 || 1\n"
+		"dir_2 || 1\n");
 
 	g_test = 0;
 }

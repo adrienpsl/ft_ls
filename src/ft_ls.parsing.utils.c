@@ -21,12 +21,12 @@ int ls_parsing$sort_func(void *a, void *b, void *param)
 	f_1 = a;
 	f_2 = b;
 
-	if (f_1->dir == f_2->dir)
+	if (f_1->is_dir == f_2->is_dir)
 	{
 		return (ft_str_cmp(f_1->name, f_2->name) > 0);
 	}
 	else
-		return (f_1->dir < f_2->dir ? 0 : 1);
+		return (f_1->is_dir < f_2->is_dir ? 0 : 1);
 }
 
 int ls_parsing$first_dir_func(void *p_el, void *param)
@@ -37,7 +37,7 @@ int ls_parsing$first_dir_func(void *p_el, void *param)
 	file = p_el;
 
 	return (
-		file->dir
+		file->is_dir
 	);
 }
 
