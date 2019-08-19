@@ -20,11 +20,15 @@
 
 typedef struct s_file
 {
-	int dir;
+	char type[16];
+	char uid[30];
+	char gid[30];
+	char size[64];
+	char name[__DARWIN_MAXPATHLEN + 1];
+	char link[__DARWIN_MAXPATHLEN + 1];
 	long sort_data;
-	char *argv;
-	char *name;
 } t_file;
+
 
 typedef struct s_ls_options
 {
@@ -37,12 +41,17 @@ typedef struct s_ls_options
 typedef struct s_ls
 {
 	t_ls_options options;
+	t_buffer buffer;
 } t_ls;
 
 /*
 **	utils
 */
 int print_link(void *p_link, void *n);
+
+int print_func(void *p_element, void *p_param);
+
+t_array *build_list(t_ls *ls, char **av);
 
 /*
 **	--- parsing ----------------------------------------------------------------
@@ -51,6 +60,9 @@ int ls_parsing$sort_func(void *a, void *b, void *param);
 int ls_parsing$first_dir_func(void *p_el, void *param);
 
 int ls$catch_options(char ***p_av, long *option);
+
+
+void ls$get_file_information(t_buffer *buff, char *path, t_mode mode);
 
 
 void test_ft_ls$main_test();

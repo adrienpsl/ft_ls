@@ -10,16 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void test_ls$catch_option();
-void test_ls$parse_argv();
-void test_ls$parser();
-void test_ls$print();
+#include "ft_ls.h"
 
-int main()
+int ft_ls$init(t_ls *ls)
 {
-	test_ls$catch_option();
-	test_ls$parse_argv();
-	test_ls$parser();
-	test_ls$print();
-
+	ls->buffer.fd = 1;
 }

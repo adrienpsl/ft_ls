@@ -10,16 +10,57 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void test_ls$catch_option();
-void test_ls$parse_argv();
-void test_ls$parser();
-void test_ls$print();
+#include <dirent.h>
+#include "ft_ls.h"
 
-int main()
+// here get the file stuff
+
+
+
+// here the hard link stuff
+
+
+
+// here the sort stuff
+
+
+
+// here catch and fill the group / uid
+
+
+// here the size stuff, size will be more complex after with certain file
+
+
+
+int fill_file(t_file *file, struct dirent *dp)
 {
-	test_ls$catch_option();
-	test_ls$parse_argv();
-	test_ls$parser();
-	test_ls$print();
+	struct stats stat;
 
+	ft_bzero(file, sizeof(t_file));
+	ft_strcat(file->name, dp->d_name);
+	return (0);
+}
+
+t_array *build_array_directory(char *path, t_ls *ls)
+{
+	t_array *array = NULL;
+	struct dirent *dp;
+	DIR *dir;
+	t_file file;
+
+
+	// TODO : need to handle error ?
+	if (
+		NULL == (dir = opendir(path))
+		|| NULL == (array = ft_array$init(100, sizeof(t_file)))
+		)
+	   return (NULL);
+	while (
+		(dp = readdir(dir))
+		)
+	{
+		fill_file(&file, dp);
+		ft_array$push(&array, &file);
+	}
+	return (array);
 }

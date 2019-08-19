@@ -19,7 +19,7 @@ static int add_link(t_array **array, char *path, struct stat *fs)
 	static t_file file;
 
 	ft_bzero(&file, sizeof(t_file));
-	file.dir = S_ISDIR(fs->st_mode);
+	file.is_dir = S_ISDIR(fs->st_mode);
 	if (
 		NULL == (file.name = ft_strdup(path))
 		|| OK != ft_array$push(array, &file)
