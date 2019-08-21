@@ -12,35 +12,21 @@
 
 #include "ft_ls.h"
 
-t_array *build_dir_array(char *dir_path, t_ls *ls);
-
-int test_print(void *p_el, void *param)
+int ls_array$sort_func(void *a, void *b, void *p_param)
 {
-	t_file *file;
-	t_length *length;
+	t_file *f_1;
+	t_file *f_2;
+	int ret;
+	int *param;
 
-	length = param;
-	file = p_el;
+	f_1 = a;
+	f_2 = b;
+	param = p_param;
 
-	printf("%s%*s  %*s  %*s %*s %s %s\n",
-		   file->type,
-		   length->hard_link, file->hardlink_nb,
-		   length->uid, file->uid,
-		   length->gid, file->gid,
-		   length->size, file->size,
-		   file->time,
-		   file->name);
-	return (0);
+	if (f_1->sort_data != f_2->sort_data)
+		ret = f_1->sort_data < f_1->sort_data;
+	else
+		ret = ft_str_cmp(f_1->name, f_2->name) > 0;
+	return (*param ? !ret : ret);
 }
 
-void test_ls$get_dir_array()
-{
-	t_ls ls;
-	t_array *array = build_dir_array("/Users/adpusel/test_ls",
-									 &ls);
-	ls.reverse_sorting = 0;
-	ft_array$sort_bubble(array, ls_array$sort_func, &ls.reverse_sorting);
-	ft_array$func(array, test_print, &ls.length);
-
-	// test la list directory avec:
-}

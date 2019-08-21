@@ -10,37 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#ifndef FT_LS_FT_LS_BUILD_DIR_ARRAY_H
+#define FT_LS_FT_LS_BUILD_DIR_ARRAY_H
 
-t_array *build_dir_array(char *dir_path, t_ls *ls);
+#include <sys/stat.h>
+#include <ft_ls.h>
+#include <dirent.h>
 
-int test_print(void *p_el, void *param)
-{
-	t_file *file;
-	t_length *length;
+typedef struct s_bda {
+	char full_path[2064];
+	char *origin_path;
+	char *file_name;
+	struct stat fs;
+	t_file file;
+	struct dirent *dp;
+	DIR *dir;
+	t_array *array;
+} t_bda;
 
-	length = param;
-	file = p_el;
+/*
+**	Intern function
+*/
+void add_hardlink_size(t_bda *bda);
+void add_uid_gid(t_bda *bda);
+void add_file_and_link_name(t_bda *bda);
+void add_sort_param_and_time(t_bda *bda, t_ls *ls);
 
-	printf("%s%*s  %*s  %*s %*s %s %s\n",
-		   file->type,
-		   length->hard_link, file->hardlink_nb,
-		   length->uid, file->uid,
-		   length->gid, file->gid,
-		   length->size, file->size,
-		   file->time,
-		   file->name);
-	return (0);
-}
-
-void test_ls$get_dir_array()
-{
-	t_ls ls;
-	t_array *array = build_dir_array("/Users/adpusel/test_ls",
-									 &ls);
-	ls.reverse_sorting = 0;
-	ft_array$sort_bubble(array, ls_array$sort_func, &ls.reverse_sorting);
-	ft_array$func(array, test_print, &ls.length);
-
-	// test la list directory avec:
-}
+#endif

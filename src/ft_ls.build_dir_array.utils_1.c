@@ -10,37 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <grp.h>
+#include <pwd.h>
 #include "ft_ls.h"
+#include "ft_ls.build_dir_array.h"
 
-t_array *build_dir_array(char *dir_path, t_ls *ls);
-
-int test_print(void *p_el, void *param)
+void add_hardlink_size(t_bda *bda)
 {
-	t_file *file;
-	t_length *length;
-
-	length = param;
-	file = p_el;
-
-	printf("%s%*s  %*s  %*s %*s %s %s\n",
-		   file->type,
-		   length->hard_link, file->hardlink_nb,
-		   length->uid, file->uid,
-		   length->gid, file->gid,
-		   length->size, file->size,
-		   file->time,
-		   file->name);
-	return (0);
+	ft_itoa_unsigned(bda->fs.st_nlink, BASE_10, bda->file.hardlink_nb);
+	ft_itoa_unsigned(bda->fs.st_size, BASE_10, bda->file.size);
 }
 
-void test_ls$get_dir_array()
+void add_uid_gid(t_bda *bda)
 {
-	t_ls ls;
-	t_array *array = build_dir_array("/Users/adpusel/test_ls",
-									 &ls);
-	ls.reverse_sorting = 0;
-	ft_array$sort_bubble(array, ls_array$sort_func, &ls.reverse_sorting);
-	ft_array$func(array, test_print, &ls.length);
-
-	// test la list directory avec:
+	ft_strcat(bda->file.uid, getpwuid(bda->fs.st_uid)->pw_name);
+	ft_strcat(bda->file.gid, getgrgid(bda->fs.st_gid)->gr_name);
 }
+
+void add_file_and_link_name(t_bda *bda)
+{
+	ft_strcat(bda->file.name, bda->dp->d_name);
+}
+
+

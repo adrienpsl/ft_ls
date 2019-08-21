@@ -77,7 +77,7 @@ static int get_acl_extended(char *buff, char *path)
 	return (0);
 }
 
-void ls$get_file_information(char *buff, char *path, mode_t mode)
+void ls$get_file_attribute(char *buff, char *path, mode_t mode)
 {
 
 	get_type(buff, mode);

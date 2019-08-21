@@ -25,6 +25,7 @@ typedef struct s_file
 	char uid[30];
 	char gid[30];
 	char size[64];
+	char time[32];
 	char hardlink_nb[64];
 	char name[__DARWIN_MAXPATHLEN + 1];
 	char link[__DARWIN_MAXPATHLEN + 1];
@@ -36,6 +37,11 @@ typedef struct s_ls_options
 	unsigned long all: 1;
 	unsigned long recursif: 1;
 	unsigned long long_format: 1;
+	unsigned long sort_time: 1; //
+	unsigned long sort_last_access: 1; // u
+	unsigned long sort_size: 1; // S
+	unsigned long sort_status_change: 1; // c
+
 } t_ls_options;
 
 typedef struct t_length {
@@ -50,6 +56,7 @@ typedef struct s_ls
 	t_length length;
 	t_ls_options options;
 	t_buffer buffer;
+	int reverse_sorting;
 } t_ls;
 
 /*
@@ -67,9 +74,11 @@ t_array *build_list(t_ls *ls, char **av);
 int ls_parsing$sort_func(void *a, void *b, void *param);
 int ls_parsing$first_dir_func(void *p_el, void *param);
 
+int ls_array$sort_func(void *a, void *b, void *p_param);
+
 int ls$catch_options(char ***p_av, long *option);
 
-void ls$get_file_information(char *buff, char *path, mode_t mode);
+void ls$get_file_attribute(char *buff, char *path, mode_t mode);
 
 void test_ft_ls$main_test();
 
