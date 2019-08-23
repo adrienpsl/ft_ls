@@ -23,6 +23,18 @@ int print_link(void *p_link, void *n)
 	return (0);
 }
 
+
+int print_link_test(void *p_link, void *n)
+{
+	t_file *file;
+	(void)n;
+
+	file = p_link;
+	printf("%s || %d\n", file->name, file->is_dir);
+
+	return (0);
+}
+
 int line_print(void *p_el, void *param)
 {
 	t_file *file;

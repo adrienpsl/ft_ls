@@ -52,7 +52,7 @@ struct stat *get_stat(char *path, int mode)
 		ret = stat(path, &fs);
 	else
 		ret = lstat(path, &fs);
-	return (ret ? &fs : NULL);
+	return (ret ? NULL : &fs);
 }
 
 t_file *
@@ -64,7 +64,7 @@ fill_file_element(char *full_path, char *file_name, t_ls_options *options,
 	ft_bzero(&file, sizeof(t_file));
 
 	if (
-		(fs = get_stat(full_path, options->stat_mode))
+		(fs = get_stat(full_path, options->av_mode))
 		)
 	{
 		add_type(&file, fs->st_mode);

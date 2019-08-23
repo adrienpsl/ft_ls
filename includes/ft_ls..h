@@ -46,7 +46,7 @@ typedef struct s_ls_options
 	unsigned long sort_last_access: 1; // u
 	unsigned long sort_size: 1; // S
 	unsigned long sort_status_change: 1; // c
-	unsigned long stat_mode: 1;
+	unsigned long av_mode: 1;
 
 } t_ls_options;
 
@@ -113,5 +113,10 @@ t_array *build_dir_array(char *dir_path, t_ls_options *options);
 
 void test_ft_ls$main_test();
 int line_print(void *p_el, void *param);
+
+/*
+**	test delete
+*/
+int print_link_test(void *p_link, void *n);
 
 #endif

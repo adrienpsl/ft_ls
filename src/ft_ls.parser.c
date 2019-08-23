@@ -22,7 +22,7 @@ fill_array_with_argv(char **av, t_ls_options *options, t_array **array,
 	while (NULL != *av)
 	{
 		if (
-			(file = fill_file_element("", *av, options, length))
+			(file = fill_file_element(*av, *av, options, length))
 			)
 			ft_array$push(array, file);
 		else
@@ -64,6 +64,8 @@ t_array *build_list(t_ls_options *options, char **av)
 	t_length length;
 
 	ft_bzero(&length, sizeof(t_length));
+	if (!options->long_format)
+		options->av_mode = 1;
 	if (
 		NULL == (dir_array = ft_array$init(50, sizeof(t_file)))
 		)
@@ -73,6 +75,7 @@ t_array *build_list(t_ls_options *options, char **av)
 		:
 	fill_array_with_argv(no_argv, options, &dir_array, &length);
 	ft_array$sort_bubble(dir_array, ls_parsing$sort_func, NULL);
-	print_fi(dir_array, options);
+	//	print_fi(dir_array, options);
+	options->av_mode = 0;
 	return (dir_array);
 }
