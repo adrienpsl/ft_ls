@@ -21,11 +21,11 @@ static void usage(char c)
 	);
 }
 
-int ls$catch_options(char ***p_av, long *option)
+int ls$catch_options(char ***p_av, t_ls_options *option)
 {
 	int ret;
 
-	ret = ft_io$catch_option(*p_av, LS_OPTIONS, option, usage);
+	ret = ft_io$catch_option(*p_av, LS_OPTIONS, (long *)option, usage);
 	if (
 		ret > 0
 		)

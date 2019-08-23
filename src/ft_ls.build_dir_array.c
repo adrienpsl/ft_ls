@@ -43,24 +43,37 @@ char *build_full_path(char *dir_path, char *name)
 	return (full_path);
 }
 
+struct stat *get_stat(char *path, int mode)
+{
+	static struct stat fs;
+	int ret;
+
+	if (mode == STAT)
+		ret = stat(path, &fs);
+	else
+		ret = lstat(path, &fs);
+	return (ret ? &fs : NULL);
+}
+
 t_file *
 fill_file_element(char *full_path, char *file_name, t_ls_options *options,
 	t_length *length)
 {
 	static t_file file;
-	struct stat fs;
+	struct stat *fs;
 	ft_bzero(&file, sizeof(t_file));
 
-	// TODO : check if the return
-	if (lstat(full_path, &fs))
+	if (
+		(fs = get_stat(full_path, options->stat_mode))
+		)
 	{
-		add_type(file.type, fs.st_mode);
-		add_right(file.type + 1, fs.st_mode);
+		add_type(&file, fs->st_mode);
+		add_right(file.type + 1, fs->st_mode);
 		add_acl_extended(file.type + 9, full_path);
-		add_hardlink_size(&file, &fs);
-		add_uid_gid(&file, &fs);
+		add_hardlink_size(&file, fs);
+		add_uid_gid(&file, fs);
 		add_file_and_link_name(&file, file_name);
-		add_sort_param(NULL, &fs, options);
+		add_sort_param(&file, fs, options);
 		add_time(file.sort_data, file.time, options);
 		add_max_length(&file, length);
 		return (&file);

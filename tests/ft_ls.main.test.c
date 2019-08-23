@@ -11,16 +11,14 @@
 /* ************************************************************************** */
 
 void test_ls$catch_option();
-void test_ls$parse_argv();
 void test_ls$parser();
 void test_ls$print();
 void test_ls$get_dir_array();
 
 int main()
 {
-//	test_ls$catch_option();
-//	test_ls$parse_argv();
-//	test_ls$parser();
+	test_ls$catch_option();
+	test_ls$parser();
 //	test_ls$print();
 //	test_ls$get_dir_array();
 }

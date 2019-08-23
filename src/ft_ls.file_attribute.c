@@ -15,7 +15,7 @@
 # include <sys/acl.h>
 # include <sys/xattr.h>
 
-void add_type(char *buff, const mode_t mode)
+void add_type(t_file *file, const mode_t mode)
 {
 	static int filters[7] = { S_IFBLK, S_IFCHR, S_IFIFO, S_IFDIR,
 							  S_IFLNK, S_IFSOCK, S_IFREG };
@@ -31,7 +31,9 @@ void add_type(char *buff, const mode_t mode)
 			(S_IFMT & mode) == filters[i]
 			)
 		{
-			*buff = char_type[i];
+			file->time[0] = char_type[i];
+			if (i == 3)
+			    file->is_dir = 1;
 			break;
 		}
 		i++;

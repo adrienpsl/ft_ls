@@ -51,10 +51,10 @@ static int utils(char *av_str, char *result)
 	ft_bzero(&ls, sizeof(t_ls));
 	(void)result;
 
-	ls$catch_options(&av, (long *)&ls.options);
+	ls$catch_options(&av, &ls.options);
 
 	g_test = 1;
-	t_array *test_array = build_list(&ls, av);
+	t_array *test_array = build_list(&ls.options, av);
 	g_test = 0;
 
 	ft_array$func(test_array, print_func, NULL);

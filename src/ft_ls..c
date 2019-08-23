@@ -26,9 +26,9 @@ int ft_ls(char **av)
 
 	ls.buffer.fd = 1; // for the speed
 	ft_bzero(&ls, sizeof(ls));
-	ls$catch_options(&av, (long *)&ls.options);
+	ls$catch_options(&av, &ls.options);
+	build_list(&ls.options, av);
 
-	build_list(&ls, av);
 	// test if . is get good handling
 
 	while ((tmp = ft_array$next(ls.dirs)))

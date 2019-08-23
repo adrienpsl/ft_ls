@@ -10,53 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <sys/stat.h>
-# include <string.h>
 # include "ft_ls..h"
+# include "string.h"
 
-static int add_link(t_array **array, char *path, struct stat *fs)
+static void
+fill_array_with_argv(char **av, t_ls_options *options, t_array **array,
+	t_length *length)
 {
-	static t_file file;
-
-	ft_bzero(&file, sizeof(t_file));
-	file.is_dir = S_ISDIR(fs->st_mode);
-	ft_strcat(file.name, path);
-	if (
-		OK != ft_array$push(array, &file)
-		)
-		return (-1);
-	return (0);
-}
-
-static int do_stat(char *path, t_ls_options *options, struct stat *fs)
-{
-	if (
-		options->long_format ?
-		lstat(path, fs) :
-		stat(path, fs)
-		)
-	{
-		ft_dprintf(2, "ls: %s: %s\n", path, strerror(errno));
-		return (-1);
-	}
-	else
-	{
-		return (0);
-	}
-}
-
-static void loop_on_av(char **av, t_ls_options *options, t_array **array)
-{
-	struct stat fs;
+	t_file *file;
 
 	while (NULL != *av)
 	{
 		if (
-			OK == do_stat(*av, options, &fs)
+			(file = fill_file_element("", *av, options, length))
 			)
-		{
-			add_link(array, *av, &fs);
-		}
+			ft_array$push(array, file);
+		else
+			ft_dprintf(2, "ls: %s: %s\n", *av, strerror(errno));
 		av++;
 	}
 }
@@ -69,28 +39,40 @@ static void loop_on_av(char **av, t_ls_options *options, t_array **array)
  * @return
  */
 
-t_array *build_list(t_ls *ls, char **av)
+void print_fi(t_array *array, t_ls_options *options)
 {
-	t_array *dir_array;
-	static char *no_argv[2] = { "." };
+	t_array *files;
 
+	ft_array$func(array, ls_parsing$first_dir_func, NULL);
+	if (array->i > 0)
+	{
+		if (
+			(files = ft_array$slice_and_remove(array, 0,
+											   array->i))
+			)
+		{
+			ft_array$func(files, print_func, options);
+			ft_array$free(&files);
+		}
+	}
+}
+
+t_array *build_list(t_ls_options *options, char **av)
+{
+	static char *no_argv[2] = { "." };
+	t_array *dir_array;
+	t_length length;
+
+	ft_bzero(&length, sizeof(t_length));
 	if (
 		NULL == (dir_array = ft_array$init(50, sizeof(t_file)))
 		)
 		return (NULL);
-	loop_on_av(av, &ls->options, &dir_array);
+	*av ?
+	fill_array_with_argv(av, options, &dir_array, &length)
+		:
+	fill_array_with_argv(no_argv, options, &dir_array, &length);
 	ft_array$sort_bubble(dir_array, ls_parsing$sort_func, NULL);
-	ft_array$func(dir_array, ls_parsing$first_dir_func, NULL);
-
-	if (dir_array->i > 0)
-	{
-		if (
-			NULL == (ls->files = ft_array$slice_and_remove(dir_array, 0,
-														   dir_array->i))
-			);
-	}
-	else
-		loop_on_av(no_argv, &ls->options, &dir_array);
-		ls->dirs = dir_array;
+	print_fi(dir_array, options);
 	return (dir_array);
 }
