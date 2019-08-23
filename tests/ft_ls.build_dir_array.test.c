@@ -13,7 +13,6 @@
 #include <sys/stat.h>
 #include "ft_ls..h"
 
-t_array *build_dir_array(char *dir_path, t_ls *ls);
 
 // test with all file type, if there are good print of each of them
 
@@ -43,7 +42,7 @@ void test_right()
 void test_ls$get_dir_array()
 {
 	t_ls ls;
-	t_array *array = build_dir_array("/Users/adpusel/test_ls", &ls);
+	t_array *array = build_dir_array("/Users/adpusel/test_ls", &ls.options);
 	ls.reverse_sorting = 0;
 
 	ft_array$sort_bubble(array, ls_array$sort_func, &ls.reverse_sorting);

@@ -13,23 +13,22 @@
 #include <grp.h>
 #include <pwd.h>
 #include "ft_ls..h"
-#include "ft_ls.build_dir_array.h"
 
-void add_hardlink_size(t_bda *bda)
+void add_hardlink_size(t_file *file, struct stat *fs)
 {
-	ft_itoa_unsigned(bda->fs.st_nlink, BASE_10, bda->file.hardlink_nb);
-	ft_itoa_unsigned(bda->fs.st_size, BASE_10, bda->file.size);
+	ft_itoa_unsigned(fs->st_nlink, BASE_10, file->hardlink_nb);
+	ft_itoa_unsigned(fs->st_size, BASE_10, file->size);
 }
 
-void add_uid_gid(t_bda *bda)
+void add_uid_gid(t_file *file, struct stat *fs)
 {
-	ft_strcat(bda->file.uid, getpwuid(bda->fs.st_uid)->pw_name);
-	ft_strcat(bda->file.gid, getgrgid(bda->fs.st_gid)->gr_name);
+	ft_strcat(file->uid, getpwuid(fs->st_uid)->pw_name);
+	ft_strcat(file->gid, getgrgid(fs->st_gid)->gr_name);
 }
 
-void add_file_and_link_name(t_bda *bda)
+void add_file_and_link_name(t_file *file, char *file_name)
 {
-	ft_strcat(bda->file.name, bda->dp->d_name);
+	ft_strcat(file->name, file_name);
 }
 
 

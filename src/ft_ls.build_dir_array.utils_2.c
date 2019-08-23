@@ -14,9 +14,8 @@
 #include <ft_mem.h>
 #include <ft_ls..h>
 # include <sys/stat.h>
-#include "ft_ls.build_dir_array.h"
 
-void print_time(long int time_nb, char *out, t_ls_options *options)
+void add_time(long int time_nb, char *buffer, t_ls_options *options)
 {
 	long int current_date;
 	int active_year;
@@ -28,9 +27,9 @@ void print_time(long int time_nb, char *out, t_ls_options *options)
 		active_year = 1;
 	if (current_date - 15778800 >= time_nb)
 		active_year = 1;
-	ft_memcpy(out, ctime(&time_nb) + 4, 12);
+	ft_memcpy(buffer, ctime(&time_nb) + 4, 12);
 	if (active_year)
-		ft_memcpy(out + 7, ctime(&time_nb) + 19, 5);
+		ft_memcpy(buffer + 7, ctime(&time_nb) + 19, 5);
 	//	if ((option & FT_LS_O_T) /*&& active_year*/)
 	//	{
 	//		ft_mem_copy(out, ctime(&time_nb) + 4, 20);
@@ -41,24 +40,16 @@ void print_time(long int time_nb, char *out, t_ls_options *options)
 /*
 **	return a time for the last if not custom sorting
 */
-unsigned long set_sort_param(t_ls_options *options, struct stat *fs)
+void add_sort_param(t_file *file, struct stat *fs, t_ls_options *options)
 {
 	if (options->sort_time)
-		return fs->st_mtimespec.tv_sec;
+		file->sort_data = fs->st_mtimespec.tv_sec;
 	else if (options->sort_status_change)
-		return (fs->st_ctimespec.tv_sec);
+		file->sort_data = fs->st_ctimespec.tv_sec;
 	else if (options->sort_size)
-		return (fs->st_size);
+		file->sort_data = fs->st_size;
 	else
-		return (fs->st_atimespec.tv_sec);
-}
-
-void add_sort_param_and_time(t_bda *bda, t_ls *ls)
-{
-	{
-		bda->file.sort_data = set_sort_param(&ls->options, &bda->fs);
-	}
-	print_time(bda->file.sort_data, bda->file.time, &ls->options);
+		file->sort_data = fs->st_atimespec.tv_sec;
 }
 
 int ls_array$sort_func(void *a, void *b, void *p_param)

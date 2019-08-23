@@ -14,7 +14,10 @@
 #define FT_LS_FT_LS_H
 
 #include <sys/dirent.h>
+#include <sys/stat.h>
 # include "libft.h"
+
+
 
 # define LS_OPTIONS "aRl"
 
@@ -49,6 +52,7 @@ typedef struct t_length {
 	int gid;
 	int size;
 	int hard_link;
+	int name;
 } t_length;
 
 typedef struct s_ls
@@ -60,6 +64,22 @@ typedef struct s_ls
 	t_array *files;
 	int reverse_sorting;
 } t_ls;
+
+
+
+/*
+**	print element
+*/
+void add_hardlink_size(t_file *file, struct stat *fs);
+void add_uid_gid(t_file *file, struct stat *fs);
+void add_file_and_link_name(t_file *file, char *file_name);
+void add_right(char *buff, const mode_t mode);
+void add_type(char *buff, const mode_t mode);
+int add_acl_extended(char *buff, char *path);
+void add_time(long int time_nb, char *buffer, t_ls_options *options);
+void add_max_length(t_file *file, t_length *length);
+void
+add_sort_param(t_file *file, struct stat *fs, t_ls_options *options);
 
 /*
 **	utils
@@ -80,8 +100,8 @@ int ls_array$sort_func(void *a, void *b, void *p_param);
 
 int ls$catch_options(char ***p_av, long *option);
 
-void ls$get_file_attribute(char *buff, char *path, mode_t mode);
-t_array *build_dir_array(char *dir_path, t_ls *ls);
+void add_file_attribute(char *buff, char *path, mode_t mode);
+t_array *build_dir_array(char *dir_path, t_ls_options *options);
 
 void test_ft_ls$main_test();
 int line_print(void *p_el, void *param);

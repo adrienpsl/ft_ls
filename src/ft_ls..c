@@ -16,15 +16,15 @@ void build_dir_list(t_file *file, t_ls *ls)
 {
 	t_array *array;
 
-	array = build_dir_array(file->name, ls);
+	array = build_dir_array(file->name, &ls->options);
 }
 
-int ft_ls$(char **av)
+int ft_ls(char **av)
 {
 	t_ls ls;
 	void *tmp;
 
-	ls.buffer.fd = 1;
+	ls.buffer.fd = 1; // for the speed
 	ft_bzero(&ls, sizeof(ls));
 	ls$catch_options(&av, (long *)&ls.options);
 

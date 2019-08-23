@@ -15,28 +15,7 @@
 # include <sys/acl.h>
 # include <sys/xattr.h>
 
-static void get_right(char *buff, const mode_t mode)
-{
-	static const char *rights = "rwxrwxrwx";
-	int i;
-
-	i = 0;
-	while (
-		i < 9
-		)
-	{
-		buff[i] = (mode & (1 << (8 - i))) ? rights[i] : '-';
-		if (i == 3 && (mode & S_ISUID))
-			buff[i] = buff[i] == 'x' ? 's' : 'S';
-		else if (i == 6 && (mode & S_ISGID))
-			buff[i] = buff[i] == 'x' ? 's' : 'S';
-		else if (i == 8 && (mode & S_ISVTX))
-			buff[i] = buff[i] == 'x' ? 't' : 'T';
-		i++;
-	}
-}
-
-static void get_type(char *buff, const mode_t mode)
+void add_type(char *buff, const mode_t mode)
 {
 	static int filters[7] = { S_IFBLK, S_IFCHR, S_IFIFO, S_IFDIR,
 							  S_IFLNK, S_IFSOCK, S_IFREG };
@@ -59,7 +38,29 @@ static void get_type(char *buff, const mode_t mode)
 	}
 }
 
-static int get_acl_extended(char *buff, char *path)
+
+void add_right(char *buff, const mode_t mode)
+{
+	static const char *rights = "rwxrwxrwx";
+	int i;
+
+	i = 0;
+	while (
+		i < 9
+		)
+	{
+		buff[i] = (mode & (1 << (8 - i))) ? rights[i] : '-';
+		if (i == 3 && (mode & S_ISUID))
+			buff[i] = buff[i] == 'x' ? 's' : 'S';
+		else if (i == 6 && (mode & S_ISGID))
+			buff[i] = buff[i] == 'x' ? 's' : 'S';
+		else if (i == 8 && (mode & S_ISVTX))
+			buff[i] = buff[i] == 'x' ? 't' : 'T';
+		i++;
+	}
+}
+
+int add_acl_extended(char *buff, char *path)
 {
 	acl_t acl;
 
@@ -75,12 +76,4 @@ static int get_acl_extended(char *buff, char *path)
 		*buff = ' ';
 	buff[1] = ' ';
 	return (0);
-}
-
-void ls$get_file_attribute(char *buff, char *path, mode_t mode)
-{
-
-	get_type(buff, mode);
-	get_right(buff + 1, mode);
-	get_acl_extended(buff + 9, path);
 }

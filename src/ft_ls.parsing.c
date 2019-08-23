@@ -61,9 +61,14 @@ static void loop_on_av(char **av, t_ls_options *options, t_array **array)
 	}
 }
 
-/*
-**	func will set :
-*/
+/**
+ * @brief 	cette fonction va fill le dir array et le fil array de ls
+ *
+ * @param ls
+ * @param av
+ * @return
+ */
+
 t_array *build_list(t_ls *ls, char **av)
 {
 	t_array *dir_array;

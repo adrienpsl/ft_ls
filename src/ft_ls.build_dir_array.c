@@ -12,7 +12,6 @@
 /* ************************************************************************** */
 
 #include <dirent.h>
-#include "ft_ls.build_dir_array.h"
 
 static void update_if_bigger(char *new, int *old)
 {
@@ -23,64 +22,75 @@ static void update_if_bigger(char *new, int *old)
 		*old = size;
 }
 
-static void update_max_length(t_file *file, t_length *length)
+void add_max_length(t_file *file, t_length *length)
 {
 	update_if_bigger(file->uid, &length->uid);
 	update_if_bigger(file->gid, &length->gid);
 	update_if_bigger(file->size, &length->size);
 	update_if_bigger(file->hardlink_nb, &length->hard_link);
+	update_if_bigger(file->name, &length->name);
 }
 
-void fill_file_element(t_bda *bda, t_ls *ls)
+char *build_full_path(char *dir_path, char *name)
 {
-	ft_bzero(&bda->file, sizeof(t_file));
+	static char full_path[2064];
+
+	{
+		ft_strcat(full_path, dir_path);
+		ft_strcat(full_path, "/");
+		ft_strcat(full_path, name);
+	}
+	return (full_path);
+}
+
+t_file *
+fill_file_element(char *full_path, char *file_name, t_ls_options *options,
+	t_length *length)
+{
+	static t_file file;
+	struct stat fs;
+	ft_bzero(&file, sizeof(t_file));
 
 	// TODO : check if the return
-	lstat(bda->full_path, &bda->fs);
+	if (lstat(full_path, &fs))
 	{
-		ls$get_file_attribute(bda->file.type, bda->full_path, bda->fs.st_mode);
+		add_type(file.type, fs.st_mode);
+		add_right(file.type + 1, fs.st_mode);
+		add_acl_extended(file.type + 9, full_path);
+		add_hardlink_size(&file, &fs);
+		add_uid_gid(&file, &fs);
+		add_file_and_link_name(&file, file_name);
+		add_sort_param(NULL, &fs, options);
+		add_time(file.sort_data, file.time, options);
+		add_max_length(&file, length);
+		return (&file);
 	}
-	{
-		add_hardlink_size(bda);
-	}
-	{
-		add_uid_gid(bda);
-	}
-	{
-		add_file_and_link_name(bda);
-	}
-	{
-		add_sort_param_and_time(bda, ls);
-	}
-	{
-		update_max_length(&bda->file, &ls->length);
-	}
+	return (NULL);
 }
 
-
-
-t_array *build_dir_array(char *dir_path, t_ls *ls)
+t_array *build_dir_array(char *dir_path, t_ls_options *options)
 {
-	t_bda bda;
+	DIR *dir;
+	struct dirent *dp;
+	t_file *file;
+	t_array *array;
 
-	ft_bzero(&bda, sizeof(t_bda));
 	// TODO : need to handle error ?
 	if (
-		NULL == (bda.dir = opendir(dir_path))
-		|| NULL == (bda.array = ft_array$init(100, sizeof(t_file)))
+		NULL == (dir = opendir(dir_path))
+		|| NULL == (array = ft_array$init(100, sizeof(t_file)))
 		)
 		return (NULL);
 	while (
-		(bda.dp = readdir(bda.dir))
+		(dp = readdir(dir))
 		)
 	{
-		{
-			ft_strcat(bda.full_path, dir_path);
-			ft_strcat(bda.full_path, "/");
-			ft_strcat(bda.full_path, bda.dp->d_name);
-		}
-		fill_file_element(&bda, ls);
-		ft_array$push(&bda.array, &bda.file);
+		if (
+			(file = fill_file_element(
+				build_full_path(dir_path, dp->d_name),
+				dp->d_name, options, NULL))
+			)
+			ft_array$push(&array, file);
 	}
-	return (bda.array);
+	return (array);
 }
