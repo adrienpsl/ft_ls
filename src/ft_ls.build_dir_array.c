@@ -78,7 +78,8 @@ fill_file_element(char *full_path, char *file_name, t_ls_options *options,
 		add_max_length(&file, length);
 		return (&file);
 	}
-	return (NULL);
+	else
+		return (NULL);
 }
 
 t_array *build_dir_array(char *dir_path, t_ls_options *options)

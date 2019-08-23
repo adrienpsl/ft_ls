@@ -15,8 +15,6 @@
 #include <sys/acl.h>
 #include <sys/xattr.h>
 
-
-
 int print_func(void *p_element, void *p_param)
 {
 	t_file *file;

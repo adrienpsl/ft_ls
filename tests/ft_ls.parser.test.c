@@ -143,6 +143,15 @@ void test_ls$parser()
 		"dir_1 || 1\n"
 		"dir_2 || 1\n");
 
+
+
+	/*
+	* test with no argv
+	* */
+	utils("", ". || 1\n");
+
+
+
 	g_test = 0;
 }
 
