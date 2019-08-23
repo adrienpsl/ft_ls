@@ -33,10 +33,13 @@ void add_max_length(t_file *file, t_length *length)
 
 char *build_full_path(char *dir_path, char *name)
 {
-	static char full_path[2064];
+	static char full_path[2064] = { 0 };
 
+	size_t length;
+	length = ft_strlen(dir_path);
+	if (length < PATH_MAX)
 	{
-		ft_strcat(full_path, dir_path);
+		ft_memcpy(full_path, dir_path, length);
 		ft_strcat(full_path, "/");
 		ft_strcat(full_path, name);
 	}
@@ -82,7 +85,8 @@ fill_file_element(char *full_path, char *file_name, t_ls_options *options,
 		return (NULL);
 }
 
-t_array *build_dir_array(char *dir_path, t_ls_options *options)
+t_array *
+build_dir_array(char *dir_path, t_ls_options *options, t_length *length)
 {
 	DIR *dir;
 	struct dirent *dp;
@@ -102,9 +106,11 @@ t_array *build_dir_array(char *dir_path, t_ls_options *options)
 		if (
 			(file = fill_file_element(
 				build_full_path(dir_path, dp->d_name),
-				dp->d_name, options, NULL))
+				dp->d_name, options, length))
 			)
 			ft_array$push(&array, file);
 	}
 	return (array);
 }
+
+

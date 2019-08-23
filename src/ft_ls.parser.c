@@ -39,25 +39,8 @@ fill_array_with_argv(char **av, t_ls_options *options, t_array **array,
  * @return
  */
 
-void print_fi(t_array *array, t_ls_options *options)
-{
-	t_array *files;
 
-	ft_array$func(array, ls_parsing$first_dir_func, NULL);
-	if (array->i > 0)
-	{
-		if (
-			(files = ft_array$slice_and_remove(array, 0,
-											   array->i))
-			)
-		{
-			ft_array$func(files, print_func, options);
-			ft_array$free(&files);
-		}
-	}
-}
-
-t_array *build_list(t_ls_options *options, char **av, t_length *length)
+t_array *ls$build_av_array(t_ls_options *options, char **av, t_length *length)
 {
 	static char *no_argv[2] = { "." };
 	t_array *dir_array;
@@ -77,7 +60,7 @@ t_array *build_list(t_ls_options *options, char **av, t_length *length)
 			fill_array_with_argv(no_argv, options, &dir_array, length);
 	}
 	ft_array$sort_bubble(dir_array, ls_parsing$sort_func, NULL);
-	//	print_fi(dir_array, options);
 	options->av_mode = 0;
 	return (dir_array);
 }
+

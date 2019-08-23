@@ -68,6 +68,7 @@ typedef struct s_ls
 } t_ls;
 
 
+int ft_ls(char **av);
 
 t_file *
 fill_file_element(char *full_path, char *file_name, t_ls_options *options,
@@ -97,7 +98,7 @@ struct stat *get_stat(char *path, int mode);
 
 int print_func(void *p_element, void *p_param);
 
-t_array *build_list(t_ls_options *options, char **av, t_length *length);
+t_array *ls$build_av_array(t_ls_options *options, char **av, t_length *length);
 
 /*
 **	--- parsing ----------------------------------------------------------------
@@ -110,14 +111,17 @@ int ls_array$sort_func(void *a, void *b, void *p_param);
 int ls$catch_options(char ***p_av, t_ls_options *option);
 
 void add_file_attribute(char *buff, char *path, mode_t mode);
-t_array *build_dir_array(char *dir_path, t_ls_options *options);
+t_array *
+build_dir_array(char *dir_path, t_ls_options *options, t_length *length);
 
 void test_ft_ls$main_test();
-int line_print(void *p_el, void *param);
+int line_print_long(void *p_el, void *param);
 
 /*
 **	test delete
 */
 int print_link_test(void *p_link, void *n);
+int line_print(void *p_el, void *param);
+int line_print_long(void *p_el, void *param);
 
 #endif

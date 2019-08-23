@@ -10,17 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void test_ls$catch_option();
-void test_ls$parser();
-void test_ls$print();
-void test_ls$get_dir_array();
-void test_ft_ls();
+#include <test.h>
+#include <libft.test.h>
+#include "ft_ls..h"
 
-int main()
+static int utils(char *av_str, char *result)
 {
-//	test_ls$catch_option();
-//	test_ls$parser();
-//	test_ls$print();
-	test_ls$get_dir_array();
-	test_ft_ls();
+	(void)result;
+	char **av = ft_strsplit(av_str, " ");
+
+	ft_ls(av);
+
+
+	ft_strsplit_free(&av);
+	if (lib_cmp_testbuff(result))
+		return (1);
+
+	return (0);
+}
+
+void test_ft_ls()
+{
+	(void)utils;
+	g_test = 0;
+	utils("-l /var/run/mDNSResponder /", "");
+
+
 }

@@ -16,24 +16,66 @@ void build_dir_list(t_file *file, t_ls *ls)
 {
 	t_array *array;
 
-	array = build_dir_array(file->name, &ls->options);
+	array = build_dir_array(file->name, &ls->options, NULL);
+}
+
+void print_file_argv(t_array *array, t_ls_options *options)
+{
+	t_array *files;
+
+	ft_array$func(array, ls_parsing$first_dir_func, NULL);
+	if (array->i > 0)
+	{
+		if (
+			(files = ft_array$slice_and_remove(array, 0,
+											   array->i))
+			)
+		{
+			options->long_format ?
+			ft_array$func(files, line_print_long, options)
+								 :
+			ft_array$func(files, line_print, options);
+			ft_array$free(&files);
+		}
+	}
+}
+
+int handle_r(t_file *file, t_ls_options *options)
+{
+	t_array *files;
+	t_length length;
+
+	ft_bzero(&length, sizeof(t_length));
+	files = build_dir_array(file->name, options, &length);
+	options->long_format ?
+	ft_array$func(files, line_print_long, &length)
+						 :
+	ft_array$func(files, line_print, &length);
+	ft_array$free(&files);
+
+	return (0);
 }
 
 int ft_ls(char **av)
 {
 	t_ls ls;
-	void *tmp;
+	t_file *tmp;
+	t_array *array;
 
-	ls.buffer.fd = 1; // for the speed
 	ft_bzero(&ls, sizeof(ls));
+	ls.buffer.fd = 1; // for the speed
 	ls$catch_options(&av, &ls.options);
-	build_list(&ls.options, av, NULL);
 
 	// test if . is get good handling
 
-	while ((tmp = ft_array$next(ls.dirs)))
+	array = ls$build_av_array(&ls.options, av, &ls.length);
+	print_file_argv(array, &ls.options);
+	array->i = 0;
+	while ((tmp = ft_array$next(array)))
 	{
-		build_dir_list(tmp, &ls);
+		if (array->i)
+			ft_printf("\n%s:\n", tmp->name);
+		handle_r(tmp, &ls.options);
 	}
 	// je parcours cette list tant que je n'ai pas eu de
 

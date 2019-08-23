@@ -46,7 +46,19 @@ int print_link_test(void *p_link, void *n)
  *
  * */
 
+
 int line_print(void *p_el, void *param)
+{
+	t_file *file;
+	(void)param;
+	file = p_el;
+
+	printf("%s", file->name);
+	printf("\n");
+	return (0);
+}
+
+int line_print_long(void *p_el, void *param)
 {
 	t_file *file;
 	t_length *length;

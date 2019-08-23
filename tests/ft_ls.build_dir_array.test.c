@@ -55,9 +55,9 @@ static int utils(char *av_str, char *result)
 
 	ls$catch_options(&av, &options);
 
-	t_array *test_array = build_list(&options, av, &length);
+	t_array *test_array = ls$build_av_array(&options, av, &length);
 
-	ft_array$func(test_array, line_print, &length);
+	ft_array$func(test_array, line_print_long, &length);
 
 	ft_array$free(&test_array);
 	ft_strsplit_free(&av_split);
@@ -71,7 +71,7 @@ void test_ls$get_dir_array()
 {
 	// test driver
 	(void)utils;
-	utils("-l /var/run/mDNSResponder /dev/ttywf /Users/adpusel/code/42/ft_ls/cmake-build-debug/test_dir/fifo /dev/disk0s1 /tmp", "");
+//	utils("-l /var/run/mDNSResponder /dev/ttywf /Users/adpusel/code/42/ft_ls/cmake-build-debug/test_dir/fifo /dev/disk0s1 /tmp /", "");
 
 
 	//	t_ls ls;
