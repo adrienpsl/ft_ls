@@ -69,10 +69,10 @@ fill_file_element(char *full_path, char *file_name, t_ls_options *options,
 	{
 		add_type(&file, fs->st_mode);
 		add_right(file.type + 1, fs->st_mode);
-		add_acl_extended(file.type + 9, full_path);
+		add_acl_extended(file.type + 10, full_path);
 		add_hardlink_size(&file, fs);
 		add_uid_gid(&file, fs);
-		add_file_and_link_name(&file, file_name);
+		add_file_and_link_name(&file, file_name, full_path, fs);
 		add_sort_param(&file, fs, options);
 		add_time(file.sort_data, file.time, options);
 		add_max_length(&file, length);

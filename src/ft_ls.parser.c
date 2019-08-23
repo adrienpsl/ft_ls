@@ -57,13 +57,11 @@ void print_fi(t_array *array, t_ls_options *options)
 	}
 }
 
-t_array *build_list(t_ls_options *options, char **av)
+t_array *build_list(t_ls_options *options, char **av, t_length *length)
 {
 	static char *no_argv[2] = { "." };
 	t_array *dir_array;
-	t_length length;
 
-	ft_bzero(&length, sizeof(t_length));
 	if (
 		!options->long_format
 		)
@@ -74,9 +72,9 @@ t_array *build_list(t_ls_options *options, char **av)
 		return (NULL);
 	{
 		if (*av)
-			fill_array_with_argv(av, options, &dir_array, &length);
+			fill_array_with_argv(av, options, &dir_array, length);
 		else
-			fill_array_with_argv(no_argv, options, &dir_array, &length);
+			fill_array_with_argv(no_argv, options, &dir_array, length);
 	}
 	ft_array$sort_bubble(dir_array, ls_parsing$sort_func, NULL);
 	//	print_fi(dir_array, options);

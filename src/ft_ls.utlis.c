@@ -23,7 +23,6 @@ int print_link(void *p_link, void *n)
 	return (0);
 }
 
-
 int print_link_test(void *p_link, void *n)
 {
 	t_file *file;
@@ -35,6 +34,18 @@ int print_link_test(void *p_link, void *n)
 	return (0);
 }
 
+/*
+ * printf("%s%*s  %*s  %*s %*s %s %s\n",
+		   file->type,
+		   length->hard_link, file->hardlink_nb,
+		   length->uid, file->uid,
+		   length->gid, file->gid,
+		   length->size, file->size,
+		   file->time,
+		   file->name);
+ *
+ * */
+
 int line_print(void *p_el, void *param)
 {
 	t_file *file;
@@ -43,13 +54,15 @@ int line_print(void *p_el, void *param)
 	length = param;
 	file = p_el;
 
-	printf("%s%*s  %*s  %*s %*s %s %s\n",
-		   file->type,
-		   length->hard_link, file->hardlink_nb,
-		   length->uid, file->uid,
-		   length->gid, file->gid,
-		   length->size, file->size,
-		   file->time,
-		   file->name);
+	printf("%s ", file->type);
+	printf("%*s ", length->hard_link, file->hardlink_nb);
+	printf("%-*s  ", length->uid, file->uid);
+	printf("%-*s  ", length->gid, file->gid);
+	printf("%*s ", length->size, file->size);
+	printf("%s ", file->time);
+	printf("%s", file->name);
+	if (file->link[0])
+		printf(" -> %s", file->link);
+	printf("\n");
 	return (0);
 }

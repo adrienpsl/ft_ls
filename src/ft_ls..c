@@ -27,7 +27,7 @@ int ft_ls(char **av)
 	ls.buffer.fd = 1; // for the speed
 	ft_bzero(&ls, sizeof(ls));
 	ls$catch_options(&av, &ls.options);
-	build_list(&ls.options, av);
+	build_list(&ls.options, av, NULL);
 
 	// test if . is get good handling
 

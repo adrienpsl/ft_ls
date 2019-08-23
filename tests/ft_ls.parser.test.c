@@ -61,7 +61,7 @@ static int utils(char *av_str, char *result)
 
 	ls$catch_options(&av, &options);
 
-	t_array *test_array = build_list(&options, av);
+	t_array *test_array = build_list(&options, av, NULL);
 
 	ft_array$func(test_array, print_link, NULL);
 

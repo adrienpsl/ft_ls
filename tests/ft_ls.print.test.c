@@ -54,7 +54,7 @@ static int utils(char *av_str, char *result)
 	ls$catch_options(&av, &ls.options);
 
 	g_test = 1;
-	t_array *test_array = build_list(&ls.options, av);
+	t_array *test_array = build_list(&ls.options, av, NULL);
 	g_test = 0;
 
 	ft_array$func(test_array, print_func, NULL);

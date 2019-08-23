@@ -78,7 +78,8 @@ fill_file_element(char *full_path, char *file_name, t_ls_options *options,
 */
 void add_hardlink_size(t_file *file, struct stat *fs);
 void add_uid_gid(t_file *file, struct stat *fs);
-void add_file_and_link_name(t_file *file, char *file_name);
+void add_file_and_link_name(t_file *file, char *file_name, char *full_path,
+	struct stat *fs);
 void add_right(char *buff, const mode_t mode);
 void add_type(t_file *file, const mode_t mode);
 int add_acl_extended(char *buff, char *path);
@@ -96,7 +97,7 @@ struct stat *get_stat(char *path, int mode);
 
 int print_func(void *p_element, void *p_param);
 
-t_array *build_list(t_ls_options *options, char **av);
+t_array *build_list(t_ls_options *options, char **av, t_length *length);
 
 /*
 **	--- parsing ----------------------------------------------------------------
