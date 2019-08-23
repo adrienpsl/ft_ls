@@ -14,7 +14,7 @@
 #define FT_LS_FT_LS_BUILD_DIR_ARRAY_H
 
 #include <sys/stat.h>
-#include <ft_ls.h>
+#include <ft_ls..h>
 #include <dirent.h>
 
 typedef struct s_bda {

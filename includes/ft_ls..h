@@ -56,6 +56,8 @@ typedef struct s_ls
 	t_length length;
 	t_ls_options options;
 	t_buffer buffer;
+	t_array *dirs;
+	t_array *files;
 	int reverse_sorting;
 } t_ls;
 
@@ -79,7 +81,9 @@ int ls_array$sort_func(void *a, void *b, void *p_param);
 int ls$catch_options(char ***p_av, long *option);
 
 void ls$get_file_attribute(char *buff, char *path, mode_t mode);
+t_array *build_dir_array(char *dir_path, t_ls *ls);
 
 void test_ft_ls$main_test();
+int line_print(void *p_el, void *param);
 
 #endif

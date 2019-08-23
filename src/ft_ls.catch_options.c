@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_ls.h>
+#include <ft_ls..h>
 # include "libft.h"
 
 static void usage(char c)

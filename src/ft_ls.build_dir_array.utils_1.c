@@ -12,7 +12,7 @@
 
 #include <grp.h>
 #include <pwd.h>
-#include "ft_ls.h"
+#include "ft_ls..h"
 #include "ft_ls.build_dir_array.h"
 
 void add_hardlink_size(t_bda *bda)

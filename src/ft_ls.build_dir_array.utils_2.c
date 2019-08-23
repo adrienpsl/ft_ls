@@ -12,7 +12,7 @@
 
 #include <time.h>
 #include <ft_mem.h>
-#include <ft_ls.h>
+#include <ft_ls..h>
 # include <sys/stat.h>
 #include "ft_ls.build_dir_array.h"
 
@@ -59,4 +59,22 @@ void add_sort_param_and_time(t_bda *bda, t_ls *ls)
 		bda->file.sort_data = set_sort_param(&ls->options, &bda->fs);
 	}
 	print_time(bda->file.sort_data, bda->file.time, &ls->options);
+}
+
+int ls_array$sort_func(void *a, void *b, void *p_param)
+{
+	t_file *f_1;
+	t_file *f_2;
+	int ret;
+	int *param;
+
+	f_1 = a;
+	f_2 = b;
+	param = p_param;
+
+	if (f_1->sort_data != f_2->sort_data)
+		ret = f_1->sort_data < f_1->sort_data;
+	else
+		ret = ft_str_cmp(f_1->name, f_2->name) > 0;
+	return (*param ? !ret : ret);
 }

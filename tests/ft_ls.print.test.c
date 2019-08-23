@@ -13,7 +13,7 @@
 #include <sys/stat.h>
 #include <test.h>
 #include <libft.test.h>
-#include "ft_ls.h"
+#include "ft_ls..h"
 
 /*
  * do a script witch build the stuff

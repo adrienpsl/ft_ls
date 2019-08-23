@@ -10,23 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include <ft_ls..h>
 
-int ls_array$sort_func(void *a, void *b, void *p_param)
+void build_dir_list(t_file *file, t_ls *ls)
 {
-	t_file *f_1;
-	t_file *f_2;
-	int ret;
-	int *param;
+	t_array *array;
 
-	f_1 = a;
-	f_2 = b;
-	param = p_param;
-
-	if (f_1->sort_data != f_2->sort_data)
-		ret = f_1->sort_data < f_1->sort_data;
-	else
-		ret = ft_str_cmp(f_1->name, f_2->name) > 0;
-	return (*param ? !ret : ret);
+	array = build_dir_array(file->name, ls);
 }
+
+int ft_ls$(char **av)
+{
+	t_ls ls;
+	void *tmp;
+
+	ls.buffer.fd = 1;
+	ft_bzero(&ls, sizeof(ls));
+	ls$catch_options(&av, (long *)&ls.options);
+
+	build_list(&ls, av);
+	// test if . is get good handling
+
+	while ((tmp = ft_array$next(ls.dirs)))
+	{
+		build_dir_list(tmp, &ls);
+	}
+	// je parcours cette list tant que je n'ai pas eu de
+
+	// ici
+
+	return (0);
+}
+
+//  if pas argv
+
 

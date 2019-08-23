@@ -1,4 +1,4 @@
-#include <ft_ls.h>
+#include <ft_ls..h>
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -11,8 +11,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.build_dir_array.h"
 #include <dirent.h>
+#include "ft_ls.build_dir_array.h"
 
 static void update_if_bigger(char *new, int *old)
 {
@@ -31,8 +31,7 @@ static void update_max_length(t_file *file, t_length *length)
 	update_if_bigger(file->hardlink_nb, &length->hard_link);
 }
 
-void
-fill_file_element(t_bda *bda, t_ls *ls)
+void fill_file_element(t_bda *bda, t_ls *ls)
 {
 	ft_bzero(&bda->file, sizeof(t_file));
 

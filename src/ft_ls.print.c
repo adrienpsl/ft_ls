@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "ft_ls..h"
 #include <sys/stat.h>
 #include <sys/acl.h>
 #include <sys/xattr.h>

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "ft_ls..h"
 
 // il recois un av, parse les data, ls class
 // et les ajoute dans mon element.

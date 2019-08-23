@@ -12,7 +12,7 @@
 
 # include <sys/stat.h>
 # include <string.h>
-# include "ft_ls.h"
+# include "ft_ls..h"
 
 static int add_link(t_array **array, char *path, struct stat *fs)
 {
@@ -67,7 +67,7 @@ static void loop_on_av(char **av, t_ls_options *options, t_array **array)
 t_array *build_list(t_ls *ls, char **av)
 {
 	t_array *dir_array;
-	t_array *file_array = NULL;
+	static char *no_argv[2] = { "." };
 
 	if (
 		NULL == (dir_array = ft_array$init(50, sizeof(t_file)))
@@ -80,14 +80,12 @@ t_array *build_list(t_ls *ls, char **av)
 	if (dir_array->i > 0)
 	{
 		if (
-			NULL == (file_array = ft_array$slice_and_remove(dir_array, 0,
-															dir_array->i))
+			NULL == (ls->files = ft_array$slice_and_remove(dir_array, 0,
+														   dir_array->i))
 			);
 	}
-	// TODO : do that with the print
-	if (file_array)
-		ft_array$func(file_array, print_link, NULL);
-	ft_array$func(dir_array, print_link, NULL);
-
+	else
+		loop_on_av(no_argv, &ls->options, &dir_array);
+		ls->dirs = dir_array;
 	return (dir_array);
 }

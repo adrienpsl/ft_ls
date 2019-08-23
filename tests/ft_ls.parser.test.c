@@ -14,7 +14,7 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <zconf.h>
-#include <ft_ls.h>
+#include <ft_ls..h>
 #include <libft.test.h>
 #include <test.h>
 
@@ -32,6 +32,10 @@ static void init()
 {
 	system("mkdir -p test_dir");
 	chdir("test_dir");
+
+	system("mkdir -p  parser_dir");
+	chdir("parser_dir");
+
 	mkdir("clean_dir", ACCESSPERMS);
 	mkdir("no_access", 0);
 	system("touch file_1");
@@ -93,17 +97,17 @@ void test_ls$parser()
 	* test all good one argv
 	* */
 	{
-		// directory
-		utils("no_access", "no_access || 1\n");
-
-		// file
-		utils("normal_file", "normal_file || 0\n");
-
-		// symlink
-		utils("link_dir", "link_dir || 1\n");
-
-		// symlink with -l
-		utils("-l link_dir", "link_dir || 0\n");
+//		// directory
+//		utils("no_access", "no_access || 1\n");
+//
+//		// file
+//		utils("normal_file", "normal_file || 0\n");
+//
+//		// symlink
+//		utils("link_dir", "link_dir || 1\n");
+//
+//		// symlink with -l
+//		utils("-l link_dir", "link_dir || 0\n");
 	}
 
 	/*
