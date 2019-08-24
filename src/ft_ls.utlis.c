@@ -47,6 +47,19 @@ int print_link_test(void *p_link, void *n)
  * */
 
 
+struct stat *get_stat(char *path, int mode)
+{
+	static struct stat fs;
+	int ret;
+
+	if (mode == STAT)
+		ret = stat(path, &fs);
+	else
+		ret = lstat(path, &fs);
+	return (ret ? NULL : &fs);
+}
+
+
 int line_print(void *p_el, void *param)
 {
 	t_file *file;

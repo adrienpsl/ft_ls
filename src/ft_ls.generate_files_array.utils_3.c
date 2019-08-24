@@ -15,7 +15,7 @@
 #include <ft_ls..h>
 # include <sys/stat.h>
 
-void add_time(long int time_nb, char *buffer, t_ls_options *options)
+void add_time(long int time_nb, char *buffer, t_options *options)
 {
 	long int current_date;
 	int active_year;
@@ -40,7 +40,7 @@ void add_time(long int time_nb, char *buffer, t_ls_options *options)
 /*
 **	return a time for the last if not custom sorting
 */
-void add_sort_param(t_file *file, struct stat *fs, t_ls_options *options)
+void add_sort_param(t_file *file, struct stat *fs, t_options *options)
 {
 	if (options->sort_time)
 		file->sort_data = fs->st_mtimespec.tv_sec;
@@ -57,7 +57,7 @@ int ls_array$sort_func(void *a, void *b, void *p_param)
 	t_file *f_1;
 	t_file *f_2;
 	int ret;
-	t_ls_options *options;
+	t_options *options;
 
 	f_1 = a;
 	f_2 = b;

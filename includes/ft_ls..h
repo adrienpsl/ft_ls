@@ -45,12 +45,12 @@ typedef struct s_ls_options
 	unsigned long sort_status_change: 1; // c
 	unsigned long av_mode: 1;
 	unsigned long custom_sort: 1;
-
-} t_ls_options;
+} t_options;
 
 # define LS_OPTIONS "aRlrtuSc"
 
-typedef struct t_length {
+typedef struct t_length
+{
 	int uid;
 	int gid;
 	int size;
@@ -61,34 +61,28 @@ typedef struct t_length {
 typedef struct s_ls
 {
 	t_length length;
-	t_ls_options options;
-	t_buffer buffer;
-	t_array *dirs;
-	int reverse_sorting;
+	t_options options;
 } t_ls;
-
 
 int ft_ls(char **av);
 
 t_file *
-fill_file_element(char *full_path, char *file_name, t_ls_options *options,
+fill_file_element(char *full_path, char *file_name, t_options *options,
 	t_length *length);
 
 /*
 **	print element
 */
-void add_hardlink_size(t_file *file, struct stat *fs);
+void add_hardlink_and_size(t_file *file, struct stat *fs);
 void add_uid_gid(t_file *file, struct stat *fs);
 void add_file_and_link_name(t_file *file, char *file_name, char *full_path,
 	struct stat *fs);
 void add_right(char *buff, const mode_t mode);
 void add_type(t_file *file, const mode_t mode);
 int add_acl_extended(char *buff, char *path);
-void add_time(long int time_nb, char *buffer, t_ls_options *options);
-void add_max_length(t_file *file, t_length *length);
+void add_time(long int time_nb, char *buffer, t_options *options);
 void
-add_sort_param(t_file *file, struct stat *fs, t_ls_options *options);
-char *build_full_path(char *dir_path, char *name);
+add_sort_param(t_file *file, struct stat *fs, t_options *options);
 
 /*
 **	utils
@@ -98,7 +92,7 @@ struct stat *get_stat(char *path, int mode);
 
 int print_func(void *p_element, void *p_param);
 
-t_array *ls$build_av_array(t_ls_options *options, char **av, t_length *length);
+t_array *ls$build_av_array(t_options *options, char **av, t_length *length);
 
 /*
 **	--- parsing ----------------------------------------------------------------
@@ -108,11 +102,11 @@ int ls_parsing$first_dir_func(void *p_el, void *param);
 
 int ls_array$sort_func(void *a, void *b, void *p_param);
 
-int ls$catch_options(char ***p_av, t_ls_options *option);
+int ls$catch_options(char ***p_av, t_options *option);
 
 void add_file_attribute(char *buff, char *path, mode_t mode);
 t_array *
-build_dir_array(char *dir_path, t_ls_options *options, t_length *length);
+ls$generate_files_array(char *dir_path, t_options *options, t_length *length);
 
 void test_ft_ls$main_test();
 int line_print_long(void *p_el, void *param);

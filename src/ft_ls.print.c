@@ -18,7 +18,7 @@
 int print_func(void *p_element, void *p_param)
 {
 	t_file *file;
-	t_ls_options *options;
+	t_options *options;
 
 	file = p_element;
 	options = p_param;

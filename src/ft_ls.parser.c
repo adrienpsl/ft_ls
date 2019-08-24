@@ -13,8 +13,26 @@
 # include "ft_ls..h"
 # include "string.h"
 
+int ls_parsing$sort_func(void *a, void *b, void *param)
+{
+	(void)param;
+	t_file *f_1;
+	t_file *f_2;
+
+	f_1 = a;
+	f_2 = b;
+
+	if (f_1->is_dir == f_2->is_dir)
+	{
+		return (ft_str_cmp(f_1->name, f_2->name) > 0);
+	}
+	else
+		return (f_1->is_dir < f_2->is_dir ? 0 : 1);
+}
+
+
 static void
-fill_array_with_argv(char **av, t_ls_options *options, t_array **array,
+fill_array_with_argv(char **av, t_options *options, t_array **array,
 	t_length *length)
 {
 	t_file *file;
@@ -24,27 +42,28 @@ fill_array_with_argv(char **av, t_ls_options *options, t_array **array,
 		if (
 			*av && ft_strlen(*av) >= 255
 			)
-			ft_dprintf(2, "ls: %s: file name too long ( >= 255 )\n", *av, strerror(errno));
+			ft_dprintf(2, "ls: %s: file name too long ( >= 255 )\n", *av,
+					   strerror(errno));
 		else if (
 			(file = fill_file_element(*av, *av, options, length))
 			)
 			ft_array$push(array, file);
 		else
-			ft_printf( "ls: %s: %s\n", *av, strerror(errno));
+			ft_printf("ls: %s: %s\n", *av, strerror(errno));
 		av++;
 	}
 }
 
 /**
  * @brief 	cette fonction va fill le dir array et le fil array de ls
- *
+ * av mode used set lstat or stat for the file stat
  * @param ls
  * @param av
  * @return
  */
 
 
-t_array *ls$build_av_array(t_ls_options *options, char **av, t_length *length)
+t_array *ls$build_av_array(t_options *options, char **av, t_length *length)
 {
 	static char *no_argv[2] = { "." };
 	t_array *dir_array;
@@ -67,4 +86,3 @@ t_array *ls$build_av_array(t_ls_options *options, char **av, t_length *length)
 	options->av_mode = 0;
 	return (dir_array);
 }
-

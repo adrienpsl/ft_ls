@@ -46,10 +46,10 @@ static int utils(char *av_str, char *result)
 {
 	char **av_split = ft_strsplit(av_str, " ");
 	char **av = av_split;
-	t_ls_options options;
+	t_options options;
 	t_length length;
 
-	ft_bzero(&options, sizeof(t_ls_options));
+	ft_bzero(&options, sizeof(t_options));
 	ft_bzero(&length, sizeof(t_length));
 	(void)result;
 

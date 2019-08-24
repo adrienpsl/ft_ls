@@ -21,7 +21,7 @@ static void usage(char c)
 	);
 }
 
-int ls$catch_options(char ***p_av, t_ls_options *option)
+int ls$catch_options(char ***p_av, t_options *option)
 {
 	int ret;
 

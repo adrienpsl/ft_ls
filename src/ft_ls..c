@@ -13,14 +13,62 @@
 #include <ft_ls..h>
 # include "string.h"
 
-void build_dir_list(t_file *file, t_ls *ls)
+int ls$handle_directory(char *path, t_file *file, t_options *options)
 {
-	t_array *array;
+	t_array *files;
+	t_length length;
+	char full_path[2064];
 
-	array = build_dir_array(file->name, &ls->options, NULL);
+	ft_bzero(full_path, 2064);
+	ft_bzero(&length, sizeof(t_length));
+	if (*path)
+	{
+		ft_strcat(full_path, path);
+		ft_strcat(full_path, "/");
+	}
+	ft_strcat(full_path, file->name);
+
+	ft_printf("\n%s:\n", full_path);
+	if (
+		(files = ls$generate_files_array(full_path, options, &length))
+		)
+	{// TODO : mettre ici option if all format
+		options->long_format ?
+		ft_array$func(files, line_print_long, &length)
+							 :
+		ft_array$func(files, line_print, &length);
+
+		files->i = 2;
+		while (
+			(file = ft_array$next(files))
+			)
+		{
+			if (file->is_dir)
+			{
+				ls$handle_directory(full_path, file, options);
+			}
+		}
+
+		ft_array$free(&files);
+	}
+	else
+		ft_dprintf(2, "ls: %s: %s\n", file->name, strerror(errno));
+	return (0);
 }
 
-void print_file_argv(t_array *array, t_ls_options *options)
+int ls_parsing$first_dir_func(void *p_el, void *param)
+{
+	(void)param;
+	t_file *file;
+
+	file = p_el;
+
+	return (
+		file->is_dir
+	);
+}
+
+void print_file(t_array *array, t_options *options)
 {
 	t_array *files;
 
@@ -41,73 +89,26 @@ void print_file_argv(t_array *array, t_ls_options *options)
 	}
 }
 
-int handle_r(char *path, t_file *file, t_ls_options *options)
-{
-	t_array *files;
-	t_length length;
-	char full_path[2064];
-
-	ft_bzero(full_path, 2064);
-	ft_bzero(&length, sizeof(t_length));
-	if (*path)
-	{
-		ft_strcat(full_path, path);
-		ft_strcat(full_path, "/");
-	}
-	ft_strcat(full_path, file->name);
-
-	ft_printf("\n%s:\n", full_path);
-	if (
-		(files = build_dir_array(full_path, options, &length))
-		)
-	{// TODO : mettre ici option if all format
-		options->long_format ?
-		ft_array$func(files, line_print_long, &length)
-							 :
-		ft_array$func(files, line_print, &length);
-
-		files->i = 2;
-		while (
-			(file = ft_array$next(files))
-			)
-		{
-			if (file->is_dir)
-			{
-				handle_r(full_path, file, options);
-			}
-		}
-
-		ft_array$free(&files);
-	}
-	else
-		ft_dprintf(2, "ls: %s: %s\n", file->name, strerror(errno));
-
-	return (0);
-}
-
 int ft_ls(char **av)
 {
-	t_ls ls;
+	t_options options = { 0 };
+	t_length length = { 0 };
 	t_file *tmp;
 	t_array *array;
 
-	ft_bzero(&ls, sizeof(ls));
-	ls.buffer.fd = 1; // for the speed
-	ls$catch_options(&av, &ls.options);
-
-	// test if . is get good handling
-
-	array = ls$build_av_array(&ls.options, av, &ls.length);
-	print_file_argv(array, &ls.options);
+	if (
+		ls$catch_options(&av, &options)
+		|| !(array = ls$build_av_array(&options, av, &length))
+		)
+		return (-1);
+	print_file(array, &options);
 	array->i = 0;
-	while ((tmp = ft_array$next(array)))
+	while (
+		(tmp = ft_array$next(array))
+		)
 	{
-		handle_r("", tmp, &ls.options);
+		ls$handle_directory("", tmp, &options);
 	}
-
 	return (0);
 }
-
-//  if pas argv
-
 
