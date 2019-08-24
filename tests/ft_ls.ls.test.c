@@ -33,7 +33,8 @@ void test_ft_ls()
 {
 	(void)utils;
 	g_test = 0;
-	utils("-l /var/run/mDNSResponder /", "");
+//	utils("-l /var/run/mDNSResponder /", "");
+	utils("-lR", "");
 
 
 }

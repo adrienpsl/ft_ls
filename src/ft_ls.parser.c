@@ -22,11 +22,15 @@ fill_array_with_argv(char **av, t_ls_options *options, t_array **array,
 	while (NULL != *av)
 	{
 		if (
+			*av && ft_strlen(*av) >= 255
+			)
+			ft_dprintf(2, "ls: %s: file name too long ( >= 255 )\n", *av, strerror(errno));
+		else if (
 			(file = fill_file_element(*av, *av, options, length))
 			)
 			ft_array$push(array, file);
 		else
-			ft_dprintf(2, "ls: %s: %s\n", *av, strerror(errno));
+			ft_printf( "ls: %s: %s\n", *av, strerror(errno));
 		av++;
 	}
 }

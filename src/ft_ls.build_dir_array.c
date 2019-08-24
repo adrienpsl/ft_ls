@@ -35,14 +35,10 @@ char *build_full_path(char *dir_path, char *name)
 {
 	static char full_path[2064] = { 0 };
 
-	size_t length;
-	length = ft_strlen(dir_path);
-	if (length < PATH_MAX)
-	{
-		ft_memcpy(full_path, dir_path, length);
-		ft_strcat(full_path, "/");
-		ft_strcat(full_path, name);
-	}
+	ft_bzero(full_path, 2064);
+	ft_strcat(full_path, dir_path);
+	ft_strcat(full_path, "/");
+	ft_strcat(full_path, name);
 	return (full_path);
 }
 
@@ -110,6 +106,7 @@ build_dir_array(char *dir_path, t_ls_options *options, t_length *length)
 			)
 			ft_array$push(&array, file);
 	}
+	ft_array$sort_bubble(array, ls_array$sort_func, options);
 	return (array);
 }
 

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <ft_ls..h>
+# include "string.h"
 
 void build_dir_list(t_file *file, t_ls *ls)
 {
@@ -40,18 +41,46 @@ void print_file_argv(t_array *array, t_ls_options *options)
 	}
 }
 
-int handle_r(t_file *file, t_ls_options *options)
+int handle_r(char *path, t_file *file, t_ls_options *options)
 {
 	t_array *files;
 	t_length length;
+	char full_path[2064];
 
+	ft_bzero(full_path, 2064);
 	ft_bzero(&length, sizeof(t_length));
-	files = build_dir_array(file->name, options, &length);
-	options->long_format ?
-	ft_array$func(files, line_print_long, &length)
-						 :
-	ft_array$func(files, line_print, &length);
-	ft_array$free(&files);
+	if (*path)
+	{
+		ft_strcat(full_path, path);
+		ft_strcat(full_path, "/");
+	}
+	ft_strcat(full_path, file->name);
+
+	ft_printf("\n%s:\n", full_path);
+	if (
+		(files = build_dir_array(full_path, options, &length))
+		)
+	{// TODO : mettre ici option if all format
+		options->long_format ?
+		ft_array$func(files, line_print_long, &length)
+							 :
+		ft_array$func(files, line_print, &length);
+
+		files->i = 2;
+		while (
+			(file = ft_array$next(files))
+			)
+		{
+			if (file->is_dir)
+			{
+				handle_r(full_path, file, options);
+			}
+		}
+
+		ft_array$free(&files);
+	}
+	else
+		ft_dprintf(2, "ls: %s: %s\n", file->name, strerror(errno));
 
 	return (0);
 }
@@ -73,13 +102,8 @@ int ft_ls(char **av)
 	array->i = 0;
 	while ((tmp = ft_array$next(array)))
 	{
-		if (array->i)
-			ft_printf("\n%s:\n", tmp->name);
-		handle_r(tmp, &ls.options);
+		handle_r("", tmp, &ls.options);
 	}
-	// je parcours cette list tant que je n'ai pas eu de
-
-	// ici
 
 	return (0);
 }

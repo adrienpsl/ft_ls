@@ -18,10 +18,6 @@
 # include "libft.h"
 
 #define STAT  1
-#define LSTAT 2
-
-
-# define LS_OPTIONS "aRl"
 
 typedef struct s_file
 {
@@ -42,13 +38,17 @@ typedef struct s_ls_options
 	unsigned long all: 1;
 	unsigned long recursif: 1;
 	unsigned long long_format: 1;
-	unsigned long sort_time: 1; //
+	unsigned long reverse: 1;
+	unsigned long sort_time: 1; // t
 	unsigned long sort_last_access: 1; // u
 	unsigned long sort_size: 1; // S
 	unsigned long sort_status_change: 1; // c
 	unsigned long av_mode: 1;
+	unsigned long custom_sort: 1;
 
 } t_ls_options;
+
+# define LS_OPTIONS "aRlrtuSc"
 
 typedef struct t_length {
 	int uid;
