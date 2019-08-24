@@ -36,7 +36,7 @@ void print_file(t_array *array, t_options *options, t_length *length)
 			)
 		{
 			options->is_first = 0;
-			ft_array$func(files, line_print_long,
+			ft_array$func(files, ls$print_array,
 						  generate_arr_ptr(options, length));
 			ft_array$free(&files);
 		}

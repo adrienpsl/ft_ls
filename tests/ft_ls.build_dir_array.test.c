@@ -57,7 +57,7 @@ static int utils(char *av_str, char *result)
 
 	t_array *test_array = ls$build_av_array(&options, av, &length);
 
-	ft_array$func(test_array, line_print_long, &length);
+	ft_array$func(test_array, ls$print_array, &length);
 
 	ft_array$free(&test_array);
 	ft_strsplit_free(&av_split);

@@ -43,12 +43,13 @@ typedef struct s_ls_options
 	unsigned long sort_last_access: 1; // u
 	unsigned long sort_size: 1; // S
 	unsigned long sort_status_change: 1; // c
+	unsigned long one_line: 1; // 1
 	unsigned long av_mode: 1;
 	unsigned long custom_sort: 1;
 	unsigned long is_first: 1;
 } t_options;
 
-# define LS_OPTIONS "aRlrtuSc"
+# define LS_OPTIONS "aRlrtuSc1"
 
 typedef struct t_length
 {
@@ -100,14 +101,13 @@ t_array *
 ls$generate_files_array(char *dir_path, t_options *options, t_length *length);
 
 void test_ft_ls$main_test();
-int line_print_long(void *p_el, void *param);
 
 /*
 **	test delete
 */
 int print_link_test(void *p_link, void *n);
 int line_print(void *p_el, void *param);
-int line_print_long(void *p_el, void *param);
+int ls$print_array(void *p_el, void *param);
 
 void
 ls$add_type_right_acl_hardlink(t_file *file, struct stat *fs, char *full_path);
