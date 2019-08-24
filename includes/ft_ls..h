@@ -45,6 +45,7 @@ typedef struct s_ls_options
 	unsigned long sort_status_change: 1; // c
 	unsigned long av_mode: 1;
 	unsigned long custom_sort: 1;
+	unsigned long is_first: 1;
 } t_options;
 
 # define LS_OPTIONS "aRlrtuSc"
@@ -56,6 +57,7 @@ typedef struct t_length
 	int size;
 	int hard_link;
 	int name;
+	int total;
 } t_length;
 
 typedef struct s_ls
@@ -78,10 +80,13 @@ add_sort_param(t_file *file, struct stat *fs, t_options *options);
 */
 int print_link(void *p_link, void *n);
 struct stat *get_stat(char *path, int mode);
+void **generate_arr_ptr(t_options *options, t_length *length);
 
 int print_func(void *p_element, void *p_param);
 
 t_array *ls$build_av_array(t_options *options, char **av, t_length *length);
+
+int ls$handle_files_array(char *path, t_file *file, t_options *options);
 
 /*
 **	--- parsing ----------------------------------------------------------------

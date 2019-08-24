@@ -66,23 +66,23 @@ fill_array_with_argv(char **av, t_options *options, t_array **array,
 t_array *ls$build_av_array(t_options *options, char **av, t_length *length)
 {
 	static char *no_argv[2] = { "." };
-	t_array *dir_array;
+	t_array *dirs;
 
 	if (
 		!options->long_format
 		)
 		options->av_mode = 1;
 	if (
-		NULL == (dir_array = ft_array$init(50, sizeof(t_file)))
+		NULL == (dirs = ft_array$init(50, sizeof(t_file)))
 		)
 		return (NULL);
 	{
 		if (*av)
-			fill_array_with_argv(av, options, &dir_array, length);
+			fill_array_with_argv(av, options, &dirs, length);
 		else
-			fill_array_with_argv(no_argv, options, &dir_array, length);
+			fill_array_with_argv(no_argv, options, &dirs, length);
 	}
-	ft_array$sort_bubble(dir_array, ls_parsing$sort_func, NULL);
+	ft_array$sort_bubble(dirs, ls_parsing$sort_func, NULL);
 	options->av_mode = 0;
-	return (dir_array);
+	return (dirs);
 }

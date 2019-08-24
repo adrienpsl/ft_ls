@@ -1,5 +1,7 @@
 # todo
 
+-> add total
+-> add 
 
 1. parse option.
 2. parse argument.

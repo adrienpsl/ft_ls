@@ -59,7 +59,6 @@ struct stat *get_stat(char *path, int mode)
 	return (ret ? NULL : &fs);
 }
 
-
 int line_print(void *p_el, void *param)
 {
 	t_file *file;
@@ -75,19 +74,36 @@ int line_print_long(void *p_el, void *param)
 {
 	t_file *file;
 	t_length *length;
+	t_options *options;
+	void **tab_ptr;
 
-	length = param;
+	tab_ptr = param;
+	options = tab_ptr[0];
+	length = tab_ptr[1];
 	file = p_el;
-
-	printf("%s ", file->type);
-	printf("%*s ", length->hard_link, file->hardlink_nb);
-	printf("%-*s  ", length->uid, file->uid);
-	printf("%-*s  ", length->gid, file->gid);
-	printf("%*s ", length->size, file->size);
-	printf("%s ", file->time);
-	printf("%s", file->name);
-	if (file->link[0])
-		printf(" -> %s", file->link);
+	if (!options->all && file->name[0] == '.')
+		return (0);
+	if (options->all)
+	{
+		printf("%s ", file->type);
+		printf("%*s ", length->hard_link, file->hardlink_nb);
+		printf("%-*s  ", length->uid, file->uid);
+		printf("%-*s  ", length->gid, file->gid);
+		printf("%*s ", length->size, file->size);
+		printf("%s ", file->time);
+		printf("%s", file->name);
+		if (file->link[0])
+			printf(" -> %s", file->link);
+	}
 	printf("\n");
 	return (0);
+}
+
+void **generate_arr_ptr(t_options *options, t_length *length)
+{
+	static void *tab[2] = { 0 };
+
+	tab[0] = options;
+	tab[1] = length;
+	return (tab);
 }

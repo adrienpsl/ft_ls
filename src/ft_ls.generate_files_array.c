@@ -28,6 +28,7 @@ fill_file_element(char *full_path, char *file_name, t_options *options,
 		ls$add_type_right_acl_hardlink(&file, fs, full_path);
 		ls$add_size_uid$guid_name_link(&file, fs, full_path, file_name);
 		ls$add_sort$param_time_max$length(&file, fs, options, length);
+		length->total += fs->st_blocks;
 		return (&file);
 	}
 	else
@@ -72,11 +73,11 @@ ls$generate_files_array(char *dir_path, t_options *options, t_length *length)
 	struct dirent *dp;
 	DIR *dir;
 	t_file *file;
-	t_array *array;
+	t_array *files;
 
 	if (
 		NULL == (dir = opendir(dir_path))
-		|| NULL == (array = ft_array$init(100, sizeof(t_file)))
+		|| NULL == (files = ft_array$init(100, sizeof(t_file)))
 		)
 		return (NULL);
 	while (
@@ -88,10 +89,13 @@ ls$generate_files_array(char *dir_path, t_options *options, t_length *length)
 				build_full_path(dir_path, dp->d_name),
 				dp->d_name, options, length))
 			)
-			ft_array$push(&array, file);
+			ft_array$push(&files, file);
 	}
-	ft_array$sort_bubble(array, ls_array$sort_func, options);
-	return (array);
+	if (
+		files->length > 2
+		)
+		ft_array$sort_bubble(files, ls_array$sort_func, options);
+	return (files);
 }
 
 
