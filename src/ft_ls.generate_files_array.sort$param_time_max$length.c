@@ -52,23 +52,29 @@ void add_sort_param(t_file *file, struct stat *fs, t_options *options)
 		file->sort_data = fs->st_atimespec.tv_sec;
 }
 
-int ls_array$sort_func(void *a, void *b, void *p_param)
+static void update_if_bigger(char *new, int *old)
 {
-	t_file *f_1;
-	t_file *f_2;
-	int ret;
-	t_options *options;
+	int size;
 
-	f_1 = a;
-	f_2 = b;
-	options = p_param;
+	size = ft_strlen(new);
+	if (size > *old)
+		*old = size;
+}
 
-	if (
-		options->custom_sort
-		&& f_1->sort_data != f_2->sort_data
-		)
-		ret = f_1->sort_data < f_1->sort_data;
-	else
-		ret = ft_str_cmp(f_1->name, f_2->name) > 0;
-	return (options->reverse ? !ret : ret);
+static void add_max_length(t_file *file, t_length *length)
+{
+	update_if_bigger(file->uid, &length->uid);
+	update_if_bigger(file->gid, &length->gid);
+	update_if_bigger(file->size, &length->size);
+	update_if_bigger(file->hardlink_nb, &length->hard_link);
+	update_if_bigger(file->name, &length->name);
+}
+
+void
+ls$add_sort$param_time_max$length(t_file *file, struct stat *fs,
+	t_options *options, t_length *length)
+{
+	add_sort_param(file, fs, options);
+	add_time(file->sort_data, file->time, options);
+	add_max_length(file, length);
 }

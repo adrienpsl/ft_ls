@@ -15,11 +15,8 @@
 #include <sys/types.h>
 #include "ft_ls..h"
 
-void add_hardlink_and_size(t_file *file, struct stat *fs)
+static void add_size(t_file *file, struct stat *fs)
 {
-	{
-		ft_itoa_unsigned(fs->st_nlink, BASE_10, file->hardlink_nb);
-	}
 	if (
 		file->type[0] == 'b' || file->type[0] == 'c'
 		)
@@ -36,19 +33,27 @@ void add_hardlink_and_size(t_file *file, struct stat *fs)
 		ft_itoa_unsigned(fs->st_size, BASE_10, file->size);
 }
 
-void add_uid_gid(t_file *file, struct stat *fs)
+static void add_uid_gid(t_file *file, struct stat *fs)
 {
 	// handle the n option
 	ft_strcat(file->uid, getpwuid(fs->st_uid)->pw_name);
 	ft_strcat(file->gid, getgrgid(fs->st_gid)->gr_name);
 }
 
-void add_file_and_link_name(t_file *file, char *file_name, char *full_path,
-	struct stat *fs)
+static void
+add_file_and_link_name(t_file *file, struct stat *fs, char *full_path,
+	char *file_name)
 {
 	ft_strcat(file->name, file_name);
 	if ((S_IFMT & fs->st_mode) == S_IFLNK)
 		readlink(full_path, file->link, PATH_MAX);
 }
 
-
+void
+ls$add_size_uid$guid_name_link(t_file *file, struct stat *fs, char *full_path,
+	char *file_name)
+{
+	add_size(file, fs);
+	add_uid_gid(file, fs);
+	add_file_and_link_name(file, fs, full_path, file_name);
+}

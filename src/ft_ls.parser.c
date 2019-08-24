@@ -12,6 +12,7 @@
 
 # include "ft_ls..h"
 # include "string.h"
+# include "../src/ft_ls.generate_files_array.c"
 
 int ls_parsing$sort_func(void *a, void *b, void *param)
 {
@@ -29,7 +30,6 @@ int ls_parsing$sort_func(void *a, void *b, void *param)
 	else
 		return (f_1->is_dir < f_2->is_dir ? 0 : 1);
 }
-
 
 static void
 fill_array_with_argv(char **av, t_options *options, t_array **array,

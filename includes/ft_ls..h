@@ -66,20 +66,9 @@ typedef struct s_ls
 
 int ft_ls(char **av);
 
-t_file *
-fill_file_element(char *full_path, char *file_name, t_options *options,
-	t_length *length);
-
 /*
 **	print element
 */
-void add_hardlink_and_size(t_file *file, struct stat *fs);
-void add_uid_gid(t_file *file, struct stat *fs);
-void add_file_and_link_name(t_file *file, char *file_name, char *full_path,
-	struct stat *fs);
-void add_right(char *buff, const mode_t mode);
-void add_type(t_file *file, const mode_t mode);
-int add_acl_extended(char *buff, char *path);
 void add_time(long int time_nb, char *buffer, t_options *options);
 void
 add_sort_param(t_file *file, struct stat *fs, t_options *options);
@@ -100,11 +89,8 @@ t_array *ls$build_av_array(t_options *options, char **av, t_length *length);
 int ls_parsing$sort_func(void *a, void *b, void *param);
 int ls_parsing$first_dir_func(void *p_el, void *param);
 
-int ls_array$sort_func(void *a, void *b, void *p_param);
-
 int ls$catch_options(char ***p_av, t_options *option);
 
-void add_file_attribute(char *buff, char *path, mode_t mode);
 t_array *
 ls$generate_files_array(char *dir_path, t_options *options, t_length *length);
 
@@ -117,5 +103,16 @@ int line_print_long(void *p_el, void *param);
 int print_link_test(void *p_link, void *n);
 int line_print(void *p_el, void *param);
 int line_print_long(void *p_el, void *param);
+
+void
+ls$add_type_right_acl_hardlink(t_file *file, struct stat *fs, char *full_path);
+
+void
+ls$add_size_uid$guid_name_link(t_file *file, struct stat *fs, char *full_path,
+	char *file_name);
+
+void
+ls$add_sort$param_time_max$length(t_file *file, struct stat *fs,
+	t_options *options, t_length *length);
 
 #endif

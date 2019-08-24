@@ -13,25 +13,7 @@
 
 #include <dirent.h>
 
-static void update_if_bigger(char *new, int *old)
-{
-	int size;
-
-	size = ft_strlen(new);
-	if (size > *old)
-		*old = size;
-}
-
-static void add_max_length(t_file *file, t_length *length)
-{
-	update_if_bigger(file->uid, &length->uid);
-	update_if_bigger(file->gid, &length->gid);
-	update_if_bigger(file->size, &length->size);
-	update_if_bigger(file->hardlink_nb, &length->hard_link);
-	update_if_bigger(file->name, &length->name);
-}
-
-t_file *
+static t_file *
 fill_file_element(char *full_path, char *file_name, t_options *options,
 	t_length *length)
 {
@@ -43,15 +25,9 @@ fill_file_element(char *full_path, char *file_name, t_options *options,
 		(fs = get_stat(full_path, options->av_mode))
 		)
 	{
-		add_type(&file, fs->st_mode);
-		add_right(file.type + 1, fs->st_mode);
-		add_acl_extended(file.type + 10, full_path);
-		add_hardlink_and_size(&file, fs);
-		add_uid_gid(&file, fs);
-		add_file_and_link_name(&file, file_name, full_path, fs);
-		add_sort_param(&file, fs, options);
-		add_time(file.sort_data, file.time, options);
-		add_max_length(&file, length);
+		ls$add_type_right_acl_hardlink(&file, fs, full_path);
+		ls$add_size_uid$guid_name_link(&file, fs, full_path, file_name);
+		ls$add_sort$param_time_max$length(&file, fs, options, length);
 		return (&file);
 	}
 	else
@@ -67,6 +43,27 @@ static char *build_full_path(char *dir_path, char *name)
 	ft_strcat(full_path, "/");
 	ft_strcat(full_path, name);
 	return (full_path);
+}
+
+static int ls_array$sort_func(void *a, void *b, void *p_param)
+{
+	t_file *f_1;
+	t_file *f_2;
+	int ret;
+	t_options *options;
+
+	f_1 = a;
+	f_2 = b;
+	options = p_param;
+
+	if (
+		options->custom_sort
+		&& f_1->sort_data != f_2->sort_data
+		)
+		ret = f_1->sort_data < f_1->sort_data;
+	else
+		ret = ft_str_cmp(f_1->name, f_2->name) > 0;
+	return (options->reverse ? !ret : ret);
 }
 
 t_array *
