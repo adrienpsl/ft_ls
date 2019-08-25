@@ -1,0 +1,1 @@
+ls -d ./test/**/* | entr ./test.sh

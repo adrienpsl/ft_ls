@@ -45,11 +45,15 @@ void ls$print_col(t_array *files, t_length *length, t_options *options)
 	ioctl(0, TIOCGWINSZ, &ts);
 	col_size = (ts.ts_cols / length->name) + 1;
 	if (options->one_line)
+	{
 		col_size = 1;
+		length->name = 0;
+	}
 	line_size = (files->length / col_size);
 	if (line_size == 0)
 	    line_size = 1;
 //	printf("%d %d\n", col_size, line_size);
+    ;
 	while (i < line_size)
 	{
 		y = 0;
