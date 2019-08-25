@@ -74,7 +74,7 @@ int ls$handle_files_array(char *path, t_file *file, t_options *options)
 		(files = ls$generate_files_array(full_path, options, &length))
 		)
 	{
-		ls$print(files, options, &length);
+		ls$print(files, options, &length, 1);
 		do_recursive(full_path, options, files);
 		ft_array$free(&files);
 	}

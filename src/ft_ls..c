@@ -35,7 +35,7 @@ void print_file(t_array *array, t_options *options, t_length *length)
 			)
 		{
 			options->is_first = 0;
-			ls$print(files, options, length);
+			ls$print(files, options, length, 0);
 			ft_array$free(&files);
 		}
 	}

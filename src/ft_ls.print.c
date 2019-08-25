@@ -72,13 +72,15 @@ void ls$print_col(t_array *files, t_length *length, t_options *options)
 	}
 }
 
-void ls$print(t_array *files, t_options *options, t_length *length)
+void
+ls$print(t_array *files, t_options *options, t_length *length, int print_total)
 {
 	if (options->long_format)
 	{
-		printf("total %d\n", length->total);
+		if (print_total)
+			printf("total %d\n", length->total);
 		ft_array$func(files, print_long,
-			length);
+					  length);
 	}
 	else
 		ls$print_col(files, length, options);
