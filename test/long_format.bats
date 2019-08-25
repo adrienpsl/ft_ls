@@ -1,52 +1,44 @@
 #!/usr/bin/env ./test/libs/bats/bin/bats
 
 # the first one is mine
+# ------------------------------------------------------------------------------
+#    load all the good stuff
+# ------------------------------------------------------------------------------
 
 load 'libs/utils'
 
-@test "long format : file : one - no argv" {
+# ------------------------------------------------------------------------------
+#    with no argv ( only -l )
+# ------------------------------------------------------------------------------
+
+@test "long format | no argv : one file" {
     touch a
     command_equal -l
 }
 
-@test "long format : file : two - no argv" {
+@test "long format | no argv : two file" {
     touch a b
     command_equal -l
 }
 
-@test "long format : file : three - no argv" {
+@test "long format | no argv : three file" {
     touch a b c
     command_equal -l
 }
 
-@test "long format : file : one - argv" {
-    touch a b c
-    command_equal -l b
-}
-
-@test "long format : file : two - argv" {
-    touch a b c
-    command_equal -l a c
-}
-
-@test "long format : file : three - argv" {
-    touch a b c
-    command_equal -l a b c
-}
-
-@test "long format : right : 777" {
+@test "long format | no argv : right : 777" {
     touch file
     chmod 777 file
-    command_equal -l file
+    command_equal -l
 }
 
-@test "long format : right : 000" {
+@test "long format | no argv : right : 000" {
     touch file
     chmod 000 file
     command_equal -l
 }
 
-@test "long format : right : mixed" {
+@test "long format | no argv : right : mixed" {
     touch file_064 file_474 file_640 file_123 file_420
     chmod 064 file_640
     chmod 474 file_474
@@ -64,7 +56,7 @@ load 'libs/utils'
     command_equal -l
 }
 
-@test "long format : special bits : file :  mixed" {
+@test "long format | no argv : special bits : file :  mixed" {
     touch file1 && chmod 0777 file1
     touch file2 && chmod 1777 file2
     touch file3 && chmod 2777 file3
@@ -85,7 +77,7 @@ load 'libs/utils'
     command_equal -l
 }
 
-@test "long format : special bits : directory : mixed" {
+@test "long format | no argv : special bits : directory : mixed" {
     mkdir  dir1 && chmod 0777 dir1
     mkdir  dir2 && chmod 1777 dir2
     mkdir  dir3 && chmod 2777 dir3
@@ -106,3 +98,50 @@ load 'libs/utils'
     command_equal -l
 }
 
+@test "long format | no argv : date" {
+    touch -t 204201010101 futur
+    touch -t 199812312459 past
+    touch                 current
+
+    command_equal -l
+}
+
+@test "long format | no argv : symlik" {
+  mkdir directory
+  touch directory/file
+
+  ln -s directory      dir_symlik
+  ln -s directory/file file_symlik
+
+  ln -s dir_symlik     sym_symlik_0
+  ln -s sym_symlik_0   sym_symlik_1
+  ln -s sym_symlik_1   sym_symlik_2
+
+  command_equal -l
+}
+
+@test "long format | no argv : mixed test" {
+  touch a b c && echo 'coucou' > a &&  echo 'hello world' > b
+  mkdir 111 222 333 444 && touch 111/{a,b,c} && echo 'eat pizza' > 111/a
+
+  command_equal -l
+}
+
+# ------------------------------------------------------------------------------
+#    with argv
+# ------------------------------------------------------------------------------
+
+@test "long format | argv : file : one" {
+    touch a b c
+    command_equal -l b
+}
+
+@test "long format | argv : file : two" {
+    touch a b c
+    command_equal -l a c
+}
+
+@test "long format | argv : file : three" {
+    touch a b c
+    command_equal -l a b c
+}
