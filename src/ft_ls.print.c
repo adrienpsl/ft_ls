@@ -43,6 +43,8 @@ void ls$print_col(t_array *files, t_length *length, t_options *options)
 	int y = 0;
 
 	ioctl(0, TIOCGWINSZ, &ts);
+	if (length->name == 0)
+		return;
 	col_size = (ts.ts_cols / length->name) + 1;
 	if (options->one_line)
 	{
