@@ -30,11 +30,6 @@ void add_time(long int time_nb, char *buffer, t_options *options)
 	ft_memcpy(buffer, ctime(&time_nb) + 4, 12);
 	if (active_year)
 		ft_memcpy(buffer + 7, ctime(&time_nb) + 19, 5);
-	//	if ((option & FT_LS_O_T) /*&& active_year*/)
-	//	{
-	//		ft_mem_copy(out, ctime(&time_nb) + 4, 20);
-	//		ret = 20;
-	//	}
 }
 
 /*

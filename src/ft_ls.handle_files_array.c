@@ -29,10 +29,11 @@ static char *build_path(char *full_path, char *path, t_file *file)
 
 static void print_path(char *full_path, t_options *options)
 {
-	if (!options->is_first)
-		ft_printf("\n%s:\n", full_path);
-	else
-		options->is_first = 0;
+	if (options->is_argv && options->is_first)
+		printf("%s:\n", full_path);
+	else if (!options->is_first)
+		printf("\n%s:\n", full_path);
+	options->is_first = 0;
 }
 /*
 **	the first line is for pass the . et .. file
@@ -57,7 +58,6 @@ static void do_recursive(char *full_path, t_options *options, t_array *files)
 		}
 	}
 }
-
 
 int ls$handle_files_array(char *path, t_file *file, t_options *options)
 {

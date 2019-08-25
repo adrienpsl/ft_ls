@@ -55,6 +55,8 @@ int ft_ls(char **av)
 		return (-1);
 	print_file(argv, &options, &length);
 	argv->i = 0;
+	if (argv->length > 1)
+	    options.is_argv = 1;
 	while (
 		(tmp = ft_array$next(argv))
 		)

@@ -145,3 +145,19 @@ load 'libs/utils'
     touch a b c
     command_equal -l a b c
 }
+
+@test "long format | argv : directory : one" {
+    mkdir directory
+    touch directory/file_{1..20}
+    command_equal -l directory
+}
+
+@test "long format | argv : directory : two" {
+    mkdir directory_1 directory_2
+    touch directory_1/file_{1..20} directory_2/file_{1..20}
+    command_equal -l directory_1 directory_2
+}
+
+
+
+# test with directory // test with symlink // test all type file, where there are ?

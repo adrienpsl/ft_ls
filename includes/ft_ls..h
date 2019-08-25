@@ -47,6 +47,7 @@ typedef struct s_ls_options
 	unsigned long av_mode: 1;
 	unsigned long custom_sort: 1;
 	unsigned long is_first: 1;
+	unsigned long is_argv: 1;
 } t_options;
 
 # define LS_OPTIONS "aRlrtuSc1"
