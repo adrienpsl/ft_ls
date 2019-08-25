@@ -80,16 +80,12 @@ ls$generate_files_array(char *dir_path, t_options *options, t_length *length)
 		return (NULL);
 	while ((dp = readdir(dir)))
 		if (
-			(file = fill_file_element(
+			0 == (dp->d_name[0] == '.' && !options->all)
+			&& (file = fill_file_element(
 				build_full_path(dir_path, dp->d_name), dp->d_name,
 				options, length))
 			)
-		{
-			if (file->name[0] == '.' && !options->all)
-				continue;
-			else
-				ft_array$push(&files, file);
-		}
+			ft_array$push(&files, file);
 	ft_array$sort_bubble(files, ls_array$sort_func, options);
 	return (files);
 }

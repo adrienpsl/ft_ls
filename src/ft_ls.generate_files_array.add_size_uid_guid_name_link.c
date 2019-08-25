@@ -24,13 +24,13 @@ static void add_size(t_file *file, struct stat *fs)
 		ft_sprintf(file->size, "%3d,", major(fs->st_rdev));
 		{
 			minor(fs->st_rdev) > 255 ?
-			ft_sprintf(file->size, "%10d", minor(fs->st_rdev))
+			ft_sprintf(file->size, "%10x", minor(fs->st_rdev))
 									 :
 			ft_sprintf(file->size, "%4d", minor(fs->st_rdev));
 		}
 	}
 	else
-		ft_itoa_unsigned(fs->st_size, BASE_10, file->size);
+		ft_sprintf(file->size, "%d", fs->st_size);
 }
 
 static void add_uid_gid(t_file *file, struct stat *fs)

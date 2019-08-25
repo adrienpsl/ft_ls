@@ -23,13 +23,6 @@ function command_equal() {
     ft_ls=$(../../ft_ls "$@")
     assert_equal "$ls" "$ft_ls"
 }
-
-function command_output() {
-    ls=$(ls "$@")
-    run ../../ft_ls "$@"
-}
-
-
 @test "test hyphen one hyphen" {
     # setup
     touch file -
@@ -63,12 +56,18 @@ function command_output() {
     command_equal -1 -- ---dir
 }
 
-#@test "test hyphen and option" {
-#    # setup
-#    mkdir file_1 file_2
-#
-#    # tests
-#    command_equal -- -1 -- file_1
-#    assert_output  "$ls"
-#    echo $ls > ../toto
-#}
+@test "test double hyphen stop catching option" {
+    # setup
+    touch file
+
+    # tests
+    run ../../ft_ls -1 -- -a file
+    out=$(printf "ls: -a: No such file or directory\nfile")
+    assert_output "$out"
+}
+
+@test "long format test" {
+    touch a b c
+    command_equal -l
+
+}

@@ -51,9 +51,8 @@ void ls$print_col(t_array *files, t_length *length, t_options *options)
 	}
 	line_size = (files->length / col_size);
 	if (line_size == 0)
-	    line_size = 1;
-//	printf("%d %d\n", col_size, line_size);
-    ;
+		line_size = 1;
+	//	printf("%d %d\n", col_size, line_size);
 	while (i < line_size)
 	{
 		y = 0;
@@ -74,8 +73,11 @@ void ls$print_col(t_array *files, t_length *length, t_options *options)
 void ls$print(t_array *files, t_options *options, t_length *length)
 {
 	if (options->long_format)
+	{
+		printf("total %d\n", length->total);
 		ft_array$func(files, print_long,
-					  length);
+			length);
+	}
 	else
 		ls$print_col(files, length, options);
 }
