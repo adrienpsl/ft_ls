@@ -72,29 +72,25 @@ ls$generate_files_array(char *dir_path, t_options *options, t_length *length)
 {
 	struct dirent *dp;
 	DIR *dir;
-	t_file *file;
 	t_array *files;
+	t_file *file;
 
-	if (
-		NULL == (dir = opendir(dir_path))
-		|| NULL == (files = ft_array$init(100, sizeof(t_file)))
-		)
+	if (NULL == (dir = opendir(dir_path))
+		|| NULL == (files = ft_array$init(100, sizeof(t_file))))
 		return (NULL);
-	while (
-		(dp = readdir(dir))
-		)
-	{
+	while ((dp = readdir(dir)))
 		if (
 			(file = fill_file_element(
-				build_full_path(dir_path, dp->d_name),
-				dp->d_name, options, length))
+				build_full_path(dir_path, dp->d_name), dp->d_name,
+				options, length))
 			)
-			ft_array$push(&files, file);
-	}
-	if (
-		files->length > 2
-		)
-		ft_array$sort_bubble(files, ls_array$sort_func, options);
+		{
+			if (file->name[0] == '.' && !options->all)
+				continue;
+			else
+				ft_array$push(&files, file);
+		}
+	ft_array$sort_bubble(files, ls_array$sort_func, options);
 	return (files);
 }
 

@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/ttycom.h>
+#include <sys/ioctl.h>
 #include "ft_ls..h"
 # include "string.h"
 
@@ -32,12 +34,14 @@ static void print_path(char *full_path, t_options *options)
 	else
 		options->is_first = 0;
 }
-
+/*
+**	the first line is for pass the . et .. file
+*/
 static void do_recursive(char *full_path, t_options *options, t_array *files)
 {
 	t_file *file;
 
-	files->i = 2;
+	files->i = options->all ? 2 : 0;
 	if (
 		options->recursif
 		)
@@ -48,13 +52,12 @@ static void do_recursive(char *full_path, t_options *options, t_array *files)
 		{
 			if (file->is_dir)
 			{
-				if (options->all == 0 && file->name[0] == '.')
-					continue;
 				ls$handle_files_array(full_path, file, options);
 			}
 		}
 	}
 }
+
 
 int ls$handle_files_array(char *path, t_file *file, t_options *options)
 {
@@ -71,8 +74,7 @@ int ls$handle_files_array(char *path, t_file *file, t_options *options)
 		(files = ls$generate_files_array(full_path, options, &length))
 		)
 	{
-		ft_array$func(files,ls$print_array,
-					  generate_arr_ptr(options, &length));
+		ls$print(files, options, &length);
 		do_recursive(full_path, options, files);
 		ft_array$free(&files);
 	}

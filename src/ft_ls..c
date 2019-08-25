@@ -18,7 +18,6 @@ int ls_parsing$first_dir_func(void *p_el, void *param)
 	t_file *file;
 
 	file = p_el;
-
 	return (
 		file->is_dir
 	);
@@ -36,8 +35,7 @@ void print_file(t_array *array, t_options *options, t_length *length)
 			)
 		{
 			options->is_first = 0;
-			ft_array$func(files, ls$print_array,
-						  generate_arr_ptr(options, length));
+			ls$print(files, options, length);
 			ft_array$free(&files);
 		}
 	}

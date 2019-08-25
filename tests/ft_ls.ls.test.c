@@ -33,7 +33,6 @@ void test_ft_ls()
 	(void)utils;
 	g_test = 0;
 //	utils("-l /var/run/mDNSResponder /", "");
-	utils("-lRa test_dir test_dir/fifo", "/test_dir");
-
+	utils("test_dir test_dir/fifo", "/test_dir");
 
 }

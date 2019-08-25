@@ -10,28 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/ioctl.h>
 #include "ft_ls..h"
-#include <sys/stat.h>
-#include <sys/acl.h>
-#include <sys/xattr.h>
 
-int print_func(void *p_element, void *p_param)
+static int print_long(void *el, void *param)
 {
 	t_file *file;
-	t_options *options;
+	t_length *length;
 
-	file = p_element;
-	options = p_param;
-
-	// arriver la j'ai le juste le path, et je vais a partir de la print mon element,
-	// pour le mement je vais juste print les noms.
-	ft_printf("%s", file->name);
-
-	return (0);
-}
-
-void print_long_formant(t_file *file, t_length *length)
-{
+	file = el;
+	length = param;
 	printf("%s ", file->type);
 	printf("%*s ", length->hard_link, file->hardlink_nb);
 	printf("%-*s  ", length->uid, file->uid);
@@ -42,39 +30,48 @@ void print_long_formant(t_file *file, t_length *length)
 	if (file->link[0])
 		printf(" -> %s", file->link);
 	printf("\n");
-}
-
-int ls$print_array(void *p_el, void *param)
-{
-	t_file *file;
-	t_length *length;
-	t_options *options;
-
-	options = ((void **)param)[0];
-	length = ((void **)param)[1];
-	file = p_el;
-	if (
-		!options->all && file->name[0] == '.'
-		)
-		return (0);
-
-	if (
-		options->long_format
-		)
-		print_long_formant(file, length);
-	else
-		(void)1;
 	return (0);
 }
 
-//int ls$print(t_array *array, t_ls_options *options)
-//{
-//	t_file *file;
-//
-//	while (
-//		NULL != (file)
-//		)
-//	{
-//	    ;
-//	}
-//}
+void ls$print_col(t_array *files, t_length *length, t_options *options)
+{
+	struct ttysize ts;
+	int col_size;
+	int line_size;
+	t_file *file;
+	int i = 0;
+	int y = 0;
+
+	ioctl(0, TIOCGWINSZ, &ts);
+	col_size = (ts.ts_cols / length->name) + 1;
+	if (options->one_line)
+		col_size = 1;
+	line_size = (files->length / col_size);
+	if (line_size == 0)
+	    line_size = 1;
+//	printf("%d %d\n", col_size, line_size);
+	while (i < line_size)
+	{
+		y = 0;
+		while (y < col_size)
+		{
+			if (i + (y * line_size) < files->length)
+			{
+				file = ft_array$at(files, i + (y * line_size));
+				printf("%-*s", length->name, file->name);
+			}
+			y++;
+		}
+		printf("\n");
+		i++;
+	}
+}
+
+void ls$print(t_array *files, t_options *options, t_length *length)
+{
+	if (options->long_format)
+		ft_array$func(files, print_long,
+					  length);
+	else
+		ls$print_col(files, length, options);
+}

@@ -75,15 +75,13 @@ int ft_ls(char **av);
 void add_time(long int time_nb, char *buffer, t_options *options);
 void
 add_sort_param(t_file *file, struct stat *fs, t_options *options);
+void ls$print(t_array *files, t_options *options, t_length *length);
 
 /*
 **	utils
 */
-int print_link(void *p_link, void *n);
 struct stat *get_stat(char *path, int mode);
 void **generate_arr_ptr(t_options *options, t_length *length);
-
-int print_func(void *p_element, void *p_param);
 
 t_array *ls$build_av_array(t_options *options, char **av, t_length *length);
 
@@ -101,13 +99,6 @@ t_array *
 ls$generate_files_array(char *dir_path, t_options *options, t_length *length);
 
 void test_ft_ls$main_test();
-
-/*
-**	test delete
-*/
-int print_link_test(void *p_link, void *n);
-int line_print(void *p_el, void *param);
-int ls$print_array(void *p_el, void *param);
 
 void
 ls$add_type_right_acl_hardlink(t_file *file, struct stat *fs, char *full_path);
