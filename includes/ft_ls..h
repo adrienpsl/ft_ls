@@ -75,7 +75,8 @@ int ft_ls(char **av);
 void add_time(long int time_nb, char *buffer, t_options *options);
 void
 add_sort_param(t_file *file, struct stat *fs, t_options *options);
-void ls$print(t_array *files, t_options *options, t_length *length);
+void
+ls$print(t_array *files, t_options *options, t_length *length, int print_total);
 
 /*
 **	utils

@@ -51,9 +51,9 @@ static void add_right(char *buff, const mode_t mode)
 		)
 	{
 		buff[i] = (mode & (1 << (8 - i))) ? rights[i] : '-';
-		if (i == 3 && (mode & S_ISUID))
+		if (i == 2 && (mode & S_ISUID))
 			buff[i] = buff[i] == 'x' ? 's' : 'S';
-		else if (i == 6 && (mode & S_ISGID))
+		else if (i == 5 && (mode & S_ISGID))
 			buff[i] = buff[i] == 'x' ? 's' : 'S';
 		else if (i == 8 && (mode & S_ISVTX))
 			buff[i] = buff[i] == 'x' ? 't' : 'T';
