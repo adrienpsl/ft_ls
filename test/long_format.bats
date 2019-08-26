@@ -98,7 +98,7 @@ load 'libs/utils'
     command_equal -l
 }
 
-@test "long format | no argv : date" {
+@test "long format | no argv : time" {
     touch -t 204201010101 futur
     touch -t 199812312459 past
     touch                 current
@@ -203,4 +203,10 @@ load 'libs/utils'
 
     run diff a b
     assert_output ""
+}
+
+@test "long format | argv : fifo " {
+    touch file
+    mkfifo toto
+    command_equal -l file toto
 }
