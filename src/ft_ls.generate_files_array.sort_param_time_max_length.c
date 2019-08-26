@@ -56,8 +56,10 @@ static void update_if_bigger(char *new, int *old)
 		*old = size;
 }
 
-static void add_max_length(t_file *file, t_length *length)
+static void add_max_length(t_file *file, t_length *length, t_options *options)
 {
+	if (options->is_argv && file->is_dir)
+		return;
 	update_if_bigger(file->uid, &length->uid);
 	update_if_bigger(file->gid, &length->gid);
 	update_if_bigger(file->size, &length->size);
@@ -71,5 +73,5 @@ ls$add_sort$param_time_max$length(t_file *file, struct stat *fs,
 {
 	add_sort_param(file, fs, options);
 	add_time(file->sort_data, file->time, options);
-	add_max_length(file, length);
+	add_max_length(file, length, options);
 }

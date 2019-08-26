@@ -37,6 +37,7 @@ fill_array_with_argv(char **av, t_options *options, t_array **array,
 {
 	t_file *file;
 
+	options->is_argv = 1;
 	while (NULL != *av)
 	{
 		if (
@@ -52,6 +53,7 @@ fill_array_with_argv(char **av, t_options *options, t_array **array,
 			ft_printf("ls: %s: %s\n", *av, strerror(errno));
 		av++;
 	}
+	options->is_argv = 0;
 }
 
 /**

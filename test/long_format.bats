@@ -159,5 +159,19 @@ load 'libs/utils'
 }
 
 
+@test "long format | argv : directory and file : mixed" {
+    mkdir directory_1 DIR_2 _directory_3
+    touch DIR_2/file_{1..20} _directory_3/file_{1..20} .hidden
+
+    ln -s directory_1 sym_dir_1
+    ln -s DIR_2 sym_DIR_2
+
+    touch file_1 file_2 .hidde
+    ln -s file_1 sym_file_1
+
+    command_equal -l file_1 file_2 directory_1 DIR_2 sym_dir_1 _directory_3 sym_DIR_2 .hidden
+}
+
+
 
 # test with directory // test with symlink // test all type file, where there are ?

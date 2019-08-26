@@ -77,7 +77,7 @@ ls$print(t_array *files, t_options *options, t_length *length, int print_total)
 {
 	if (options->long_format)
 	{
-		if (print_total)
+		if (print_total && files->length)
 			printf("total %d\n", length->total);
 		ft_array$func(files, print_long,
 					  length);
