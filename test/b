@@ -1,7 +1,0 @@
-ls: file_1: No such file or directory
-ls: file_2: No such file or directory
-ls: directory_1: No such file or directory
-ls: DIR_2: No such file or directory
-ls: sym_dir_1: No such file or directory
-ls: sym_DIR_2: No such file or directory
-ls: .hidden: No such file or directory

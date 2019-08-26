@@ -21,12 +21,12 @@ static void add_size(t_file *file, struct stat *fs)
 		file->type[0] == 'b' || file->type[0] == 'c'
 		)
 	{
-		ft_sprintf(file->size, "%3d,", major(fs->st_rdev));
+		ft_sprintf(file->size, "%3d, ", major(fs->st_rdev));
 		{
 			minor(fs->st_rdev) > 255 ?
-			ft_sprintf(file->size, "%10x", minor(fs->st_rdev))
+			ft_sprintf(file->size, "0x%08x", minor(fs->st_rdev))
 									 :
-			ft_sprintf(file->size, "%4d", minor(fs->st_rdev));
+			ft_sprintf(file->size, "%3d", minor(fs->st_rdev));
 		}
 	}
 	else

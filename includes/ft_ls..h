@@ -60,6 +60,7 @@ typedef struct t_length
 	int hard_link;
 	int name;
 	int total;
+	int is_driver;
 } t_length;
 
 typedef struct s_ls

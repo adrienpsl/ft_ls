@@ -29,6 +29,10 @@ fill_file_element(char *full_path, char *file_name, t_options *options,
 		ls$add_size_uid$guid_name_link(&file, fs, full_path, file_name);
 		ls$add_sort$param_time_max$length(&file, fs, options, length);
 		length->total += fs->st_blocks;
+		if (
+			file.type[0] == 'b' || file.type[0] == 'c'
+			)
+			length->is_driver = 1;
 		return (&file);
 	}
 	else

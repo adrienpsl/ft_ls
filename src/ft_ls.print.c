@@ -24,7 +24,10 @@ static int print_long(void *el, void *param)
 	printf("%*s ", length->hard_link, file->hardlink_nb);
 	printf("%-*s  ", length->uid, file->uid);
 	printf("%-*s  ", length->gid, file->gid);
-	printf("%*s ", length->size, file->size);
+	if (length->is_driver)
+		printf("%8s ", file->size);
+	else
+		printf("%*s ", length->size, file->size);
 	printf("%s ", file->time);
 	printf("%s", file->name);
 	if (file->link[0])
