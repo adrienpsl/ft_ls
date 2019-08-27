@@ -29,9 +29,7 @@ static char *build_path(char *full_path, char *path, t_file *file)
 
 static void print_path(char *full_path, t_options *options)
 {
-	if (options->is_argv && options->is_first)
-		printf("%s:\n", full_path);
-	else if (!options->is_first)
+	if (!options->is_first)
 		printf("\n%s:\n", full_path);
 	options->is_first = 0;
 }
@@ -42,16 +40,17 @@ static void do_recursive(char *full_path, t_options *options, t_array *files)
 {
 	t_file *file;
 
-	files->i = options->all ? 2 : 0;
+	files->i = 0;
 	if (
 		options->recursif
 		)
 	{
 		while (
-			(file = ft_array$next(files))
+			(file = ftarray__next(files))
 			)
 		{
-			if (file->is_dir)
+			if (file->is_dir && ft_str_cmp(file->name, ".") &&
+				ft_str_cmp(file->name, ".."))
 			{
 				ls$handle_files_array(full_path, file, options);
 			}
@@ -71,12 +70,12 @@ int ls$handle_files_array(char *path, t_file *file, t_options *options)
 		print_path(full_path, options);
 	}
 	if (
-		(files = ls$generate_files_array(full_path, options, &length))
+		(files = ls$build_files(full_path, options, &length))
 		)
 	{
 		ls$print(files, options, &length, 1);
 		do_recursive(full_path, options, files);
-		ft_array$free(&files);
+		ftarray__free(&files);
 	}
 	else
 		ft_dprintf(2, "ls: %s: %s\n", file->name, strerror(errno));

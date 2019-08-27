@@ -86,22 +86,22 @@ ls$print(t_array *files, t_options *options, t_length *length, int print_total);
 struct stat *get_stat(char *path, int mode);
 void **generate_arr_ptr(t_options *options, t_length *length);
 
-t_array *ls$build_av_array(t_options *options, char **av, t_length *length);
+t_array *ls__build_av_files(char **av, t_options *options, t_length *length);
 
 int ls$handle_files_array(char *path, t_file *file, t_options *options);
 
 /*
 **	--- parsing ----------------------------------------------------------------
 */
-int ls_parsing$sort_func(void *a, void *b, void *param);
-int ls_parsing$first_dir_func(void *p_el, void *param);
+int ls_parsing_sort_func(void *a, void *b, void *param);
+int ls_parsing_first_dir_func(void *p_el, void *param);
 
 int ls$catch_options(char ***p_av, t_options *option);
 
 t_array *
-ls$generate_files_array(char *dir_path, t_options *options, t_length *length);
+ls$build_files(char *dir_path, t_options *options, t_length *length);
 
-void test_ft_ls$main_test();
+void test_ft_ls_main_test();
 
 void
 ls$add_type_right_acl_hardlink(t_file *file, struct stat *fs, char *full_path);

@@ -19,5 +19,5 @@ function command_equal() {
     ls=$(ls "$@")
     ft_ls=$(../../ft_ls "$@")
 
-    assert_equal "$ls" "$ft_ls"
+    assert_equal "$ft_ls" "$ls"
 }

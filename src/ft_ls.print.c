@@ -65,7 +65,7 @@ void ls$print_col(t_array *files, t_length *length, t_options *options)
 		{
 			if (i + (y * line_size) < files->length)
 			{
-				file = ft_array$at(files, i + (y * line_size));
+				file = ftarray__at(files, i + (y * line_size));
 				printf("%-*s", length->name, file->name);
 			}
 			y++;
@@ -82,7 +82,7 @@ ls$print(t_array *files, t_options *options, t_length *length, int print_total)
 	{
 		if (print_total && files->length)
 			printf("total %d\n", length->total);
-		ft_array$func(files, print_long,
+		ftarray__func(files, print_long,
 					  length);
 	}
 	else

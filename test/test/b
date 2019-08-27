@@ -1,0 +1,103 @@
+total 296
+-rw-r--r--   1 adpusel  staff       0 Aug 27 13:30 -
+-rw-r--r--   1 adpusel  staff       0 Aug 27 13:30 ---
+-rw-r--r--   1 adpusel  staff       0 Aug 27 13:30 -a
+-rw-r--r--   1 adpusel  staff       0 Aug 27 13:30 -b
+-rw-r--r--   1 adpusel  staff       0 Aug 27 13:30 -c
+drwxr-xr-x   9 adpusel  staff     288 Aug 27 13:30 DIR_2
+-rw-r--r--   1 adpusel  staff       0 Jan  1  2000 Faa
+-rw-r--r--   1 adpusel  staff       0 Jan  1  2001 Fi
+-rw-r--r--   1 adpusel  staff       0 Jan  1  2030 Fo
+-rw-r--r--   1 adpusel  staff    4221 Aug 27 14:10 a
+-rw-r--r--   1 adpusel  staff       0 Aug 27 13:30 aoe
+-rw-r--r--   1 adpusel  staff       0 Aug 27 13:30 aoeue
+-rw-r--r--   1 adpusel  staff       0 Aug 27 13:30 asouh
+-rw-r--r--   1 adpusel  staff       0 Aug 27 14:36 b
+drwxr-xr-x  19 adpusel  staff     608 Aug 27 13:30 dir_1
+-rw-r--r--   1 adpusel  staff       0 Jan  1  2042 file_1
+-rw-r--r--   1 adpusel  staff       0 Jan  1  2042 file_2
+-rwxr-xr-x   1 adpusel  staff  142860 Aug 27 14:08 ft_ls
+-rw-r--r--   1 adpusel  staff       0 Aug 27 13:30 oaeu
+-rw-r--r--   1 adpusel  staff       0 Aug 27 13:30 oseuh
+-rw-r--r--   1 adpusel  staff       0 Aug 27 13:30 upm
+
+./DIR_2:
+total 16
+drwxr-xr-x  8 adpusel  staff  256 Aug 27 13:30 -1
+drwxr-xr-x  2 adpusel  staff   64 Aug 27 13:30 aoeoaeu
+-rw-r--r--  1 adpusel  staff   41 Aug 27 13:30 file_1
+-rw-r--r--  1 adpusel  staff   41 Aug 27 13:30 file_2
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_3
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_4
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_5
+
+./DIR_2/-1:
+total 0
+drwxr-xr-x  8 adpusel  staff  256 Aug 27 13:30 -2
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_1
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_2
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_3
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_4
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_5
+
+./DIR_2/-1/-2:
+total 0
+drwxr-xr-x  7 adpusel  staff  224 Aug 27 13:30 -3
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_1
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_2
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_3
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_4
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_5
+
+./DIR_2/-1/-2/-3:
+total 0
+-rw-r--r--  1 adpusel  staff  0 Aug 27 13:30 file_1
+-rw-r--r--  1 adpusel  staff  0 Aug 27 13:30 file_2
+-rw-r--r--  1 adpusel  staff  0 Aug 27 13:30 file_3
+-rw-r--r--  1 adpusel  staff  0 Aug 27 13:30 file_4
+-rw-r--r--  1 adpusel  staff  0 Aug 27 13:30 file_5
+
+./DIR_2/aoeoaeu:
+
+./dir_1:
+total 24
+drwxr-xr-x  8 adpusel  staff  256 Aug 27 13:30 -1
+drwxr-xr-x  2 adpusel  staff   64 Aug 27 13:30 aoeu
+-rw-r--r--  1 adpusel  staff   58 Aug 27 13:30 file_a1
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_a2
+-rw-r--r--  1 adpusel  staff   43 Aug 27 13:30 file_a3
+-rw-r--r--  1 adpusel  staff   12 Aug 27 13:30 file_a4
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_a5
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_b1
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_b2
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_b3
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_b4
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_b5
+
+./dir_1/-1:
+total 0
+drwxr-xr-x  8 adpusel  staff  256 Aug 27 13:30 -2
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_1
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_2
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_3
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_4
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_5
+
+./dir_1/-1/-2:
+total 0
+drwxr-xr-x  7 adpusel  staff  224 Aug 27 13:30 -3
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_1
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_2
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_3
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_4
+-rw-r--r--  1 adpusel  staff    0 Aug 27 13:30 file_5
+
+./dir_1/-1/-2/-3:
+total 24
+-rw-r--r--  1 adpusel  staff  41 Aug 27 13:30 file_1
+-rw-r--r--  1 adpusel  staff   0 Aug 27 13:30 file_2
+-rw-r--r--  1 adpusel  staff   0 Aug 27 13:30 file_3
+-rw-r--r--  1 adpusel  staff   9 Aug 27 13:30 file_4
+-rw-r--r--  1 adpusel  staff  77 Aug 27 13:30 file_5
+
+./dir_1/aoeu:

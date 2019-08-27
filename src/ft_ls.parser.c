@@ -12,32 +12,38 @@
 
 # include "ft_ls..h"
 # include "string.h"
-# include "../src/ft_ls.generate_files_array.c"
+# include "ft_ls.build_files.c"
 
-int ls_parsing$sort_func(void *a, void *b, void *param)
+// finalement je garde la meme fonction pour tout, mais je mets
+// pas tout au meme endroit ?
+
+int ls_parsing_sort_func(void *a, void *b, void *param)
 {
-	(void)param;
 	t_file *f_1;
 	t_file *f_2;
+	t_options *options;
 
 	f_1 = a;
 	f_2 = b;
+	options = param;
 
 	if (f_1->is_dir == f_2->is_dir)
 	{
-		return (ft_str_cmp(f_1->name, f_2->name) > 0);
+		if (options->reverse)
+		{
+			return (!(ft_str_cmp(f_1->name, f_2->name) > 0));
+		}
+		else
+		{
+			return ((ft_str_cmp(f_1->name, f_2->name) > 0));
+		}
 	}
 	else
 		return (f_1->is_dir < f_2->is_dir ? 0 : 1);
 }
 
-static void
-fill_array_with_argv(char **av, t_options *options, t_array **array,
-	t_length *length)
+void fill_array_with_argv(char **av, t_bf *bf)
 {
-	t_file *file;
-
-	options->is_argv = 1;
 	while (NULL != *av)
 	{
 		if (
@@ -46,45 +52,29 @@ fill_array_with_argv(char **av, t_options *options, t_array **array,
 			ft_dprintf(2, "ls: %s: file name too long ( >= 255 )\n", *av,
 					   strerror(errno));
 		else if (
-			(file = fill_file_element(*av, *av, options, length))
+			ERROR == fill_file(bf, AV_INPUT)
 			)
-			ft_array$push(array, file);
-		else
 			ft_printf("ls: %s: %s\n", *av, strerror(errno));
 		av++;
 	}
-	options->is_argv = 0;
 }
 
-/**
- * @brief 	cette fonction va fill le dir array et le fil array de ls
- * av mode used set lstat or stat for the file stat
- * @param ls
- * @param av
- * @return
- */
-
-
-t_array *ls$build_av_array(t_options *options, char **av, t_length *length)
+t_array *ls__build_av_files(char **av, t_options *options, t_length *length)
 {
 	static char *no_argv[2] = { "." };
-	t_array *dirs;
+	static t_bf bf;
 
+	init_bf(&bf, options, length);
 	if (
-		!options->long_format
-		)
-		options->av_mode = 1;
-	if (
-		NULL == (dirs = ft_array$init(50, sizeof(t_file)))
+		NULL == (bf.files = ftarray__init(50, sizeof(t_file)))
 		)
 		return (NULL);
 	{
 		if (*av)
-			fill_array_with_argv(av, options, &dirs, length);
+			fill_array_with_argv(av, &bf);
 		else
-			fill_array_with_argv(no_argv, options, &dirs, length);
+			fill_array_with_argv(no_argv, &bf);
 	}
-	ft_array$sort_bubble(dirs, ls_parsing$sort_func, NULL);
-	options->av_mode = 0;
-	return (dirs);
+	//	ft_array$sort_bubble(dirs, ls_parsing$sort_func, options);
+	return (bf.files);
 }

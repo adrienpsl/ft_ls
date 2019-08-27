@@ -25,7 +25,7 @@ int ls$catch_options(char ***p_av, t_options *option)
 {
 	int ret;
 
-	ret = ft_io$catch_option(*p_av, LS_OPTIONS, (long *)option, usage);
+	ret = ftio__catch_option(*p_av, LS_OPTIONS, (long *)option, usage);
 	if (
 		ret > 0
 		)

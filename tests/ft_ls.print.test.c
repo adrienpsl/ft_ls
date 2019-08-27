@@ -54,12 +54,12 @@ static int utils(char *av_str, char *result)
 	ls$catch_options(&av, &ls.options);
 
 	g_test = 1;
-	t_array *test_array = ls$build_av_array(&ls.options, av, NULL);
+	t_array *test_array = ls__build_av_files(av, &ls.options, NULL);
 	g_test = 0;
 
 //	ft_array$func(test_array, print_func, NULL);
 
-	ft_array$free(&test_array);
+	ftarray__free(&test_array);
 	ft_strsplit_free(&av_split);
 	//	if (lib_cmp_testbuff(result))
 	//		return (1);

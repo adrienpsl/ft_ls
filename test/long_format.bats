@@ -179,8 +179,8 @@ load 'libs/utils'
     ../../ft_ls -l /var/run > a
     ls -l /var/run > b
 
-    sed -i '' '/utmpx/d' a
-    sed -i '' '/utmpx/d' b
+#    sed -i '' '/utmpx/d' a
+#    sed -i '' '/utmpx/d' b
 
     run diff a b
     assert_output ""
@@ -192,7 +192,7 @@ load 'libs/utils'
     ../../ft_ls -l /dev > a
     ls -l /dev > b
 
-    files=("afsc_type5" "auditsessions" "autofs_homedirmounter" "autofs_notrigger" "autofs_nowait" "bpf1" "bpf3" "console" "disk0s1" "dtrace" "io8log" "io8logmt" "io8logtemp" "klog" "null" "random" "rdisk0s1" "tty" "urandom")
+    files=("autofs_homedirmounter" "autofs_notrigger" "autofs_nowait" "dtrace" "io8log" "io8logmt" "io8logtemp")
 
     for i in "${files[@]}"
     do :
