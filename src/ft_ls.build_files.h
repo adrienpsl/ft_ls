@@ -13,7 +13,7 @@
 #ifndef FT_LS_FT_LS_BUILD_FILES_H
 #define FT_LS_FT_LS_BUILD_FILES_H
 
-#include "ft_ls..h"
+#include "ft_ls.h"
 #include <dirent.h>
 #include <grp.h>
 #include <pwd.h>
@@ -28,12 +28,12 @@ typedef struct s_bf
 	struct dirent *dp;
 	DIR *dir;
 	t_array *files;
-	t_file *file;
 	char full_path[PATH_MAX + 1];
 	char file_name[PATH_MAX + 1];
+	t_file file;
 	t_options *options;
 	t_length *length;
-	struct stat *fs;
+	struct stat fs;
 } t_bf;
 
 /*
@@ -46,7 +46,8 @@ void add_acl_extended_attribut(char *buff, char *path);
 void add_nb_hard_link(t_file *file, struct stat *fs);
 void add_size_or_drivers(t_file *file, struct stat *fs);
 void add_uid_gid(t_file *file, struct stat *fs);
-void add_link_name(t_file *file, struct stat *fs, char *full_path);
+void
+add_link_name(t_file *file, struct stat *fs, char *full_path, char *file_name);
 void add_total_size(t_bf *bf);
 void add_max_length(t_file *file, t_length *length, int source);
 void add_sort_param(t_file *file, struct stat *fs, t_options *options);
@@ -56,5 +57,7 @@ void add_time(long int time_nb, char *buffer, t_options *options);
 **	utils
 */
 void init_bf(t_bf *bf, t_options *options, t_length *length);
+int add_path_name(t_bf *bf, char *dir_path, char *name);
+int ls__files_sort_func(void *a, void *b, void *p_param);
 
 #endif

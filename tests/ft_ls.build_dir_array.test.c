@@ -12,7 +12,7 @@
 
 #include <sys/stat.h>
 #include <test.h>
-#include "ft_ls..h"
+#include "ft_ls.h"
 
 
 // test with all file type, if there are good print of each of them
@@ -53,11 +53,11 @@ static int utils(char *av_str, char *result)
 	ft_bzero(&length, sizeof(t_length));
 	(void)result;
 
-	ls$catch_options(&av, &options);
+	ls__catch_options(&av, &options);
 
 	t_array *test_array = ls__build_av_files(av, &options, &length);
 
-	ls$print(test_array, &options, &length, 0);
+	ls__print(test_array, &options, &length, 0);
 
 	ftarray__free(&test_array);
 	ft_strsplit_free(&av_split);

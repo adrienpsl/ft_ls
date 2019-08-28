@@ -1,4 +1,4 @@
-#include <ft_ls..h>
+#include <ft_ls.h>
 
 int main(int ac, char **av)
 {
@@ -7,7 +7,7 @@ int main(int ac, char **av)
 	(void)ac;
 	(void)av;
 	//	ft_bzero(&ls, sizeof(t_ls));
-	//	ls$catch_options(&av, (long*)&ls.options);
+	//	ls__catch_options(&av, (long*)&ls.options);
 
 	//	test_ft_ls$main_test();
 	ft_ls(av + 1);

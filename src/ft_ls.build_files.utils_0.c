@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls..h"
+#include "ft_ls.h"
 #include "ft_ls.build_files.h"
 
 void add_size_or_drivers(t_file *file, struct stat *fs)
@@ -37,13 +37,15 @@ void add_uid_gid(t_file *file, struct stat *fs)
 	ft_strcat(file->uid, getpwuid(fs->st_uid)->pw_name);
 	ft_strcat(file->gid, getgrgid(fs->st_gid)->gr_name);
 }
-void add_link_name(t_file *file, struct stat *fs, char *full_path)
+void
+add_link_name(t_file *file, struct stat *fs, char *full_path, char *file_name)
 {
 	if ((S_IFMT & fs->st_mode) == S_IFLNK)
 		readlink(full_path, file->link, PATH_MAX);
+	ft_strcat(file->name, file_name);
 }
 
 void add_total_size(t_bf *bf)
 {
-	bf->length->total += bf->fs->st_blocks;
+	bf->length->total += bf->fs.st_blocks;
 }

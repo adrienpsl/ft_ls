@@ -12,7 +12,7 @@
 
 #include <time.h>
 #include <ft_mem.h>
-#include <ft_ls..h>
+#include <ft_ls.h>
 #include "ft_ls.build_files.h"
 
 /*

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <sys/ioctl.h>
-#include "ft_ls..h"
+#include "ft_ls.h"
 
 static int print_long(void *el, void *param)
 {
@@ -76,7 +76,7 @@ void ls$print_col(t_array *files, t_length *length, t_options *options)
 }
 
 void
-ls$print(t_array *files, t_options *options, t_length *length, int print_total)
+ls__print(t_array *files, t_options *options, t_length *length, int print_total)
 {
 	if (options->long_format)
 	{

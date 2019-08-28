@@ -67,6 +67,9 @@ typedef struct s_ls
 {
 	t_length length;
 	t_options options;
+	t_file *dir;
+	t_array *av_directories;
+	t_array *av_files;
 } t_ls;
 
 int ft_ls(char **av);
@@ -78,7 +81,7 @@ void add_time(long int time_nb, char *buffer, t_options *options);
 void
 add_sort_param(t_file *file, struct stat *fs, t_options *options);
 void
-ls$print(t_array *files, t_options *options, t_length *length, int print_total);
+ls__print(t_array *files, t_options *options, t_length *length, int print_total);
 
 /*
 **	utils
@@ -88,7 +91,7 @@ void **generate_arr_ptr(t_options *options, t_length *length);
 
 t_array *ls__build_av_files(char **av, t_options *options, t_length *length);
 
-int ls$handle_files_array(char *path, t_file *file, t_options *options);
+int ls__loop_on_files(char *path, t_file *file, t_options *options);
 
 /*
 **	--- parsing ----------------------------------------------------------------
@@ -96,7 +99,7 @@ int ls$handle_files_array(char *path, t_file *file, t_options *options);
 int ls_parsing_sort_func(void *a, void *b, void *param);
 int ls_parsing_first_dir_func(void *p_el, void *param);
 
-int ls$catch_options(char ***p_av, t_options *option);
+int ls__catch_options(char ***p_av, t_options *option);
 
 t_array *
 ls$build_files(char *dir_path, t_options *options, t_length *length);

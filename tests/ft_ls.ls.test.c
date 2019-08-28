@@ -12,7 +12,7 @@
 
 #include <test.h>
 #include <libft.test.h>
-#include "ft_ls..h"
+#include "ft_ls.h"
 
 static int utils(char *av_str, char *result)
 {

@@ -1,6 +1,6 @@
 
 #include <ft_strsplit.h>
-#include <ft_ls..h>
+#include <ft_ls.h>
 #include <test.h>
 #include <libft.test.h>
 
@@ -11,7 +11,7 @@ static int utils(char *av_str, char *result_str, long result_option, int retour)
 	char **av = split_av;
 	long option = 0;
 
-	int ret = ls$catch_options(&av, (t_options*)&option);
+	int ret = ls__catch_options(&av, (t_options *)&option);
 
 	if (
 		ft_strsplit_cmp(split_result, av)

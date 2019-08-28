@@ -13,7 +13,7 @@
 #include <sys/stat.h>
 #include <test.h>
 #include <libft.test.h>
-#include "ft_ls..h"
+#include "ft_ls.h"
 
 /*
  * do a script witch build the stuff
@@ -51,7 +51,7 @@ static int utils(char *av_str, char *result)
 	ft_bzero(&ls, sizeof(t_ls));
 	(void)result;
 
-	ls$catch_options(&av, &ls.options);
+	ls__catch_options(&av, &ls.options);
 
 	g_test = 1;
 	t_array *test_array = ls__build_av_files(av, &ls.options, NULL);

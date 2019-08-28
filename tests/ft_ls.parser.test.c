@@ -14,7 +14,7 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <zconf.h>
-#include <ft_ls..h>
+#include <ft_ls.h>
 #include <libft.test.h>
 #include <test.h>
 
@@ -59,7 +59,7 @@ static int utils(char *av_str, char *result)
 	ft_bzero(&options, sizeof(t_options));
 	(void)result;
 
-	ls$catch_options(&av, &options);
+	ls__catch_options(&av, &options);
 
 	t_array *test_array = ls__build_av_files(av, &options, NULL);
 

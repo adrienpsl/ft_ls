@@ -10,37 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_ls..h"
+# include "ft_ls.h"
 # include "string.h"
 # include "ft_ls.build_files.c"
-
-// finalement je garde la meme fonction pour tout, mais je mets
-// pas tout au meme endroit ?
-
-int ls_parsing_sort_func(void *a, void *b, void *param)
-{
-	t_file *f_1;
-	t_file *f_2;
-	t_options *options;
-
-	f_1 = a;
-	f_2 = b;
-	options = param;
-
-	if (f_1->is_dir == f_2->is_dir)
-	{
-		if (options->reverse)
-		{
-			return (!(ft_str_cmp(f_1->name, f_2->name) > 0));
-		}
-		else
-		{
-			return ((ft_str_cmp(f_1->name, f_2->name) > 0));
-		}
-	}
-	else
-		return (f_1->is_dir < f_2->is_dir ? 0 : 1);
-}
 
 void fill_array_with_argv(char **av, t_bf *bf)
 {
@@ -49,11 +21,17 @@ void fill_array_with_argv(char **av, t_bf *bf)
 		if (
 			*av && ft_strlen(*av) >= 255
 			)
+		{
 			ft_dprintf(2, "ls: %s: file name too long ( >= 255 )\n", *av,
 					   strerror(errno));
-		else if (
-			ERROR == fill_file(bf, AV_INPUT)
+			continue;
+		}
+		add_path_name(bf, NULL, *av);
+		if (
+			OK == fill_file(bf, AV_INPUT)
 			)
+			ftarray__push(&bf->files, &bf->file);
+		else
 			ft_printf("ls: %s: %s\n", *av, strerror(errno));
 		av++;
 	}
@@ -75,6 +53,6 @@ t_array *ls__build_av_files(char **av, t_options *options, t_length *length)
 		else
 			fill_array_with_argv(no_argv, &bf);
 	}
-	//	ft_array$sort_bubble(dirs, ls_parsing$sort_func, options);
+	ftarray__sort_bubble(bf.files, ls__files_sort_func, options);
 	return (bf.files);
 }

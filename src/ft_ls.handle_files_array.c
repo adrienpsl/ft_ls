@@ -12,7 +12,7 @@
 
 #include <sys/ttycom.h>
 #include <sys/ioctl.h>
-#include "ft_ls..h"
+#include "ft_ls.h"
 # include "string.h"
 
 static char *build_path(char *full_path, char *path, t_file *file)
@@ -33,9 +33,7 @@ static void print_path(char *full_path, t_options *options)
 		printf("\n%s:\n", full_path);
 	options->is_first = 0;
 }
-/*
-**	the first line is for pass the . et .. file
-*/
+
 static void do_recursive(char *full_path, t_options *options, t_array *files)
 {
 	t_file *file;
@@ -52,28 +50,26 @@ static void do_recursive(char *full_path, t_options *options, t_array *files)
 			if (file->is_dir && ft_str_cmp(file->name, ".") &&
 				ft_str_cmp(file->name, ".."))
 			{
-				ls$handle_files_array(full_path, file, options);
+				ls__loop_on_files(full_path, file, options);
 			}
 		}
 	}
 }
 
-int ls$handle_files_array(char *path, t_file *file, t_options *options)
+int ls__loop_on_files(char *path, t_file *file, t_options *options)
 {
 	t_array *files;
 	t_length length;
 	char full_path[2064];
 
-	{
-		ft_bzero(&length, sizeof(t_length));
-		build_path(full_path, path, file);
-		print_path(full_path, options);
-	}
+	ft_bzero(&length, sizeof(t_length));
+	build_path(full_path, path, file);
+	print_path(full_path, options);
 	if (
 		(files = ls$build_files(full_path, options, &length))
 		)
 	{
-		ls$print(files, options, &length, 1);
+		ls__print(files, options, &length, 1);
 		do_recursive(full_path, options, files);
 		ftarray__free(&files);
 	}

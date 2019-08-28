@@ -11,26 +11,53 @@
 /* ************************************************************************** */
 
 #include <ft_ls.h>
-# include "libft.h"
 
-static void usage(char c)
+static int is_file(void *element, void *param)
 {
-	ft_printf("ls: illegal option -- %c\n"
-			  "usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n",
-			  c
-	);
+	t_file *file;
+
+	(void)param;
+	file = element;
+	return (file->type[0] != 'd');
 }
 
-int ls__catch_options(char ***p_av, t_options *option)
+void print_files(t_ls *ls)
 {
-	int ret;
+	if (ls->av_directories->length)
+	{
+		if (
+			(ls->av_files =
+				 ftarray__extract_by_func(ls->av_directories, is_file, NULL))
+			)
+		{
+			ls__print(ls->av_files, &ls->options, &ls->length, 0);
+		}
+	}
+}
 
-	ret = ftio__catch_option(*p_av, LS_OPTIONS, (long *)option, usage);
+int ft_ls(char **av)
+{
+	t_ls ls = { .options= { .is_first = 1 }};
+
 	if (
-		ret > 0
+		ls__catch_options(&av, &ls.options)
+		||
+		!(ls.av_directories = ls__build_av_files(av, &ls.options, &ls.length))
 		)
-		(*p_av) += ret;
-	return (
-		ret == -1 ? 1 : 0
-	);
+		return (-1);
+	print_files(&ls);
+	ftarray__set_start(ls.av_directories);
+	while (
+		(ls.dir = ftarray__next(ls.av_directories))
+		)
+	{
+		if (ls.av_files->length && ls.dir->type[0] == 'd')
+		{
+			ls.options.is_first = 0;
+			printf("%s:\n", ls.dir->name);
+		}
+		ls__loop_on_files("", ls.dir, &ls.options);
+	}
+	return (0);
 }
+

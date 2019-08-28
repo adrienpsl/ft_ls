@@ -1,4 +1,4 @@
-#include <ft_ls..h>
+#include <ft_ls.h>
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -13,7 +13,7 @@
 
 # include "ft_ls.build_files.h"
 
-int ls_array$sort_func(void *a, void *b, void *p_param)
+int ls__files_sort_func(void *a, void *b, void *p_param)
 {
 	t_file *f_1;
 	t_file *f_2;
@@ -40,22 +40,22 @@ int fill_file(t_bf *bf, int source)
 	ft_bzero(&bf->file, sizeof(t_file));
 	if (
 		OK == (source == AV_INPUT ?
-		 stat(bf->full_path, bf->fs)
-							:
-		 lstat(bf->full_path, bf->fs))
+			   stat(bf->full_path, &bf->fs)
+								  :
+			   lstat(bf->full_path, &bf->fs))
 		)
 	{
-		add_type(bf->file, bf->fs->st_mode, bf->length);
-		add_right(bf->file->type + 1, bf->fs->st_mode);
-		add_acl_extended_attribut(bf->file->type + 10, bf->full_path);
-		add_nb_hard_link(bf->file, bf->fs);
-		add_size_or_drivers(bf->file, bf->fs);
-		add_uid_gid(bf->file, bf->fs);
-		add_link_name(bf->file, bf->fs, bf->full_path);
+		add_type(&bf->file, bf->fs.st_mode, bf->length);
+		add_right(bf->file.type + 1, bf->fs.st_mode);
+		add_acl_extended_attribut(bf->file.type + 10, bf->full_path);
+		add_nb_hard_link(&bf->file, &bf->fs);
+		add_size_or_drivers(&bf->file, &bf->fs);
+		add_uid_gid(&bf->file, &bf->fs);
+		add_link_name(&bf->file, &bf->fs, bf->full_path, bf->file_name);
 		add_total_size(bf);
-		add_sort_param(bf->file, bf->fs, bf->options);
-		add_time(bf->file->sort_data, bf->file->time, bf->options);
-		add_max_length(bf->file, bf->length, source);
+		add_sort_param(&bf->file, &bf->fs, bf->options);
+		add_time(bf->file.sort_data, bf->file.time, bf->options);
+		add_max_length(&bf->file, bf->length, source);
 		return (0);
 	}
 	else
@@ -67,6 +67,15 @@ void init_bf(t_bf *bf, t_options *options, t_length *length)
 	ft_bzero(bf, sizeof(t_bf));
 	bf->options = options;
 	bf->length = length;
+}
+
+int add_path_name(t_bf *bf, char *dir_path, char *name)
+{
+	bf->full_path[0] = '\0';
+	bf->file_name[0] = '\0';
+	ftstr__add_buffer(bf->full_path, dir_path, dir_path ? "/" : NULL, name);
+	ft_strcat(bf->file_name, name);
+	return (0);
 }
 
 t_array *ls$build_files(char *dir_path, t_options *options, t_length *length)
@@ -84,17 +93,16 @@ t_array *ls$build_files(char *dir_path, t_options *options, t_length *length)
 		(bf.dp = readdir(bf.dir))
 		)
 	{
-		ftstr__add_buffer(bf.full_path, dir_path, "/", bf.dp->d_name);
-		ft_strcat(bf.file_name, bf.dp->d_name);
 		if (
 			0 == options->all && 0 == (bf.dp->d_name[0] == '.')
 			)
 		{
+			add_path_name(&bf, dir_path, bf.dp->d_name);
 			fill_file(&bf, READDIR_INPUT);
-			ft_strcat(bf.file->name, bf.file_name);
-			ftarray__push(&bf.files, bf.file);
+			ftarray__push(&bf.files, &bf.file);
 		}
 	}
+	ftarray__sort_bubble(bf.files, ls__files_sort_func, options);
 	return (bf.files);
 }
 
