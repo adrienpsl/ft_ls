@@ -95,13 +95,12 @@ t_array *ls__build_files(char *dir_path, t_options *options, t_length *length)
 		)
 	{
 		if (
-			0 == options->all && 0 == (bf.dp->d_name[0] == '.')
+			0 == options->all && (bf.dp->d_name[0] == '.')
 			)
-		{
-			add_path_name(&bf, dir_path, bf.dp->d_name);
-			fill_file(&bf, READDIR_INPUT);
-			ftarray__push(&bf.files, &bf.file);
-		}
+			continue;
+		add_path_name(&bf, dir_path, bf.dp->d_name);
+		fill_file(&bf, READDIR_INPUT);
+		ftarray__push(&bf.files, &bf.file);
 	}
 	ftarray__sort_bubble(bf.files, ls__files_sort_func, options);
 	return (bf.files);

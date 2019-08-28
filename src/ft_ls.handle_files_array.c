@@ -55,7 +55,7 @@ static void do_recursive(char *full_path, t_options *options, t_array *files)
 			(file = ftarray__next(files))
 			)
 		{
-			if (file->is_dir && ft_str_cmp(file->name, ".") &&
+			if (file->type[0] == 'd' && ft_str_cmp(file->name, ".") &&
 				ft_str_cmp(file->name, ".."))
 			{
 				ls__loop_on_files(full_path, file, options);

@@ -26,7 +26,6 @@
 typedef struct s_file
 {
 	char type[16];
-	int is_dir;
 	char uid[30];
 	char gid[30];
 	char size[64];

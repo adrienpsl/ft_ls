@@ -18,7 +18,7 @@ int print_link(void *p_link, void *n)
 	(void)n;
 
 	file = p_link;
-	ft_printf("%s || %d\n", file->name, file->is_dir);
+	ft_printf("%s \n", file->name);
 
 	return (0);
 }
@@ -29,7 +29,7 @@ int print_link_test(void *p_link, void *n)
 	(void)n;
 
 	file = p_link;
-	printf("%s || %d\n", file->name, file->is_dir);
+	printf("%s \n", file->name);
 
 	return (0);
 }
