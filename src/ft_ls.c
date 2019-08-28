@@ -35,9 +35,19 @@ void print_files(t_ls *ls)
 	}
 }
 
+void set_print_path(t_ls *ls)
+{
+	if (ls->av_files->length
+		&& ls->av_directories->length)
+		ls->options.print_path = PRINT;
+	if (0 == ls->av_files->length
+		&& ls->av_directories->length > 1)
+		ls->options.print_path = PRINT_FIRST;
+}
+
 int ft_ls(char **av)
 {
-	t_ls ls = { .options= { .is_first = 1 }};
+	t_ls ls = { .options= { .print_path = NO_PRINT }};
 
 	if (
 		ls__catch_options(&av, &ls.options)
@@ -47,15 +57,11 @@ int ft_ls(char **av)
 		return (-1);
 	print_files(&ls);
 	ftarray__set_start(ls.av_directories);
+	set_print_path(&ls);
 	while (
 		(ls.dir = ftarray__next(ls.av_directories))
 		)
 	{
-		if (ls.av_files->length && ls.dir->type[0] == 'd')
-		{
-			ls.options.is_first = 0;
-			printf("%s:\n", ls.dir->name);
-		}
 		ls__loop_on_files("", ls.dir, &ls.options);
 	}
 	return (0);

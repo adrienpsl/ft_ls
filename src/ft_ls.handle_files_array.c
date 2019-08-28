@@ -29,9 +29,17 @@ static char *build_path(char *full_path, char *path, t_file *file)
 
 static void print_path(char *full_path, t_options *options)
 {
-	if (!options->is_first)
+	if (
+		options->print_path == PRINT_FIRST
+		)
+		printf("%s:\n", full_path);
+	else if (
+		options->print_path == PRINT
+		)
 		printf("\n%s:\n", full_path);
-	options->is_first = 0;
+	{
+		options->print_path = PRINT;
+	}
 }
 
 static void do_recursive(char *full_path, t_options *options, t_array *files)
@@ -66,7 +74,7 @@ int ls__loop_on_files(char *path, t_file *file, t_options *options)
 	build_path(full_path, path, file);
 	print_path(full_path, options);
 	if (
-		(files = ls$build_files(full_path, options, &length))
+		(files = ls__build_files(full_path, options, &length))
 		)
 	{
 		ls__print(files, options, &length, 1);

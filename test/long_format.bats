@@ -153,14 +153,14 @@ load 'libs/utils'
 
 @test "long format | argv : directory : two" {
     mkdir directory_1 directory_2
-    touch directory_1/file_{1..20} directory_2/file_{1..20}
+    touch directory_1/file_{1..3} directory_2/file_{1..3}
     command_equal -l directory_1 directory_2
 }
 
 
 @test "long format | argv : directory and file : mixed" {
     mkdir directory_1 DIR_2 _directory_3
-    touch DIR_2/file_{1..20} _directory_3/file_{1..20} .hidden
+    touch DIR_2/file_{1..2} _directory_3/file_{1..2} .hidden
 
     ln -s directory_1 sym_dir_1
     ln -s DIR_2 sym_DIR_2

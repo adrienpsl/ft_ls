@@ -19,6 +19,10 @@
 
 #define STAT  1
 
+#define NO_PRINT 0
+#define PRINT_FIRST 1
+#define PRINT 2
+
 typedef struct s_file
 {
 	char type[16];
@@ -44,10 +48,7 @@ typedef struct s_ls_options
 	unsigned long sort_size: 1; // S
 	unsigned long sort_status_change: 1; // c
 	unsigned long one_line: 1; // 1
-	unsigned long av_mode: 1;
-	unsigned long custom_sort: 1;
-	unsigned long is_first: 1;
-	unsigned long is_argv: 1;
+	unsigned long print_path: 2;
 } t_options;
 
 # define LS_OPTIONS "aRlrtuSc1"
@@ -102,7 +103,7 @@ int ls_parsing_first_dir_func(void *p_el, void *param);
 int ls__catch_options(char ***p_av, t_options *option);
 
 t_array *
-ls$build_files(char *dir_path, t_options *options, t_length *length);
+ls__build_files(char *dir_path, t_options *options, t_length *length);
 
 void test_ft_ls_main_test();
 
