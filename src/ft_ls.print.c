@@ -20,19 +20,19 @@ static int print_long(void *el, void *param)
 
 	file = el;
 	length = param;
-	printf("%s ", file->type);
-	printf("%*s ", length->hard_link, file->hardlink_nb);
-	printf("%-*s  ", length->uid, file->uid);
-	printf("%-*s  ", length->gid, file->gid);
+	ft_printf("%s ", file->type);
+	ft_printf("%*s ", length->hard_link, file->hardlink_nb);
+	ft_printf("%-*s  ", length->uid, file->uid);
+	ft_printf("%-*s  ", length->gid, file->gid);
 	if (length->is_driver)
-		printf("%8s ", file->size);
+		ft_printf("%8s ", file->size);
 	else
-		printf("%*s ", length->size, file->size);
-	printf("%s ", file->time);
-	printf("%s", file->name);
+		ft_printf("%*s ", length->size, file->size);
+	ft_printf("%s ", file->time);
+	ft_printf("%s", file->name);
 	if (file->link[0])
-		printf(" -> %s", file->link);
-	printf("\n");
+		ft_printf(" -> %s", file->link);
+	ft_printf("\n");
 	return (0);
 }
 
@@ -48,7 +48,9 @@ void ls$print_col(t_array *files, t_length *length, t_options *options)
 	ioctl(0, TIOCGWINSZ, &ts);
 	if (length->name == 0)
 		return;
-	col_size = (ts.ts_cols / length->name) + 1;
+	length->name++;
+	col_size = (ts.ts_cols / length->name);
+	col_size == 0 ? col_size = 1 : 0;
 	if (options->one_line)
 	{
 		col_size = 1;
@@ -57,7 +59,6 @@ void ls$print_col(t_array *files, t_length *length, t_options *options)
 	line_size = (files->length / col_size);
 	if (line_size == 0)
 		line_size = 1;
-	//	printf("%d %d\n", col_size, line_size);
 	while (i < line_size)
 	{
 		y = 0;
@@ -66,11 +67,12 @@ void ls$print_col(t_array *files, t_length *length, t_options *options)
 			if (i + (y * line_size) < files->length)
 			{
 				file = ftarray__at(files, i + (y * line_size));
-				printf("%-*s", length->name, file->name);
+				ft_printf("%-*s", length->name, file->name);
+				//				printf("%d \n", length->name);
 			}
 			y++;
 		}
-		printf("\n");
+		ft_printf("\n");
 		i++;
 	}
 }
@@ -81,7 +83,7 @@ ls__print(t_array *files, t_options *options, t_length *length, int print_total)
 	if (options->long_format)
 	{
 		if (print_total && files->length)
-			printf("total %d\n", length->total);
+			ft_printf("total %d\n", length->total);
 		ftarray__func(files, print_long,
 					  length);
 	}

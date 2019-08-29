@@ -29,7 +29,7 @@ int print_link_test(void *p_link, void *n)
 	(void)n;
 
 	file = p_link;
-	printf("%s \n", file->name);
+	ft_printf("%s \n", file->name);
 
 	return (0);
 }
@@ -65,8 +65,8 @@ int line_print(void *p_el, void *param)
 	(void)param;
 	file = p_el;
 
-	printf("%s", file->name);
-	printf("\n");
+	ft_printf("%s", file->name);
+	ft_printf("\n");
 	return (0);
 }
 

@@ -32,11 +32,11 @@ static void print_path(char *full_path, t_options *options)
 	if (
 		options->print_path == PRINT_FIRST
 		)
-		printf("%s:\n", full_path);
+		ft_printf("%s:\n", full_path);
 	else if (
 		options->print_path == PRINT
 		)
-		printf("\n%s:\n", full_path);
+		ft_printf("\n%s:\n", full_path);
 	{
 		options->print_path = PRINT;
 	}

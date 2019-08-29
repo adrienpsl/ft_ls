@@ -31,11 +31,22 @@ void add_size_or_drivers(t_file *file, struct stat *fs)
 		ft_sprintf(file->size, "%d", fs->st_size);
 }
 
-void add_uid_gid(t_file *file, struct stat *fs)
+void add_uid_gid(t_file *file, struct stat *fs, t_options *options)
 {
-	// handle the n option
-	ft_strcat(file->uid, getpwuid(fs->st_uid)->pw_name);
-	ft_strcat(file->gid, getgrgid(fs->st_gid)->gr_name);
+	if (
+		options->no_group
+		)
+		ft_strcat(file->uid, getpwuid(fs->st_uid)->pw_name);
+	else if (options->numeric_group)
+	{
+		ft_sprintf(file->uid, "%d", fs->st_uid);
+		ft_sprintf(file->gid, "%ld",fs->st_gid);
+	}
+	else
+	{
+		ft_strcat(file->uid, getpwuid(fs->st_uid)->pw_name);
+		ft_strcat(file->gid, getgrgid(fs->st_gid)->gr_name);
+	}
 }
 void
 add_link_name(t_file *file, struct stat *fs, char *full_path, char *file_name)

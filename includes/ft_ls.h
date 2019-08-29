@@ -34,6 +34,7 @@ typedef struct s_file
 	char name[__DARWIN_MAXPATHLEN + 1];
 	char link[__DARWIN_MAXPATHLEN + 1];
 	long sort_data;
+	uintmax_t time_nb;
 } t_file;
 
 typedef struct s_ls_options
@@ -42,15 +43,18 @@ typedef struct s_ls_options
 	unsigned long recursif: 1;
 	unsigned long long_format: 1;
 	unsigned long reverse: 1;
-	unsigned long sort_time: 1; // t
-	unsigned long sort_last_access: 1; // u
-	unsigned long sort_size: 1; // S
-	unsigned long sort_status_change: 1; // c
-	unsigned long one_line: 1; // 1
+	unsigned long sort_time: 1;
+	unsigned long sort_last_access: 1;
+	unsigned long sort_size: 1;
+	unsigned long sort_status_change: 1;
+	unsigned long one_line: 1;
+	unsigned long big_time: 1;
+	unsigned long numeric_group: 1;
+	unsigned long no_group: 1;
 	unsigned long print_path: 2;
 } t_options;
 
-# define LS_OPTIONS "aRlrtuSc1"
+# define LS_OPTIONS "aRlrtuSc1Tno"
 
 typedef struct t_length
 {

@@ -51,11 +51,11 @@ int fill_file(t_bf *bf, int source)
 		add_acl_extended_attribut(bf->file.type + 10, bf->full_path);
 		add_nb_hard_link(&bf->file, &bf->fs);
 		add_size_or_drivers(&bf->file, &bf->fs);
-		add_uid_gid(&bf->file, &bf->fs);
+		add_uid_gid(&bf->file, &bf->fs, bf->options);
 		add_link_name(&bf->file, &bf->fs, bf->full_path, bf->file_name);
 		add_total_size(bf);
 		add_sort_param(&bf->file, &bf->fs, bf->options);
-		add_time(bf->file.sort_data, bf->file.time, bf->options);
+		add_time(bf->file.time_nb, bf->file.time, bf->options);
 		add_max_length(&bf->file, bf->length, source);
 		return (0);
 	}

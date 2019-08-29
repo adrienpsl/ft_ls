@@ -45,7 +45,7 @@ void add_right(char *buff, const mode_t mode);
 void add_acl_extended_attribut(char *buff, char *path);
 void add_nb_hard_link(t_file *file, struct stat *fs);
 void add_size_or_drivers(t_file *file, struct stat *fs);
-void add_uid_gid(t_file *file, struct stat *fs);
+void add_uid_gid(t_file *file, struct stat *fs, t_options *options);
 void
 add_link_name(t_file *file, struct stat *fs, char *full_path, char *file_name);
 void add_total_size(t_bf *bf);

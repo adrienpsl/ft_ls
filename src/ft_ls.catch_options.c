@@ -26,6 +26,8 @@ int ls__catch_options(char ***p_av, t_options *option)
 	int ret;
 
 	ret = ftio__catch_option(*p_av, LS_OPTIONS, (long *)option, usage);
+	if (option->no_group || option->numeric_group)
+	    option->long_format = 1;
 	if (
 		ret > 0
 		)
