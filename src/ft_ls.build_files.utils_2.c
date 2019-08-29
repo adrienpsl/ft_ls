@@ -51,7 +51,6 @@ void add_time(long int time_nb, char *buffer, t_options *options)
 {
 	long int current_date;
 	int active_year;
-	(void)options;
 
 	active_year = 0;
 	current_date = time(NULL);
