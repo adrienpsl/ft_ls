@@ -23,6 +23,11 @@
 #define PRINT_FIRST 1
 #define PRINT 2
 
+# define AV_INPUT 1
+# define READDIR_INPUT 0
+
+
+
 typedef struct s_file
 {
 	char type[16];

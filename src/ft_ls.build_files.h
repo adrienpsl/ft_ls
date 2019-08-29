@@ -20,26 +20,16 @@
 #include <sys/types.h>
 # include <sys/stat.h>
 
-# define AV_INPUT 1
-# define READDIR_INPUT 0
 
-typedef struct s_bf
-{
-	struct dirent *dp;
-	DIR *dir;
-	t_array *files;
-	char full_path[PATH_MAX + 1];
-	char file_name[PATH_MAX + 1];
-	t_file file;
-	t_options *options;
-	t_length *length;
-	struct stat fs;
-} t_bf;
+
 
 /*
 **	inter function
 */
 
+/*
+**	-- add file function
+*/
 void add_type(t_file *file, const mode_t mode, t_length *length);
 void add_right(char *buff, const mode_t mode);
 void add_acl_extended_attribut(char *buff, char *path);

@@ -106,4 +106,3 @@ t_array *ls__build_files(char *dir_path, t_options *options, t_length *length)
 	return (bf.files);
 }
 
-
