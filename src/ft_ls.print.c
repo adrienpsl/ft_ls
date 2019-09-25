@@ -36,29 +36,13 @@ static int	print_long(void *el, void *param)
 	return (0);
 }
 
-void ls$print_col(t_array *files, t_length *length, t_options *options)
+void		loop(int line_size, int col_size, t_array *files, t_length *length)
 {
-	struct ttysize ts;
-	int col_size;
-	int line_size;
-	t_file *file;
-	int i = 0;
-	int y = 0;
+	t_file	*file;
+	int		i;
+	int		y;
 
-	ioctl(0, TIOCGWINSZ, &ts);
-	if (length->name == 0)
-		return;
-	length->name++;
-	col_size = (ts.ts_cols / length->name);
-	col_size == 0 ? col_size = 1 : 0;
-	if (options->one_line)
-	{
-		col_size = 1;
-		length->name = 0;
-	}
-	line_size = (files->length / col_size);
-	if (line_size == 0)
-		line_size = 1;
+	i = 0;
 	while (i < line_size)
 	{
 		y = 0;
@@ -77,7 +61,30 @@ void ls$print_col(t_array *files, t_length *length, t_options *options)
 	}
 }
 
-void ls__print(
+void		ls_print_col(t_array *files, t_length *length, t_options *options)
+{
+	struct ttysize	ts;
+	int				col_size;
+	int				line_size;
+
+	ioctl(0, TIOCGWINSZ, &ts);
+	if (length->name == 0)
+		return;
+	length->name++;
+	col_size = (ts.ts_cols / length->name);
+	col_size == 0 ? col_size = 1 : 0;
+	if (options->one_line)
+	{
+		col_size = 1;
+		length->name = 0;
+	}
+	line_size = (files->length / col_size);
+	if (line_size == 0)
+		line_size = 1;
+	loop(line_size, col_size, files, length);
+}
+
+void		ls__print(
 	t_array *files, t_options *options, t_length *length, int print_total)
 {
 	if (options->long_format)
@@ -85,8 +92,8 @@ void ls__print(
 		if (print_total && files->length)
 			ft_printf("total %d\n", length->total);
 		ftarray__func(files, print_long,
-					  length);
+			length);
 	}
 	else
-		ls$print_col(files, length, options);
+		ls_print_col(files, length, options);
 }
