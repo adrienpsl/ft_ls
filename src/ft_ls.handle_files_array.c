@@ -12,7 +12,7 @@
 
 #include <ft_ls.h>
 
-static char *build_path(char *full_path, char *path, t_file *file)
+static char	*build_path(char *full_path, char *path, t_file *file)
 {
 	ft_bzero(full_path, 2064);
 	if (*path)
@@ -24,33 +24,23 @@ static char *build_path(char *full_path, char *path, t_file *file)
 	return (full_path);
 }
 
-static void print_path(char *full_path, t_options *options)
+static void	print_path(char *full_path, t_options *options)
 {
-	if (
-		options->print_path == PRINT_FIRST
-		)
+	if (options->print_path == PRINT_FIRST)
 		ft_printf("%s:\n", full_path);
-	else if (
-		options->print_path == PRINT
-		)
+	else if (options->print_path == PRINT)
 		ft_printf("\n%s:\n", full_path);
-	{
-		options->print_path = PRINT;
-	}
+	options->print_path = PRINT;
 }
 
-static void do_recursive(char *full_path, t_options *options, t_array *files)
+static void	do_recursive(char *full_path, t_options *options, t_array *files)
 {
 	t_file *file;
 
 	files->i = 0;
-	if (
-		options->recursif
-		)
+	if (options->recursif)
 	{
-		while (
-			(file = ftarray__next(files))
-			)
+		while ((file = ftarray__next(files)))
 		{
 			if (file->type[0] == 'd' && ft_strcmp(file->name, ".") &&
 				ft_strcmp(file->name, ".."))
@@ -61,18 +51,16 @@ static void do_recursive(char *full_path, t_options *options, t_array *files)
 	}
 }
 
-int ls__loop_on_files(char *path, t_file *file, t_options *options)
+int			ls__loop_on_files(char *path, t_file *file, t_options *options)
 {
-	t_array *files;
-	t_length length;
-	char full_path[2064];
+	t_array		*files;
+	t_length	length;
+	char		full_path[2064];
 
 	ft_bzero(&length, sizeof(t_length));
 	build_path(full_path, path, file);
 	print_path(full_path, options);
-	if (
-		(files = ls__build_files(full_path, options, &length))
-		)
+	if ((files = ls__build_files(full_path, options, &length)))
 	{
 		ls__print(files, options, &length, 1);
 		do_recursive(full_path, options, files);

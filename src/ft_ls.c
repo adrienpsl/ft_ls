@@ -12,7 +12,7 @@
 
 #include <ft_ls.h>
 
-static int is_file(void *element, void *param)
+static int	is_file(void *element, void *param)
 {
 	t_file *file;
 
@@ -21,7 +21,7 @@ static int is_file(void *element, void *param)
 	return (file->type[0] != 'd');
 }
 
-void print_files(t_ls *ls)
+void		print_files(t_ls *ls)
 {
 	if (ls->av_directories->length)
 	{
@@ -33,7 +33,7 @@ void print_files(t_ls *ls)
 	}
 }
 
-void set_print_path(t_ls *ls)
+void		set_print_path(t_ls *ls)
 {
 	if (ls->av_files->length
 		&& ls->av_directories->length)
@@ -43,7 +43,7 @@ void set_print_path(t_ls *ls)
 		ls->options.print_path = PRINT_FIRST;
 }
 
-int ft_ls(char **av)
+int			ft_ls(char **av)
 {
 	t_ls ls = { .options= { .print_path = NO_PRINT }};
 
@@ -58,4 +58,3 @@ int ft_ls(char **av)
 		ls__loop_on_files("", ls.dir, &ls.options);
 	return (0);
 }
-

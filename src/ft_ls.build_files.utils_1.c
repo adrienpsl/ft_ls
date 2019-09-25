@@ -11,47 +11,38 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-# include <sys/stat.h>
-# include <sys/acl.h>
-# include <sys/xattr.h>
+#include <sys/stat.h>
+#include <sys/acl.h>
+#include <sys/xattr.h>
 
-
-void add_type(t_file *file, const mode_t mode, t_length *length)
+void	add_type(t_file *file, const mode_t mode, t_length *length)
 {
-	static int filters[7] = { S_IFBLK, S_IFCHR, S_IFIFO, S_IFDIR,
-							  S_IFLNK, S_IFSOCK, S_IFREG };
-	static char *char_type = "bcpdls-";
-	int i;
+	static int		filters[7] =
+		{ S_IFBLK, S_IFCHR, S_IFIFO, S_IFDIR, S_IFLNK, S_IFSOCK, S_IFREG };
+	static char		*char_type = "bcpdls-";
+	int				i;
 
 	i = 0;
-	while (
-		i < 7
-		)
+	while (i < 7)
 	{
-		if (
-			(S_IFMT & mode) == filters[i]
-			)
+		if ((S_IFMT & mode) == filters[i])
 		{
 			file->type[0] = char_type[i];
 			break;
 		}
 		i++;
 	}
-	if (
-		file->type[0] == 'b' || file->type[0] == 'c'
-		)
+	if (file->type[0] == 'b' || file->type[0] == 'c')
 		length->is_driver = 1;
 }
 
-void add_right(char *buff, const mode_t mode)
+void	add_right(char *buff, const mode_t mode)
 {
-	static const char *rights = "rwxrwxrwx";
-	int i;
+	static const char	*rights = "rwxrwxrwx";
+	int					i;
 
 	i = 0;
-	while (
-		i < 9
-		)
+	while (i < 9)
 	{
 		buff[i] = (mode & (1 << (8 - i))) ? rights[i] : '-';
 		if (i == 2 && (mode & S_ISUID))
@@ -64,7 +55,7 @@ void add_right(char *buff, const mode_t mode)
 	}
 }
 
-void add_acl_extended_attribut(char *buff, char *path)
+void	add_acl_extended_attribut(char *buff, char *path)
 {
 	acl_t acl;
 
@@ -80,7 +71,7 @@ void add_acl_extended_attribut(char *buff, char *path)
 		*buff = ' ';
 }
 
-void add_nb_hard_link(t_file *file, struct stat *fs)
+void	add_nb_hard_link(t_file *file, struct stat *fs)
 {
 	ft_sprintf(file->hardlink_nb, "%d", fs->st_nlink);
 }

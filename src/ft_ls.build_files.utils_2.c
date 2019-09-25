@@ -13,12 +13,11 @@
 #include <time.h>
 #include <ft_mem.h>
 #include <ft_ls.h>
-#include "ft_ls.build_files.h"
 
 /*
 **	return a time for the last if not custom sorting
 */
-void add_sort_param(t_file *file, struct stat *fs, t_options *options)
+void		add_sort_param(t_file *file, struct stat *fs, t_options *options)
 {
 	if (options->sort_time)
 	{
@@ -47,10 +46,10 @@ void add_sort_param(t_file *file, struct stat *fs, t_options *options)
 	}
 }
 
-void add_time(long int time_nb, char *buffer, t_options *options)
+void		add_time(long int time_nb, char *buffer, t_options *options)
 {
-	long int current_date;
-	int active_year;
+	long int	current_date;
+	int			active_year;
 
 	active_year = 0;
 	current_date = time(NULL);
@@ -59,17 +58,13 @@ void add_time(long int time_nb, char *buffer, t_options *options)
 	if (current_date - 15778800 >= time_nb)
 		active_year = 1;
 	ft_memcpy(buffer, ctime(&time_nb) + 4, 12);
-	if (
-		active_year
-		)
+	if (active_year)
 		ft_memcpy(buffer + 7, ctime(&time_nb) + 19, 5);
-	if (
-		options->big_time
-		)
+	if (options->big_time)
 		ft_memcpy(buffer, ctime(&time_nb) + 4, 20);
 }
 
-static void update_if_bigger(char *new, int *old)
+static void	update_if_bigger(char *new, int *old)
 {
 	int size;
 
@@ -78,10 +73,10 @@ static void update_if_bigger(char *new, int *old)
 		*old = size;
 }
 
-void add_max_length(t_file *file, t_length *length, int source)
+void		add_max_length(t_file *file, t_length *length, int source)
 {
 	if (source == AV_INPUT && file->type[0] == 'd')
-		return;
+		return ;
 	update_if_bigger(file->uid, &length->uid);
 	update_if_bigger(file->gid, &length->gid);
 	update_if_bigger(file->size, &length->size);

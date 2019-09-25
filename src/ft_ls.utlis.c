@@ -33,20 +33,6 @@ int print_link_test(void *p_link, void *n)
 
 	return (0);
 }
-
-/*
- * printf("%s%*s  %*s  %*s %*s %s %s\n",
-		   file->type,
-		   length->hard_link, file->hardlink_nb,
-		   length->uid, file->uid,
-		   length->gid, file->gid,
-		   length->size, file->size,
-		   file->time,
-		   file->name);
- *
- * */
-
-
 struct stat *get_stat(char *path, int mode)
 {
 	static struct stat fs;

@@ -13,38 +13,32 @@
 
 # include "ft_ls.build_files.h"
 
-int ls__files_sort_func(void *a, void *b, void *p_param)
+int			ls__files_sort_func(void *a, void *b, void *p_param)
 {
-	t_file *f_1;
-	t_file *f_2;
-	int ret;
-	t_options *options;
+	t_file		*f_1;
+	t_file		*f_2;
+	int			ret;
+	t_options	*options;
 
 	f_1 = a;
 	f_2 = b;
 	options = p_param;
 
-	if (
-		(options->sort_size || options->sort_status_change ||
-		 options->sort_time)
-		&& f_1->sort_data != f_2->sort_data
-		)
+	if ((options->sort_size || options->sort_status_change
+		||options->sort_time)
+		&& f_1->sort_data != f_2->sort_data)
 		ret = f_1->sort_data < f_2->sort_data;
 	else
 		ret = ft_strcmp(f_1->name, f_2->name) > 0;
 	return (options->reverse ? !ret : ret);
 }
 
-int fill_file(t_bf *bf, int source)
+int			fill_file(t_bf *bf, int source)
 {
 	ft_bzero(&bf->file, sizeof(t_file));
-	if (
-		OK == (source == AV_INPUT
-			   && !bf->options->long_format ?
-			   stat(bf->full_path, &bf->fs)
-											:
-			   lstat(bf->full_path, &bf->fs))
-		)
+	if (OK == (source == AV_INPUT && !bf->options->long_format ?
+		stat(bf->full_path, &bf->fs) :
+		lstat(bf->full_path, &bf->fs)))
 	{
 		add_type(&bf->file, bf->fs.st_mode, bf->length);
 		add_right(bf->file.type + 1, bf->fs.st_mode);
@@ -63,14 +57,14 @@ int fill_file(t_bf *bf, int source)
 		return (1);
 }
 
-void init_bf(t_bf *bf, t_options *options, t_length *length)
+void		init_bf(t_bf *bf, t_options *options, t_length *length)
 {
 	ft_bzero(bf, sizeof(t_bf));
 	bf->options = options;
 	bf->length = length;
 }
 
-int add_path_name(t_bf *bf, char *dir_path, char *name)
+int			add_path_name(t_bf *bf, char *dir_path, char *name)
 {
 	bf->full_path[0] = '\0';
 	bf->file_name[0] = '\0';
@@ -79,25 +73,19 @@ int add_path_name(t_bf *bf, char *dir_path, char *name)
 	return (0);
 }
 
-t_array *ls__build_files(char *dir_path, t_options *options, t_length *length)
+t_array		*ls__build_files(char *dir_path, t_options *options, t_length *length)
 {
 	t_bf bf;
-	t_bf *s_bf = &bf;
-	(void)s_bf;
 
 	init_bf(&bf, options, length);
 	if (NULL == (bf.dir = opendir(dir_path))
 		|| NULL == (bf.files = ftarray__init(100, sizeof(t_file)))
 		)
 		return (NULL);
-	while (
-		(bf.dp = readdir(bf.dir))
-		)
+	while ((bf.dp = readdir(bf.dir)))
 	{
-		if (
-			0 == options->all && (bf.dp->d_name[0] == '.')
-			)
-			continue;
+		if (0 == options->all && (bf.dp->d_name[0] == '.'))
+			continue ;
 		add_path_name(&bf, dir_path, bf.dp->d_name);
 		fill_file(&bf, READDIR_INPUT);
 		ftarray__push(bf.files, &bf.file);
@@ -105,4 +93,3 @@ t_array *ls__build_files(char *dir_path, t_options *options, t_length *length)
 	ftarray__sort_bubble(bf.files, ls__files_sort_func, options);
 	return (bf.files);
 }
-

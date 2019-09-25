@@ -13,7 +13,7 @@
 #include <ft_ls.h>
 # include "libft.h"
 
-static void usage(char c)
+static void	usage(char c)
 {
 	ft_printf("ls: illegal option -- %c\n"
 			  "usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n",
@@ -21,18 +21,14 @@ static void usage(char c)
 	);
 }
 
-int ls__catch_options(char ***p_av, t_options *option)
+int			ls__catch_options(char ***p_av, t_options *option)
 {
 	int ret;
 
 	ret = ftio__catch_option(*p_av, LS_OPTIONS, (long *)option, usage);
 	if (option->no_group || option->numeric_group)
-	    option->long_format = 1;
-	if (
-		ret > 0
-		)
+		option->long_format = 1;
+	if (ret > 0)
 		(*p_av) += ret;
-	return (
-		ret == -1 ? 1 : 0
-	);
+	return (ret == -1 ? 1 : 0);
 }

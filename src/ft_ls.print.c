@@ -13,10 +13,10 @@
 #include <sys/ioctl.h>
 #include "ft_ls.h"
 
-static int print_long(void *el, void *param)
+static int	print_long(void *el, void *param)
 {
-	t_file *file;
-	t_length *length;
+	t_file		*file;
+	t_length	*length;
 
 	file = el;
 	length = param;
@@ -77,8 +77,8 @@ void ls$print_col(t_array *files, t_length *length, t_options *options)
 	}
 }
 
-void
-ls__print(t_array *files, t_options *options, t_length *length, int print_total)
+void ls__print(
+	t_array *files, t_options *options, t_length *length, int print_total)
 {
 	if (options->long_format)
 	{
