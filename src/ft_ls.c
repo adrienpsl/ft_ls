@@ -35,10 +35,11 @@ void		print_files(t_ls *ls)
 
 void		set_print_path(t_ls *ls)
 {
-	if (ls->av_files->length
+	if (ls->av_files
+		&& ls->av_files->length
 		&& ls->av_directories->length)
 		ls->options.print_path = PRINT;
-	if (0 == ls->av_files->length
+	if (ls->av_files && 0 == ls->av_files->length
 		&& ls->av_directories->length > 1)
 		ls->options.print_path = PRINT_FIRST;
 }

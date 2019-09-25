@@ -52,7 +52,6 @@ void		loop(int line_size, int col_size, t_array *files, t_length *length)
 			{
 				file = ftarray__at(files, i + (y * line_size));
 				ft_printf("%-*s", length->name, file->name);
-				//				printf("%d \n", length->name);
 			}
 			y++;
 		}
