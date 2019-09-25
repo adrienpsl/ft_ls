@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 #include "string.h"
-#include "ft_ls.build_files.c"
+#include "ft_ls.build_files.h"
 
 void		fill_array_with_argv(char **av, t_bf *bf)
 {

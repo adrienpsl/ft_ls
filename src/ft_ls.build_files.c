@@ -73,7 +73,8 @@ int			add_path_name(t_bf *bf, char *dir_path, char *name)
 	return (0);
 }
 
-t_array		*ls__build_files(char *dir_path, t_options *options, t_length *length)
+t_array		*ls__build_files(
+	char *dir_path, t_options *options, t_length *length)
 {
 	t_bf bf;
 
