@@ -11,21 +11,19 @@
 /* ************************************************************************** */
 
 #ifndef FT_LS_FT_LS_BUILD_FILES_H
-#define FT_LS_FT_LS_BUILD_FILES_H
+# define FT_LS_FT_LS_BUILD_FILES_H
 
-#include "ft_ls.h"
-#include <dirent.h>
-#include <grp.h>
-#include <pwd.h>
-#include <sys/types.h>
+# include "ft_ls.h"
+# include "ft_ls.struct.h"
+# include <dirent.h>
+# include <grp.h>
+# include <pwd.h>
+# include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/dirent.h>
+# include <sys/stat.h>
+# include "libft.h"
 
-
-
-
-/*
-**	inter function
-*/
 
 /*
 **	-- add file function

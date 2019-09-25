@@ -30,7 +30,7 @@ void fill_array_with_argv(char **av, t_bf *bf)
 		if (
 			OK == fill_file(bf, AV_INPUT)
 			)
-			ftarray__push(&bf->files, &bf->file);
+			ftarray__push(bf->files, &bf->file);
 		else
 			ft_printf("ls: %s: %s\n", *av, strerror(errno));
 		av++;

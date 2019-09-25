@@ -31,7 +31,7 @@ int ls__files_sort_func(void *a, void *b, void *p_param)
 		)
 		ret = f_1->sort_data < f_2->sort_data;
 	else
-		ret = ft_str_cmp(f_1->name, f_2->name) > 0;
+		ret = ft_strcmp(f_1->name, f_2->name) > 0;
 	return (options->reverse ? !ret : ret);
 }
 
@@ -100,7 +100,7 @@ t_array *ls__build_files(char *dir_path, t_options *options, t_length *length)
 			continue;
 		add_path_name(&bf, dir_path, bf.dp->d_name);
 		fill_file(&bf, READDIR_INPUT);
-		ftarray__push(&bf.files, &bf.file);
+		ftarray__push(bf.files, &bf.file);
 	}
 	ftarray__sort_bubble(bf.files, ls__files_sort_func, options);
 	return (bf.files);

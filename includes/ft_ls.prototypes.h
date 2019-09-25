@@ -10,18 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#ifndef LS_PROTOTYPES_H
+# define LS_PROTOTYPES_H
 
-# include <ft_printf.h>
-# include <ft_mem.h>
-# include "string.h"
-# include "ft_ls.h"
-# include <ft_str.h>
-# include <errno.h>
-
-# include "ft_ls.define.h"
-# include "ft_ls.prototypes.h"
+# include <ft_array.h>
 # include "ft_ls.struct.h"
+
+void	add_time(long int time_nb, char *buffer, t_options *options);
+void	add_sort_param(t_file *file, struct stat *fs, t_options *options);
+void	ls__print(
+	t_array *files, t_options *options, t_length *length, int print_total);
+t_array	*ls__build_av_files(char **av, t_options *options, t_length *length);
+int		ls__loop_on_files(char *path, t_file *file, t_options *options);
+int		ls__catch_options(char ***p_av, t_options *option);
+t_array	*ls__build_files(
+	char *dir_path, t_options *options, t_length *length);
+int		ft_ls(char **av);
 
 #endif

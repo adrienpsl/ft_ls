@@ -25,27 +25,21 @@ void print_files(t_ls *ls)
 {
 	if (ls->av_directories->length)
 	{
-		if (
-			(ls->av_files =
-				 ftarray__extract_by_func(ls->av_directories, is_file, NULL))
-			)
-		{
+		if ((ls->av_files =
+			ftarray__extract_by_func(
+				ls->av_directories, is_file,
+				NULL)))
 			ls__print(ls->av_files, &ls->options, &ls->length, 0);
-		}
 	}
 }
 
 void set_print_path(t_ls *ls)
 {
-	if (
-		ls->av_files->length
-		&& ls->av_directories->length
-		)
+	if (ls->av_files->length
+		&& ls->av_directories->length)
 		ls->options.print_path = PRINT;
-	if (
-		0 == ls->av_files->length
-		&& ls->av_directories->length > 1
-		)
+	if (0 == ls->av_files->length
+		&& ls->av_directories->length > 1)
 		ls->options.print_path = PRINT_FIRST;
 }
 
@@ -53,21 +47,15 @@ int ft_ls(char **av)
 {
 	t_ls ls = { .options= { .print_path = NO_PRINT }};
 
-	if (
-		ls__catch_options(&av, &ls.options)
-		||
-		!(ls.av_directories = ls__build_av_files(av, &ls.options, &ls.length))
-		)
+	if (ls__catch_options(&av, &ls.options)
+		|| !(ls.av_directories =
+			ls__build_av_files(av, &ls.options, &ls.length)))
 		return (-1);
 	print_files(&ls);
 	ftarray__set_start(ls.av_directories);
 	set_print_path(&ls);
-	while (
-		(ls.dir = ftarray__next(ls.av_directories))
-		)
-	{
+	while ((ls.dir = ftarray__next(ls.av_directories)))
 		ls__loop_on_files("", ls.dir, &ls.options);
-	}
 	return (0);
 }
 

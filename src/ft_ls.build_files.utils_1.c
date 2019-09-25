@@ -15,6 +15,7 @@
 # include <sys/acl.h>
 # include <sys/xattr.h>
 
+
 void add_type(t_file *file, const mode_t mode, t_length *length)
 {
 	static int filters[7] = { S_IFBLK, S_IFCHR, S_IFIFO, S_IFDIR,

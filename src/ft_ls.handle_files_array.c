@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/ttycom.h>
-#include <sys/ioctl.h>
-#include "ft_ls.h"
-# include "string.h"
+#include <ft_ls.h>
 
 static char *build_path(char *full_path, char *path, t_file *file)
 {
@@ -55,8 +52,8 @@ static void do_recursive(char *full_path, t_options *options, t_array *files)
 			(file = ftarray__next(files))
 			)
 		{
-			if (file->type[0] == 'd' && ft_str_cmp(file->name, ".") &&
-				ft_str_cmp(file->name, ".."))
+			if (file->type[0] == 'd' && ft_strcmp(file->name, ".") &&
+				ft_strcmp(file->name, ".."))
 			{
 				ls__loop_on_files(full_path, file, options);
 			}

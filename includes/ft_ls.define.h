@@ -10,18 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#ifndef FT_LS_DEFINE_H
+# define FT_LS_DEFINE_H
 
-# include <ft_printf.h>
-# include <ft_mem.h>
-# include "string.h"
-# include "ft_ls.h"
-# include <ft_str.h>
-# include <errno.h>
-
-# include "ft_ls.define.h"
-# include "ft_ls.prototypes.h"
-# include "ft_ls.struct.h"
+# define STAT  1
+# define NO_PRINT 0
+# define PRINT_FIRST 1
+# define PRINT 2
+# define AV_INPUT 1
+# define READDIR_INPUT 0
+# define LS_OPTIONS "aRlrtuSc1Tno"
 
 #endif
+
