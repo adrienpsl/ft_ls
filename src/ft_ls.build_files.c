@@ -1,4 +1,3 @@
-#include <ft_ls.h>
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -11,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_ls.build_files.h"
+#include "ft_ls.build_files.h"
+#include <ft_ls.h>
 
 int			ls__files_sort_func(void *a, void *b, void *p_param)
 {
@@ -23,9 +23,8 @@ int			ls__files_sort_func(void *a, void *b, void *p_param)
 	f_1 = a;
 	f_2 = b;
 	options = p_param;
-
 	if ((options->sort_size || options->sort_status_change
-		||options->sort_time)
+		|| options->sort_time)
 		&& f_1->sort_data != f_2->sort_data)
 		ret = f_1->sort_data < f_2->sort_data;
 	else
@@ -80,8 +79,7 @@ t_array		*ls__build_files(
 
 	init_bf(&bf, options, length);
 	if (NULL == (bf.dir = opendir(dir_path))
-		|| NULL == (bf.files = ftarray__init(100, sizeof(t_file)))
-		)
+		|| NULL == (bf.files = ftarray__init(100, sizeof(t_file))))
 		return (NULL);
 	while ((bf.dp = readdir(bf.dir)))
 	{

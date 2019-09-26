@@ -18,7 +18,7 @@
 void	add_type(t_file *file, const mode_t mode, t_length *length)
 {
 	static int		filters[7] =
-		{ S_IFBLK, S_IFCHR, S_IFIFO, S_IFDIR, S_IFLNK, S_IFSOCK, S_IFREG };
+	{ S_IFBLK, S_IFCHR, S_IFIFO, S_IFDIR, S_IFLNK, S_IFSOCK, S_IFREG };
 	static char		*char_type = "bcpdls-";
 	int				i;
 
@@ -28,7 +28,7 @@ void	add_type(t_file *file, const mode_t mode, t_length *length)
 		if ((S_IFMT & mode) == filters[i])
 		{
 			file->type[0] = char_type[i];
-			break;
+			break ;
 		}
 		i++;
 	}

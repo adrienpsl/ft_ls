@@ -21,7 +21,7 @@ void		fill_array_with_argv(char **av, t_bf *bf)
 		if (*av && ft_strlen(*av) >= 255)
 		{
 			ft_dprintf(2, "ls: %s: file name too long ( >= 255 )\n", *av,
-					   strerror(errno));
+				strerror(errno));
 			continue ;
 		}
 		add_path_name(bf, NULL, *av);

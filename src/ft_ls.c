@@ -48,7 +48,7 @@ void		set_print_path(t_ls *ls)
 
 int			ft_ls(char **av)
 {
-	t_ls ls = { .options= { .print_path = NO_PRINT }};
+	static t_ls ls = { .options= { .print_path = NO_PRINT }};
 
 	if (ls__catch_options(&av, &ls.options)
 		|| !(ls.av_directories =

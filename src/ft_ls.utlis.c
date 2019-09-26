@@ -12,31 +12,30 @@
 
 #include "ft_ls.h"
 
-int print_link(void *p_link, void *n)
+int				print_link(void *p_link, void *n)
 {
 	t_file *file;
-	(void)n;
 
+	(void)n;
 	file = p_link;
 	ft_printf("%s \n", file->name);
-
 	return (0);
 }
 
-int print_link_test(void *p_link, void *n)
+int				print_link_test(void *p_link, void *n)
 {
 	t_file *file;
-	(void)n;
 
+	(void)n;
 	file = p_link;
 	ft_printf("%s \n", file->name);
-
 	return (0);
 }
-struct stat *get_stat(char *path, int mode)
+
+struct stat		*get_stat(char *path, int mode)
 {
-	static struct stat fs;
-	int ret;
+	static struct stat	fs;
+	int					ret;
 
 	if (mode == STAT)
 		ret = stat(path, &fs);
@@ -45,18 +44,18 @@ struct stat *get_stat(char *path, int mode)
 	return (ret ? NULL : &fs);
 }
 
-int line_print(void *p_el, void *param)
+int				line_print(void *p_el, void *param)
 {
 	t_file *file;
+
 	(void)param;
 	file = p_el;
-
 	ft_printf("%s", file->name);
 	ft_printf("\n");
 	return (0);
 }
 
-void **generate_arr_ptr(t_options *options, t_length *length)
+void			**generate_arr_ptr(t_options *options, t_length *length)
 {
 	static void *tab[2] = { 0 };
 

@@ -17,6 +17,7 @@
 /*
 **	return a time for the last if not custom sorting
 */
+
 void		add_sort_param(t_file *file, struct stat *fs, t_options *options)
 {
 	if (options->sort_time)

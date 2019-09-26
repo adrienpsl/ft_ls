@@ -36,7 +36,7 @@ void		add_uid_gid(t_file *file, struct stat *fs, t_options *options)
 	else if (options->numeric_group)
 	{
 		ft_sprintf(file->uid, "%d", fs->st_uid);
-		ft_sprintf(file->gid, "%ld",fs->st_gid);
+		ft_sprintf(file->gid, "%ld", fs->st_gid);
 	}
 	else
 	{
@@ -44,6 +44,7 @@ void		add_uid_gid(t_file *file, struct stat *fs, t_options *options)
 		ft_strcat(file->gid, getgrgid(fs->st_gid)->gr_name);
 	}
 }
+
 void		add_link_name(
 	t_file *file, struct stat *fs, char *full_path, char *file_name)
 {

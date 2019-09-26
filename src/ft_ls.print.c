@@ -68,7 +68,7 @@ void		ls_print_col(t_array *files, t_length *length, t_options *options)
 
 	ioctl(0, TIOCGWINSZ, &ts);
 	if (length->name == 0)
-		return;
+		return ;
 	length->name++;
 	col_size = (ts.ts_cols / length->name);
 	col_size == 0 ? col_size = 1 : 0;

@@ -11,14 +11,13 @@
 /* ************************************************************************** */
 
 #include <ft_ls.h>
-# include "libft.h"
+#include "libft.h"
 
 static void	usage(char c)
 {
 	ft_printf("ls: illegal option -- %c\n"
-			  "usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n",
-			  c
-	);
+		"usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n",
+		c);
 }
 
 int			ls__catch_options(char ***p_av, t_options *option)
