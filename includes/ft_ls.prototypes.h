@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LS_PROTOTYPES_H
-# define LS_PROTOTYPES_H
+#ifndef FT_LS_PROTOTYPES_H
+# define FT_LS_PROTOTYPES_H
 
 # include <ft_array.h>
 # include "ft_ls.struct.h"
@@ -26,6 +26,6 @@ int		ls__catch_options(char ***p_av, t_options *option);
 t_array	*ls__build_files(
 	char *dir_path, t_options *options, t_length *length);
 int		ft_ls(char **av);
-int			fill_file(t_bf *bf, int source);
+int		fill_file(t_bf *bf, int source);
 
 #endif

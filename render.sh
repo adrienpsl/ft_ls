@@ -10,8 +10,10 @@ find ./src -type f -name "*.c" -not -name "*test*" -exec cp {} ./render/src \; ;
 cp -R ./libft/render render/libft
 
 cd ./render
-make;
-#cd ./..;
-#
-#norminette ./render/src;
-#norminette ./render/includes;
+touch auteur
+echo "adpusel" >> auteur
+#make;
+
+norminette ./src | grep "Error:";
+norminette ./includes | grep "Error:";
+norminette ./src ./includes

@@ -37,22 +37,21 @@ typedef struct		s_ls_options
 	unsigned long	print_path: 2;
 }					t_options;
 
-
 typedef struct		s_file
 {
-	char 			type[16];
-	char 			uid[30];
-	char 			gid[30];
-	char 			size[64];
-	char 			time[32];
-	char 			hardlink_nb[64];
-	char 			name[__DARWIN_MAXPATHLEN + 1];
-	char 			link[__DARWIN_MAXPATHLEN + 1];
-	long 			sort_data;
-	uintmax_t 		time_nb;
+	char			type[16];
+	char			uid[30];
+	char			gid[30];
+	char			size[64];
+	char			time[32];
+	char			hardlink_nb[64];
+	char			name[__DARWIN_MAXPATHLEN + 1];
+	char			link[__DARWIN_MAXPATHLEN + 1];
+	long			sort_data;
+	uintmax_t		time_nb;
 }					t_file;
 
-typedef struct		t_length
+typedef struct		s_length
 {
 	int				uid;
 	int				gid;
