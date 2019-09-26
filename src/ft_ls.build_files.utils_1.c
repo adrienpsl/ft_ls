@@ -61,7 +61,10 @@ void	add_acl_extended_attribut(char *buff, char *path)
 
 	acl = acl_get_file(path, ACL_TYPE_EXTENDED);
 	if (listxattr(path, NULL, 0, 0) > 0)
+	{
 		*buff = '@';
+		acl_free(acl);
+	}
 	else if (acl > 0)
 	{
 		*buff = '+';

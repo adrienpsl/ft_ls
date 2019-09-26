@@ -91,6 +91,7 @@ t_array		*ls__build_files(
 		fill_file(&bf, READDIR_INPUT);
 		ftarray__push(bf.files, &bf.file);
 	}
+	closedir(bf.dir);
 	ftarray__sort_bubble(bf.files, ls__files_sort_func, options);
 	return (bf.files);
 }

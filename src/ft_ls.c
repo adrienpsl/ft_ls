@@ -29,7 +29,9 @@ void		print_files(t_ls *ls)
 			ftarray__extract_by_func(
 				ls->av_directories, is_file,
 				NULL)))
+		{
 			ls__print(ls->av_files, &ls->options, &ls->length, 0);
+		}
 	}
 }
 
@@ -57,5 +59,7 @@ int			ft_ls(char **av)
 	set_print_path(&ls);
 	while ((ls.dir = ftarray__next(ls.av_directories)))
 		ls__loop_on_files("", ls.dir, &ls.options);
+	ftarray__free(&ls.av_directories);
+	ftarray__free(&ls.av_files);
 	return (0);
 }
