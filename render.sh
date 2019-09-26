@@ -1,3 +1,5 @@
+sh ./libft/render.sh;
+
 rm -rf render/*
 mkdir -p render/includes;
 mkdir -p render/src;
@@ -12,7 +14,7 @@ cp -R ./libft/render render/libft
 cd ./render
 touch auteur
 echo "adpusel" >> auteur
-#make;
+make;
 
 norminette ./src | grep "Error:";
 norminette ./includes | grep "Error:";

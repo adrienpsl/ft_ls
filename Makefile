@@ -1,20 +1,25 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nbrucker <nbrucker@student.42.fr>          +#+  +:+       +#+         #
+#    By: adpusel <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/12/02 19:25:43 by nbrucker          #+#    #+#              #
-#    Updated: 2017/12/02 19:25:43 by nbrucker         ###   ########.fr        #
+#    Created: 2019/09/26 12:53:27 by adpusel           #+#    #+#              #
+#    Updated: 2019/09/26 12:53:34 by adpusel          ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
 NAME = ft_ls
-LIBFTDIR = libft/render/
+
+LIBFTDIR = libft/
+
 INCSDIR = includes/
+
 SRCSDIR = src/
+
 OBJSDIR = objs/
+
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
@@ -29,7 +34,7 @@ SRCS = 	ft_ls.build_files.c \
         ft_ls.parser.c \
         ft_ls.print.c \
         ft_ls.utlis.c \
-        main.c
+        main.c \
 
 OBJS = $(addprefix $(OBJSDIR),$(SRCS:.c=.o))
 
@@ -41,7 +46,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C $(LIBFTDIR)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L $(LIBFTDIR) -lft
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L./libft -lft
 
 clean:
 	rm -rf $(OBJSDIR)

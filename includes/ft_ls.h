@@ -13,11 +13,9 @@
 #ifndef FT_LS_H
 # define FT_LS_H
 
-# include <ft_printf.h>
-# include <ft_mem.h>
+# include "libft.h"
 # include "string.h"
 # include "ft_ls.h"
-# include <ft_str.h>
 # include <errno.h>
 
 # include "ft_ls.define.h"
