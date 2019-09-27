@@ -50,7 +50,7 @@ void		loop(int line_size, int col_size, t_array *files, t_length *length)
 		y = 0;
 		while (y < col_size)
 		{
-			if (i + (y * line_size) < files->length)
+			if (i + (y * line_size) <= files->length)
 			{
 				file = ftarray__at(files, i + (y * line_size));
 				ft_printf("%-*s", length->name, file->name);
@@ -79,7 +79,7 @@ void		ls_print_col(t_array *files, t_length *length, t_options *options)
 		col_size = 1;
 		length->name = 0;
 	}
-	line_size = ((float)files->length / col_size) + .5;
+	line_size = (files->length / col_size) + 1;
 	if (line_size == 0)
 		line_size = 1;
 	loop(line_size, col_size, files, length);
