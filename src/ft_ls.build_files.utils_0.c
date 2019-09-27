@@ -43,7 +43,7 @@ void		add_uid_gid(t_file *file, struct stat *fs, t_options *options)
 		ft_strcat(file->uid, getpwuid(fs->st_uid)
 		? getpwuid(fs->st_uid)->pw_name : "");
 		ft_strcat(file->gid, getgrgid(fs->st_gid)
-		? getgrgid(fs->st_gid)->gr_name: "");
+		? getgrgid(fs->st_gid)->gr_name : "");
 	}
 }
 
