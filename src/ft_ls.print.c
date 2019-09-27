@@ -48,7 +48,7 @@ void		loop(int line_size, int col_size, t_array *files, t_length *length)
 	while (i < line_size)
 	{
 		y = 0;
-		while (y <= col_size)
+		while (y < col_size)
 		{
 			if (i + (y * line_size) < files->length)
 			{
@@ -79,10 +79,7 @@ void		ls_print_col(t_array *files, t_length *length, t_options *options)
 		col_size = 1;
 		length->name = 0;
 	}
-	// TODO : ici do better handling of that !
-	line_size = (files->length / col_size); line_size++;
-	printf("line: %d col: %d\n", line_size, col_size);
-	printf("size : %d length %d arraysize %d\n", ts.ts_cols, length->name, files->length);
+	line_size = ((float)files->length / col_size) + .5;
 	if (line_size == 0)
 		line_size = 1;
 	loop(line_size, col_size, files, length);
