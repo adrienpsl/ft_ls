@@ -1,9 +1,9 @@
 
 #echo "norminette : --------------------------------------------------------"
-#norminette . | grep "Error"
+norminette . | grep "Error"
 
 #echo "nm : ----------------------------------------------------------------"
-#nm ft_ls | grep "U"
+nm ft_ls | grep "U"
 
 #echo "init test dir no arguments : ----------------------------------------"
 
@@ -34,46 +34,46 @@ function v_() {
     valgrind --log-fd=1 ./ft_ls  "$@" | grep "definitely lost:"
 }
 
-#echo
-#echo  "test simple no arguments"
-#t_
-#t_ -a
-#t_ -l
-#
-#echo
-#echo "test with file"
-#t_ file1
-#t_ -a file1
-#t_ -l file1
-#
-#echo "test with simlink"
-#t_ s_file
-#t_ s_dir
-#t_ -a s_file
-#t_ -a s_dir
-#t_ -l s_file
-#t_ -l s_dir
-#
-#
-#echo
-#echo "test with directory"
-#t_ /
-#t_ -a /
-#t_ -l /
-#
-#t_  /var/run/
-#t_ -l /var/run/
-#t_ -r /var/run/
-#t_ -t /var/run/
-#t_ -rlt /var/run/
-#
-##t_ -Rl /Users/adpusel
-#
-##t_ -Rrl1  a /Users/adpusel
-#t_ -Rlt
+echo
+echo  "test simple no arguments"
+t_
+t_ -a
+t_ -l
+
+echo
+echo "test with file"
+t_ file1
+t_ -a file1
+t_ -l file1
+
+echo "test with simlink"
+t_ s_file
+t_ s_dir
+t_ -a s_file
+t_ -a s_dir
+t_ -l s_file
+t_ -l s_dir
+
+
+echo
+echo "test with directory"
+t_ /
+t_ -a /
+t_ -l /
+
+t_  /var/run/
+t_ -l /var/run/
+t_ -r /var/run/
+t_ -t /var/run/
+t_ -rlt /var/run/
+
+#t_ -Rl /Users/adpusel
+
+#t_ -Rrl1  a /Users/adpusel
+t_ -Rlt
 t_ -Rrlt
-#
-#t_ -Rrlt . . file1 . file2 . s_dir s_file
+
+t_ -Rrlt . . file1 . file2 . s_dir s_file
 
 # test not allowed
 mkdir -p not_allowed_file
@@ -101,6 +101,10 @@ t_ -1 adir zdir aNotExist zNotExistB afile zfile asymdir zsymdir asymfile zsymfi
 
 #echo
 #echo test memory
-#v_ ""
-#v_ /
+v_ ""
+v_ /
 #v_ -R /Users/adpusel
+v_ aa hh
+v_ -Z_this_option_does_not_exist
+v_ -Rrlt /Users/adpusel
+#v_ not_allowed_file
