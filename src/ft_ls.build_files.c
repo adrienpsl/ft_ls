@@ -41,7 +41,7 @@ int			fill_file(t_bf *bf, int source)
 	{
 		add_type(&bf->file, bf->fs.st_mode, bf->length);
 		add_right(bf->file.type + 1, bf->fs.st_mode);
-		add_acl_extended_attribut(bf->file.type + 10, bf->full_path);
+		add_acl_extended_attribute(bf->file.type + 10, bf->full_path);
 		add_nb_hard_link(&bf->file, &bf->fs);
 		add_size_or_drivers(&bf->file, &bf->fs);
 		add_uid_gid(&bf->file, &bf->fs, bf->options);

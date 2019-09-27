@@ -55,20 +55,20 @@ void	add_right(char *buff, const mode_t mode)
 	}
 }
 
-void	add_acl_extended_attribut(char *buff, char *path)
+void	add_acl_extended_attribute(char *buff, char *path)
 {
 	acl_t acl;
 
-	acl = acl_get_file(path, ACL_TYPE_EXTENDED);
-	if (listxattr(path, NULL, 0, 0) > 0)
+	if (listxattr(path, NULL, 0, XATTR_NOFOLLOW) > 0)
 	{
 		*buff = '@';
-		acl_free(acl);
+		return ;
 	}
-	else if (acl > 0)
+	else if ((acl = acl_get_link_np(path, ACL_TYPE_EXTENDED)))
 	{
 		*buff = '+';
 		acl_free((void *)acl);
+		return ;
 	}
 	else
 		*buff = ' ';

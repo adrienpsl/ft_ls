@@ -29,7 +29,7 @@
 */
 void	add_type(t_file *file, const mode_t mode, t_length *length);
 void	add_right(char *buff, const mode_t mode);
-void	add_acl_extended_attribut(char *buff, char *path);
+void	add_acl_extended_attribute(char *buff, char *path);
 void	add_nb_hard_link(t_file *file, struct stat *fs);
 void	add_size_or_drivers(t_file *file, struct stat *fs);
 void	add_uid_gid(t_file *file, struct stat *fs, t_options *options);
