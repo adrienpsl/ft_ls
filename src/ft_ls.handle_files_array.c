@@ -18,8 +18,7 @@ static char	*build_path(char *full_path, char *path, t_file *file)
 	if (*path)
 	{
 		ft_strcat(full_path, path);
-		if (full_path[ft_strlen(full_path) - 1] != '/')
-			ft_strcat(full_path, "/");
+		ft_strcat(full_path, "/");
 	}
 	ft_strcat(full_path, file->name);
 	return (full_path);

@@ -33,7 +33,6 @@ SRCS = 	ft_ls.build_files.c \
         ft_ls.handle_files_array.c \
         ft_ls.parser.c \
         ft_ls.print.c \
-        ft_ls.utlis.c \
         main.c \
 
 OBJS = $(addprefix $(OBJSDIR),$(SRCS:.c=.o))

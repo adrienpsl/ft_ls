@@ -19,7 +19,7 @@ add_library(ls_lib STATIC
         src/ft_ls.handle_files_array.c
         src/ft_ls.parser.c
         src/ft_ls.print.c
-        src/ft_ls.utlis.c)
+        )
 
 target_include_directories(ls_lib PUBLIC includes)
 
