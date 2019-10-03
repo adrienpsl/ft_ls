@@ -9,4 +9,3 @@ out
 gen
 cmake-build-debug/
 *.o
-render
